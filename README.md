@@ -1,91 +1,89 @@
-<div dir="rtl" align="right">
+<div align="center">
 
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Cairo&weight=700&size=40&pause=1000&color=6366F1&center=true&vCenter=true&random=false&width=600&height=100&lines=%F0%9F%93%9A+Classy+Book;%D9%85%D9%86%D8%B5%D8%A9+%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%D8%A9+%D8%B9%D9%85%D9%84%D8%A7%D9%82%D8%A9" alt="Classy Book" />
+# 📚 Classy Book
+
+### Enterprise-Grade Educational Platform
+
+<p>
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&pause=1000&color=6366F1&center=true&vCenter=true&random=false&width=600&height=60&lines=Modern+Learning+Management+System;Built+with+NestJS+%2B+Angular;Enterprise-Ready+Architecture" alt="Typing SVG" />
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/الحالة-🚧_قيد_التطوير-yellow?style=for-the-badge&labelColor=1e293b" alt="الحالة">
-  <img src="https://img.shields.io/badge/الإصدار-0.1.0-blue?style=for-the-badge&labelColor=1e293b" alt="الإصدار">
-  <img src="https://img.shields.io/badge/الرخصة-Private-red?style=for-the-badge&labelColor=1e293b" alt="الرخصة">
-</p>
+[![Status](https://img.shields.io/badge/Status-🚧_In_Development-yellow?style=for-the-badge&labelColor=1e293b)](https://github.com)
+[![Version](https://img.shields.io/badge/Version-0.1.0-blue?style=for-the-badge&labelColor=1e293b)](https://github.com)
+[![License](https://img.shields.io/badge/License-Private-red?style=for-the-badge&labelColor=1e293b)](https://github.com)
 
-<p align="center">
-  <img src="https://img.shields.io/badge/NestJS-11-E0234E?style=flat-square&logo=nestjs&logoColor=white" alt="NestJS">
+<p>
+  <img src="https://img.shields.io/badge/NestJS-11.0-E0234E?style=flat-square&logo=nestjs&logoColor=white" alt="NestJS">
   <img src="https://img.shields.io/badge/Angular-21-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular">
-  <img src="https://img.shields.io/badge/MongoDB-Atlas-47A248?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB">
+  <img src="https://img.shields.io/badge/MongoDB-9.0-47A248?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB">
   <img src="https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript">
-  <img src="https://img.shields.io/badge/Redis-Cache-DC382D?style=flat-square&logo=redis&logoColor=white" alt="Redis">
-  <img src="https://img.shields.io/badge/Socket.io-Realtime-010101?style=flat-square&logo=socket.io&logoColor=white" alt="Socket.io">
+  <img src="https://img.shields.io/badge/Redis-7.0-DC382D?style=flat-square&logo=redis&logoColor=white" alt="Redis">
+  <img src="https://img.shields.io/badge/Socket.io-4.0-010101?style=flat-square&logo=socket.io&logoColor=white" alt="Socket.io">
+  <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker">
 </p>
 
 ---
 
-## 📅 آخر تحديث
+**A comprehensive, scalable, and secure Learning Management System (LMS) built with cutting-edge technologies for delivering high-quality educational content.**
 
-<table>
-<tr>
-<td>📆 التاريخ</td>
-<td><strong>29 يناير 2026</strong></td>
-</tr>
-<tr>
-<td>🕐 الوقت</td>
-<td><strong>04:55 م</strong></td>
-</tr>
-<tr>
-<td>🔄 رقم التحديث</td>
-<td><strong>#4</strong></td>
-</tr>
-</table>
+[Features](#-features) • [Architecture](#️-architecture) • [Getting Started](#-getting-started) • [Documentation](#-security-module) • [API Reference](#-api-reference)
+
+</div>
 
 ---
 
-## 📋 جدول المحتويات
+## 📋 Table of Contents
 
 <details open>
-<summary><strong>🔍 اضغط للتوسيع</strong></summary>
+<summary><strong>Click to expand</strong></summary>
 
-- [🎯 نظرة عامة](#-نظرة-عامة)
-- [🏗️ هيكل المشروع الفعلي](#️-هيكل-المشروع-الفعلي)
-- [🛠️ التقنيات المستخدمة](#️-التقنيات-المستخدمة)
-- [📦 ملفات Backend](#-ملفات-backend)
-- [🎨 ملفات Frontend](#-ملفات-frontend)
-- [⚡ خدمات الأداء](#-خدمات-الأداء)
-- [🔧 متغيرات البيئة](#-متغيرات-البيئة)
-- [🚀 التثبيت والتشغيل](#-التثبيت-والتشغيل)
-- [📝 سجل التحديثات](#-سجل-التحديثات)
+- [✨ Features](#-features)
+- [🏗️ Architecture](#️-architecture)
+- [📁 Project Structure](#-project-structure)
+- [🔐 Security Module](#-security-module)
+- [⚡ Performance Module](#-performance-module)
+- [🗄️ MongoDB Module](#️-mongodb-module)
+- [📦 Common Module](#-common-module)
+- [☁️ Cloudinary Module](#️-cloudinary-module)
+- [🎨 Frontend Module](#-frontend-module)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [🔧 Environment Variables](#-environment-variables)
+- [🚀 Getting Started](#-getting-started)
+- [📝 API Reference](#-api-reference)
+- [📊 Database Schema](#-database-schema)
+- [🧪 Testing](#-testing)
+- [📈 Changelog](#-changelog)
 
 </details>
 
 ---
 
-## 🎯 نظرة عامة
-
-> **Classy Book** منصة تعليمية عملاقة مبنية بأحدث التقنيات لتقديم تجربة تعليمية سلسة وسريعة.
+## ✨ Features
 
 <table>
 <tr>
 <td width="50%">
 
-### 🎯 الهدف
+### 🎯 Core Features
 
-بناء منصة تعليمية متكاملة تدعم:
-
-- 📹 فيديوهات تعليمية عالية الجودة
-- 📝 اختبارات تفاعلية
-- 💬 تواصل مباشر بين الطلاب والمعلمين
-- 📊 تتبع التقدم والإحصائيات
+- 📹 **Video Courses** - HD streaming with HLS
+- 📝 **Interactive Quizzes** - Real-time assessments
+- 💬 **Live Chat** - Student-teacher communication
+- 📊 **Progress Tracking** - Detailed analytics
+- 🎓 **Certificates** - Auto-generated certificates
+- 💳 **Payments** - Stripe & Paymob integration
 
 </td>
 <td width="50%">
 
-### ⚡ المميزات التقنية
+### ⚡ Technical Excellence
 
-- 🚀 أداء عالي مع Redis Cache
-- 📦 معالجة خلفية للملفات الثقيلة
-- ☁️ تخزين سحابي مع Cloudinary
-- 🔄 تحديثات فورية مع Socket.io
-- 🔐 نظام مصادقة متقدم
+- 🚀 **High Performance** - Redis caching
+- 🔄 **Real-time** - Socket.io integration
+- 📦 **Background Jobs** - Bull queue processing
+- ☁️ **Cloud Storage** - Cloudinary CDN
+- 🔐 **Enterprise Security** - Multi-layer protection
+- 🏢 **Multi-tenancy** - Isolated tenant data
 
 </td>
 </tr>
@@ -93,820 +91,1114 @@
 
 ---
 
-## 🏗️ هيكل المشروع الفعلي
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                           CLIENT LAYER                                   │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────┐  │
+│  │   Angular 21    │  │   Mobile App    │  │    Admin Dashboard      │  │
+│  │   (Frontend)    │  │   (Future)      │  │    (Angular)            │  │
+│  └────────┬────────┘  └────────┬────────┘  └───────────┬─────────────┘  │
+└───────────┼────────────────────┼───────────────────────┼────────────────┘
+            │                    │                       │
+            ▼                    ▼                       ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                           API GATEWAY                                    │
+│  ┌─────────────┐  ┌──────────────┐  ┌───────────────┐  ┌─────────────┐  │
+│  │ Rate Limit  │  │  JWT Auth    │  │  CORS/Helmet  │  │  Swagger    │  │
+│  └─────────────┘  └──────────────┘  └───────────────┘  └─────────────┘  │
+└────────────────────────────────┬────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        NestJS 11 BACKEND                                 │
+│  ┌──────────────────────────────────────────────────────────────────┐   │
+│  │                      SECURITY MODULE                              │   │
+│  │  ┌─────────┐ ┌──────────┐ ┌─────────┐ ┌─────────┐ ┌───────────┐  │   │
+│  │  │  Auth   │ │ Sessions │ │ Roles & │ │ API Key │ │  Brute    │  │   │
+│  │  │  (JWT)  │ │  Mgmt    │ │ Perms   │ │ Guard   │ │  Force    │  │   │
+│  │  └─────────┘ └──────────┘ └─────────┘ └─────────┘ └───────────┘  │   │
+│  │  ┌─────────┐ ┌──────────┐ ┌─────────┐ ┌─────────┐ ┌───────────┐  │   │
+│  │  │  CSRF   │ │  Helmet  │ │Sanitize │ │ Audit   │ │  Webhook  │  │   │
+│  │  │ Token   │ │ Headers  │ │ (XSS)   │ │  Log    │ │ Security  │  │   │
+│  │  └─────────┘ └──────────┘ └─────────┘ └─────────┘ └───────────┘  │   │
+│  └──────────────────────────────────────────────────────────────────┘   │
+│                                                                          │
+│  ┌──────────────────────────────────────────────────────────────────┐   │
+│  │                     PERFORMANCE MODULE                            │   │
+│  │  ┌─────────────┐ ┌───────────┐ ┌────────────┐ ┌────────────────┐ │   │
+│  │  │   Circuit   │ │   File    │ │Idempotency │ │  Observability │ │   │
+│  │  │   Breaker   │ │  Upload   │ │   Guard    │ │  (Metrics)     │ │   │
+│  │  └─────────────┘ └───────────┘ └────────────┘ └────────────────┘ │   │
+│  │  ┌─────────────┐ ┌───────────────────────────────────────────┐   │   │
+│  │  │   Search    │ │            Real-time (Socket.io)          │   │   │
+│  │  │  (MongoDB)  │ │                                           │   │   │
+│  │  └─────────────┘ └───────────────────────────────────────────┘   │   │
+│  └──────────────────────────────────────────────────────────────────┘   │
+│                                                                          │
+│  ┌──────────────────────────────────────────────────────────────────┐   │
+│  │                       COMMON MODULE                               │   │
+│  │  ┌───────────┐ ┌────────────┐ ┌───────────┐ ┌─────────────────┐  │   │
+│  │  │   Redis   │ │ Pagination │ │   Queue   │ │    Response     │  │   │
+│  │  │   Cache   │ │  Service   │ │   (Bull)  │ │   Optimizer     │  │   │
+│  │  └───────────┘ └────────────┘ └───────────┘ └─────────────────┘  │   │
+│  └──────────────────────────────────────────────────────────────────┘   │
+└────────────────────────────────┬────────────────────────────────────────┘
+                                 │
+        ┌────────────────────────┼────────────────────────┐
+        ▼                        ▼                        ▼
+┌───────────────┐      ┌─────────────────┐      ┌─────────────────┐
+│   MongoDB     │      │     Redis       │      │   Cloudinary    │
+│   (Atlas)     │      │   (Cache/Queue) │      │   (CDN/Storage) │
+│               │      │                 │      │                 │
+│ • Users       │      │ • Sessions      │      │ • Images        │
+│ • Courses     │      │ • Cache         │      │ • Videos (HLS)  │
+│ • Enrollments │      │ • Rate Limits   │      │ • Documents     │
+│ • Payments    │      │ • Job Queues    │      │ • Thumbnails    │
+│ • Audit Logs  │      │ • Idempotency   │      │                 │
+└───────────────┘      └─────────────────┘      └─────────────────┘
+```
+
+---
+
+## 📁 Project Structure
 
 ```
 📁 classy-book/
+├── 📄 README.md                    # Project documentation
+├── 📄 Summary.md                   # Development summary
 │
-├── 📄 README.md                          # 📖 هذا الملف
-├── 📄 .gitignore                         # 🚫 الملفات المستثناة من Git
-│
-├── 📂 backend/                           # 🖥️ الخادم (NestJS 11)
-│   ├── 📄 package.json                   # 📦 المكتبات والأوامر
-│   ├── 📄 tsconfig.json                  # ⚙️ إعدادات TypeScript
-│   ├── 📄 nest-cli.json                  # 🔧 إعدادات NestJS CLI
-│   ├── 📄 .env                           # 🔐 متغيرات البيئة (غير مرفوع)
-│   ├── 📄 .env.example                   # 📋 نموذج متغيرات البيئة
-│   │
-│   └── 📂 src/                           # 📁 الكود المصدري
-│       ├── 📄 main.ts                    # 🚀 نقطة البداية
-│       ├── 📄 app.module.ts              # 📦 الوحدة الرئيسية
-│       ├── 📄 app.controller.ts          # 🎮 المتحكم الرئيسي
-│       ├── 📄 app.service.ts             # ⚙️ الخدمة الرئيسية
+├── 📁 backend/                     # NestJS Backend
+│   ├── 📄 package.json
+│   ├── 📄 nest-cli.json
+│   ├── 📄 tsconfig.json
+│   └── 📁 src/
+│       ├── 📄 main.ts              # Application entry point
+│       ├── 📄 app.module.ts        # Root module
 │       │
-│       ├── 📂 cloudinary/                # ☁️ خدمة الملفات السحابية
-│       │   ├── 📄 cloudinary.module.ts
-│       │   ├── 📄 cloudinary.service.ts
-│       │   └── 📄 index.ts
+│       ├── 📁 security/            # 🔐 Security Module
+│       │   ├── 📁 auth/            # JWT Authentication
+│       │   ├── 📁 users/           # User Management
+│       │   ├── 📁 sessions/        # Session Management
+│       │   ├── 📁 roles-permissions/# RBAC System
+│       │   ├── 📁 api-key/         # API Key Management
+│       │   ├── 📁 rate-limit/      # Rate Limiting
+│       │   ├── 📁 brute-force/     # Brute Force Protection
+│       │   ├── 📁 csrf/            # CSRF Protection
+│       │   ├── 📁 helmet/          # HTTP Security Headers
+│       │   ├── 📁 sanitization/    # XSS Prevention
+│       │   ├── 📁 validation/      # Input Validation
+│       │   ├── 📁 audit-log/       # Activity Logging
+│       │   └── 📁 webhook-security/# Webhook Verification
 │       │
-│       └── 📂 common/                    # 🔧 الأدوات المشتركة
-│           ├── 📄 index.ts
-│           │
-│           ├── 📂 cache/                 # 🗄️ التخزين المؤقت
-│           │   ├── 📄 redis-cache.module.ts
-│           │   ├── 📄 redis-cache.service.ts
-│           │   └── 📄 index.ts
-│           │
-│           ├── 📂 queue/                 # 📋 نظام الطوابير
-│           │   ├── 📄 queue.module.ts
-│           │   ├── 📄 index.ts
-│           │   └── 📂 processors/        # ⚙️ معالجات الطوابير
-│           │       ├── 📄 image-processor.service.ts
-│           │       ├── 📄 video-processor.service.ts
-│           │       ├── 📄 email-processor.service.ts
-│           │       ├── 📄 notification-processor.service.ts
-│           │       └── 📄 index.ts
-│           │
-│           ├── 📂 pagination/            # 📄 تقسيم البيانات
-│           │   ├── 📄 pagination.module.ts
-│           │   ├── 📄 pagination.service.ts
-│           │   └── 📄 index.ts
-│           │
-│           └── 📂 response/              # 📤 تحسين الاستجابات
-│               ├── 📄 response-optimizer.module.ts
-│               ├── 📄 response-optimizer.service.ts
-│               └── 📄 index.ts
+│       ├── 📁 performance/         # ⚡ Performance Module
+│       │   ├── 📁 circuit-breaker/ # Fault Tolerance
+│       │   ├── 📁 file/            # File Processing
+│       │   ├── 📁 idempotency/     # Duplicate Prevention
+│       │   ├── 📁 observability/   # Logging & Metrics
+│       │   ├── 📁 realtime/        # Socket.io Gateway
+│       │   └── 📁 search/          # Full-text Search
+│       │
+│       ├── 📁 mongodb/             # 🗄️ MongoDB Module
+│       │   ├── 📁 data-access/     # Repository Pattern
+│       │   ├── 📁 indexes/         # Index Management
+│       │   ├── 📁 multi-tenancy/   # Tenant Isolation
+│       │   └── 📁 soft-delete/     # Soft Delete Plugin
+│       │
+│       ├── 📁 common/              # 📦 Common Module
+│       │   ├── 📁 cache/           # Redis Cache
+│       │   ├── 📁 pagination/      # Pagination Service
+│       │   ├── 📁 queue/           # Bull Queues
+│       │   └── 📁 response/        # Response Optimizer
+│       │
+│       └── 📁 cloudinary/          # ☁️ Cloud Storage
 │
-└── 📂 frontend/                          # 🎨 الواجهة (Angular 21)
-    ├── 📄 package.json                   # 📦 المكتبات والأوامر
-    ├── 📄 angular.json                   # ⚙️ إعدادات Angular
-    ├── 📄 tsconfig.json                  # ⚙️ إعدادات TypeScript
-    │
-    └── 📂 src/                           # 📁 الكود المصدري
-        ├── 📄 main.ts                    # 🚀 نقطة البداية
-        ├── 📄 index.html                 # 📄 الصفحة الرئيسية
-        ├── 📄 styles.css                 # 🎨 الأنماط العامة
-        │
-        ├── 📂 environments/              # 🌍 إعدادات البيئات
-        │   ├── 📄 environment.ts         # 🔧 بيئة التطوير
-        │   └── 📄 environment.prod.ts    # 🚀 بيئة الإنتاج
-        │
-        └── 📂 app/                       # 📱 التطبيق
-            ├── 📄 app.ts                 # 🏠 المكون الرئيسي
-            ├── 📄 app.config.ts          # ⚙️ إعدادات التطبيق
-            ├── 📄 app.routes.ts          # 🛤️ المسارات
-            │
-            └── 📂 core/                  # 🔧 النواة
-                ├── 📄 index.ts
-                │
-                ├── 📂 services/          # ⚙️ الخدمات (10 خدمات)
-                │   ├── 📄 performance.service.ts
-                │   ├── 📄 caching.service.ts
-                │   ├── 📄 image-optimization.service.ts
-                │   ├── 📄 lazy-loading.service.ts
-                │   ├── 📄 skeleton-loader.service.ts
-                │   ├── 📄 memory-management.service.ts
-                │   ├── 📄 http-cache.service.ts
-                │   ├── 📄 debounce-throttle.service.ts
-                │   ├── 📄 web-workers.service.ts
-                │   └── 📄 index.ts
-                │
-                ├── 📂 directives/        # 📌 التوجيهات
-                │   ├── 📄 scroll-animation.directive.ts
-                │   ├── 📄 virtual-scroll.directive.ts
-                │   └── 📄 index.ts
-                │
-                └── 📂 components/        # 🧩 المكونات
-                    ├── 📂 skeleton-loader/
-                    └── 📄 index.ts
+└── 📁 frontend/                    # Angular Frontend
+    ├── 📄 package.json
+    ├── 📄 angular.json
+    ├── 📄 tsconfig.json
+    └── 📁 src/
+        ├── 📄 main.ts
+        ├── 📄 index.html
+        └── 📁 app/
+            ├── 📄 app.ts
+            ├── 📄 app.routes.ts
+            └── 📁 core/            # 🎨 Core Module
+                ├── 📁 services/    # Application Services
+                ├── 📁 guards/      # Route Guards
+                ├── 📁 interceptors/# HTTP Interceptors
+                ├── 📁 directives/  # Custom Directives
+                └── 📁 components/  # Shared Components
 ```
 
 ---
 
-## 🛠️ التقنيات المستخدمة
+## 🔐 Security Module
 
-### 🖥️ Backend Stack
+A comprehensive, enterprise-grade security system with **13 specialized sub-modules**.
 
-<table>
-<tr>
-<th align="center">التقنية</th>
-<th align="center">الإصدار</th>
-<th align="center">الوصف</th>
-<th align="center">الملف</th>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white" alt="NestJS"></td>
-<td><code>11.0.1</code></td>
-<td>إطار عمل Node.js</td>
-<td><code>app.module.ts</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB"></td>
-<td><code>Atlas</code></td>
-<td>قاعدة البيانات السحابية</td>
-<td><code>app.module.ts</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/Mongoose-880000?style=flat-square&logo=mongoose&logoColor=white" alt="Mongoose"></td>
-<td><code>9.1.5</code></td>
-<td>ODM للتعامل مع MongoDB</td>
-<td><code>app.module.ts</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white" alt="Redis"></td>
-<td><code>Latest</code></td>
-<td>التخزين المؤقت السريع</td>
-<td><code>redis-cache.service.ts</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/Bull-FF6B6B?style=flat-square&logo=redis&logoColor=white" alt="Bull"></td>
-<td><code>4.16.5</code></td>
-<td>معالجة الطوابير</td>
-<td><code>queue.module.ts</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/Cloudinary-3448C5?style=flat-square&logo=cloudinary&logoColor=white" alt="Cloudinary"></td>
-<td><code>2.9.0</code></td>
-<td>تخزين الملفات سحابياً</td>
-<td><code>cloudinary.service.ts</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=socket.io&logoColor=white" alt="Socket.io"></td>
-<td><code>4.8.3</code></td>
-<td>التواصل الفوري</td>
-<td><code>package.json</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white" alt="JWT"></td>
-<td><code>11.0.2</code></td>
-<td>المصادقة</td>
-<td><code>package.json</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black" alt="Swagger"></td>
-<td><code>11.2.5</code></td>
-<td>توثيق API</td>
-<td><code>package.json</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/Compression-4A90D9?style=flat-square&logo=gzip&logoColor=white" alt="Compression"></td>
-<td><code>1.8.1</code></td>
-<td>ضغط الاستجابات</td>
-<td><code>main.ts</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/Helmet-000000?style=flat-square&logo=helmet&logoColor=white" alt="Helmet"></td>
-<td><code>8.1.0</code></td>
-<td>الحماية والأمان</td>
-<td><code>package.json</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/Multer-FF6600?style=flat-square&logo=files&logoColor=white" alt="Multer"></td>
-<td><code>2.0.2</code></td>
-<td>رفع الملفات</td>
-<td><code>package.json</code></td>
-</tr>
-</table>
+### 1. Authentication (`auth/`)
 
-### 🎨 Frontend Stack
+| Component       | Description                                                    |
+| --------------- | -------------------------------------------------------------- |
+| `AuthService`   | Complete JWT-based authentication with bcrypt password hashing |
+| `JwtStrategy`   | Passport JWT strategy for token validation                     |
+| `JwtAuthGuard`  | Route protection with `@Public()` decorator support            |
+| `LocalStrategy` | Email/password authentication strategy                         |
 
-<table>
-<tr>
-<th align="center">التقنية</th>
-<th align="center">الإصدار</th>
-<th align="center">الوصف</th>
-<th align="center">الملف</th>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular"></td>
-<td><code>21.0.0</code></td>
-<td>إطار عمل الواجهة</td>
-<td><code>app.ts</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"></td>
-<td><code>5.9.2</code></td>
-<td>لغة البرمجة</td>
-<td><code>tsconfig.json</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/RxJS-B7178C?style=flat-square&logo=reactivex&logoColor=white" alt="RxJS"></td>
-<td><code>7.8.0</code></td>
-<td>البرمجة التفاعلية</td>
-<td><code>package.json</code></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/Vitest-6E9F18?style=flat-square&logo=vitest&logoColor=white" alt="Vitest"></td>
-<td><code>4.0.8</code></td>
-<td>اختبارات الوحدات</td>
-<td><code>package.json</code></td>
-</tr>
-</table>
+**Features:**
+
+| Feature             | Description                              |
+| ------------------- | ---------------------------------------- |
+| ✅ Registration     | Create new user accounts with validation |
+| ✅ Login            | Email/password authentication            |
+| ✅ JWT Access Token | Short-lived tokens (configurable expiry) |
+| ✅ Refresh Tokens   | Secure token rotation mechanism          |
+| ✅ Account Locking  | Lock after 5 failed attempts (30 min)    |
+| ✅ Logout           | Single device or all devices             |
+| ✅ Device Tracking  | Track login devices & fingerprints       |
+
+**API Endpoints:**
+
+```http
+POST /api/v1/auth/register    # Create new account
+POST /api/v1/auth/login       # Authenticate user
+POST /api/v1/auth/refresh     # Refresh access token
+POST /api/v1/auth/logout      # Logout current session
+POST /api/v1/auth/logout-all  # Logout all sessions
+GET  /api/v1/auth/me          # Get current user
+```
 
 ---
 
-## 📦 ملفات Backend
+### 2. Users Management (`users/`)
 
-### 🚀 الملفات الرئيسية
+| Feature         | Description                        |
+| --------------- | ---------------------------------- |
+| CRUD Operations | Create, read, update, delete users |
+| Soft Delete     | Delete with restore capability     |
+| Pagination      | Cursor & offset pagination         |
+| Search          | Full-text search by name/email     |
+| Role Management | Assign/remove user roles           |
 
-<details>
-<summary><strong>📄 main.ts - نقطة البداية</strong></summary>
+**API Endpoints:**
+
+```http
+GET    /api/v1/users          # List all users (paginated)
+GET    /api/v1/users/:id      # Get user by ID
+POST   /api/v1/users          # Create new user
+PATCH  /api/v1/users/:id      # Update user
+DELETE /api/v1/users/:id      # Soft delete user
+POST   /api/v1/users/:id/restore  # Restore deleted user
+```
+
+---
+
+### 3. Sessions Management (`sessions/`)
+
+Multi-device session management with fingerprinting.
+
+| Feature           | Description                       |
+| ----------------- | --------------------------------- |
+| ✅ Create Session | Store device info, IP, user agent |
+| ✅ List Sessions  | View all active sessions per user |
+| ✅ Revoke Session | Terminate specific session        |
+| ✅ Revoke All     | Terminate all user sessions       |
+| ✅ Validation     | Verify session is still valid     |
+| ✅ TTL Expiry     | Auto-expire after 30 days         |
+
+---
+
+### 4. Roles & Permissions (`roles-permissions/`)
+
+Complete Role-Based Access Control (RBAC) system.
+
+**Default Roles:**
+
+| Role          | Level | Permissions                  |
+| ------------- | ----- | ---------------------------- |
+| `super_admin` | 100   | `*` (full access)            |
+| `admin`       | 80    | User & content management    |
+| `teacher`     | 50    | Course creation & management |
+| `student`     | 10    | Course access & profile      |
+
+**Decorators:**
 
 ```typescript
-// الوظائف المفعلة:
-✅ Compression - ضغط الاستجابات (threshold: 1KB, level: 6)
-✅ ValidationPipe - التحقق من البيانات (whitelist, transform)
-✅ CORS - السماح بالاتصال من localhost:4200
-✅ Global Prefix - api/v1
+// Restrict by role
+@Roles('admin', 'teacher')
+@UseGuards(RolesGuard)
+createCourse() {}
+
+// Restrict by permission
+@RequirePermissions('courses:create', 'courses:update')
+@UseGuards(PermissionsGuard)
+updateCourse() {}
 ```
 
-</details>
+---
 
-<details>
-<summary><strong>📄 app.module.ts - الوحدة الرئيسية</strong></summary>
+### 5. API Key Management (`api-key/`)
+
+Secure API key system for external integrations.
+
+| Feature             | Description                   |
+| ------------------- | ----------------------------- |
+| ✅ Key Generation   | Secure keys with `cb_` prefix |
+| ✅ Hashed Storage   | SHA-256 hashed keys           |
+| ✅ IP Whitelist     | Restrict by IP address        |
+| ✅ Domain Whitelist | Restrict by domain            |
+| ✅ Rate Limiting    | Per-key rate limits           |
+| ✅ Expiration       | Time-limited keys             |
+| ✅ Usage Tracking   | Track usage count & last used |
+
+---
+
+### 6. Rate Limiting (`rate-limit/`)
+
+Redis-backed distributed rate limiting.
 
 ```typescript
-// الوحدات المستوردة:
-✅ ConfigModule - متغيرات البيئة (isGlobal: true)
-✅ MongooseModule - قاعدة البيانات (MongoDB Atlas)
-✅ CloudinaryModule - تخزين الملفات السحابي
-✅ RedisCacheModule - التخزين المؤقت السريع
-✅ QueueModule - معالجة الطوابير (Bull)
-✅ PaginationModule - تقسيم البيانات
-✅ ResponseOptimizerModule - تحسين الاستجابات
-```
+// Global rate limit
+ThrottlerModule.forRoot({
+  throttlers: [{ limit: 100, ttl: 60000 }] // 100 req/min
+})
 
-</details>
-
----
-
-### ☁️ Cloudinary Module
-
-<table>
-<tr>
-<th>الملف</th>
-<th>الوظيفة</th>
-<th>الدوال المتاحة</th>
-</tr>
-<tr>
-<td><code>cloudinary.module.ts</code></td>
-<td>تسجيل وإعداد Cloudinary</td>
-<td>-</td>
-</tr>
-<tr>
-<td><code>cloudinary.service.ts</code></td>
-<td>رفع وإدارة الملفات</td>
-<td><code>uploadImage()</code>, <code>uploadVideo()</code>, <code>deleteFile()</code></td>
-</tr>
-</table>
-
----
-
-### 🗄️ Cache Module
-
-<table>
-<tr>
-<th>الملف</th>
-<th>الوظيفة</th>
-<th>الدوال المتاحة</th>
-</tr>
-<tr>
-<td><code>redis-cache.module.ts</code></td>
-<td>إعداد Redis مع fallback للذاكرة</td>
-<td>-</td>
-</tr>
-<tr>
-<td><code>redis-cache.service.ts</code></td>
-<td>التخزين المؤقت</td>
-<td><code>get()</code>, <code>set()</code>, <code>delete()</code>, <code>getOrSet()</code>, <code>deleteByPattern()</code></td>
-</tr>
-</table>
-
----
-
-### 📋 Queue Module
-
-<table>
-<tr>
-<th>الملف</th>
-<th>الوظيفة</th>
-<th>الطابور</th>
-</tr>
-<tr>
-<td><code>queue.module.ts</code></td>
-<td>تسجيل طوابير Bull مع Redis</td>
-<td>-</td>
-</tr>
-<tr>
-<td><code>image-processor.service.ts</code></td>
-<td>ضغط وتحسين الصور</td>
-<td><code>image-processing</code></td>
-</tr>
-<tr>
-<td><code>video-processor.service.ts</code></td>
-<td>معالجة وتحويل الفيديو</td>
-<td><code>video-processing</code></td>
-</tr>
-<tr>
-<td><code>email-processor.service.ts</code></td>
-<td>إرسال الإيميلات</td>
-<td><code>email</code></td>
-</tr>
-<tr>
-<td><code>notification-processor.service.ts</code></td>
-<td>إرسال الإشعارات</td>
-<td><code>notifications</code></td>
-</tr>
-</table>
-
----
-
-### 📄 Pagination Module
-
-<table>
-<tr>
-<th>الملف</th>
-<th>الوظيفة</th>
-<th>الدوال المتاحة</th>
-</tr>
-<tr>
-<td><code>pagination.module.ts</code></td>
-<td>تسجيل الخدمة (Global)</td>
-<td>-</td>
-</tr>
-<tr>
-<td><code>pagination.service.ts</code></td>
-<td>تقسيم البيانات</td>
-<td><code>paginate()</code>, <code>cursorPaginate()</code>, <code>calculatePagination()</code></td>
-</tr>
-</table>
-
----
-
-### 📤 Response Module
-
-<table>
-<tr>
-<th>الملف</th>
-<th>الوظيفة</th>
-<th>الدوال المتاحة</th>
-</tr>
-<tr>
-<td><code>response-optimizer.module.ts</code></td>
-<td>تسجيل الخدمة (Global)</td>
-<td>-</td>
-</tr>
-<tr>
-<td><code>response-optimizer.service.ts</code></td>
-<td>تحسين الاستجابات</td>
-<td><code>optimize()</code>, <code>success()</code>, <code>error()</code>, <code>selectFields()</code></td>
-</tr>
-</table>
-
----
-
-## 🎨 ملفات Frontend
-
-### ⚙️ Core Services (10 خدمات)
-
-<table>
-<tr>
-<th>الخدمة</th>
-<th>الملف</th>
-<th>الوظيفة</th>
-<th>الدوال الرئيسية</th>
-</tr>
-<tr>
-<td>🚀 Performance</td>
-<td><code>performance.service.ts</code></td>
-<td>قياس وتحسين الأداء</td>
-<td><code>measureTime()</code>, <code>getMetrics()</code></td>
-</tr>
-<tr>
-<td>🗄️ Caching</td>
-<td><code>caching.service.ts</code></td>
-<td>تخزين متعدد المستويات</td>
-<td><code>get()</code>, <code>set()</code>, <code>getFromIndexedDB()</code></td>
-</tr>
-<tr>
-<td>🖼️ Image Optimization</td>
-<td><code>image-optimization.service.ts</code></td>
-<td>ضغط الصور على العميل</td>
-<td><code>compress()</code>, <code>resize()</code></td>
-</tr>
-<tr>
-<td>⏳ Lazy Loading</td>
-<td><code>lazy-loading.service.ts</code></td>
-<td>التحميل الكسول</td>
-<td><code>loadImage()</code>, <code>loadComponent()</code></td>
-</tr>
-<tr>
-<td>💀 Skeleton Loader</td>
-<td><code>skeleton-loader.service.ts</code></td>
-<td>إدارة حالات التحميل</td>
-<td><code>show()</code>, <code>hide()</code>, <code>isLoading$()</code></td>
-</tr>
-<tr>
-<td>🧠 Memory Management</td>
-<td><code>memory-management.service.ts</code></td>
-<td>إدارة الذاكرة</td>
-<td><code>cleanup()</code>, <code>trackSubscription()</code></td>
-</tr>
-<tr>
-<td>🌐 HTTP Cache</td>
-<td><code>http-cache.service.ts</code></td>
-<td>Interceptor لتخزين API</td>
-<td><code>intercept()</code></td>
-</tr>
-<tr>
-<td>⏱️ Debounce/Throttle</td>
-<td><code>debounce-throttle.service.ts</code></td>
-<td>تقليل الطلبات</td>
-<td><code>debounce()</code>, <code>throttle()</code></td>
-</tr>
-<tr>
-<td>👷 Web Workers</td>
-<td><code>web-workers.service.ts</code></td>
-<td>العمليات الثقيلة</td>
-<td><code>runTask()</code>, <code>terminate()</code></td>
-</tr>
-</table>
-
----
-
-### 📌 Directives (2 توجيهات)
-
-<table>
-<tr>
-<th>التوجيه</th>
-<th>الملف</th>
-<th>Selector</th>
-<th>الوظيفة</th>
-</tr>
-<tr>
-<td>🎬 Scroll Animation</td>
-<td><code>scroll-animation.directive.ts</code></td>
-<td><code>[appScrollAnimation]</code></td>
-<td>تحريك العناصر عند التمرير</td>
-</tr>
-<tr>
-<td>📜 Virtual Scroll</td>
-<td><code>virtual-scroll.directive.ts</code></td>
-<td><code>[appVirtualScroll]</code></td>
-<td>تحميل القوائم الطويلة بكفاءة</td>
-</tr>
-</table>
-
----
-
-### 🧩 Components
-
-<table>
-<tr>
-<th>المكون</th>
-<th>المجلد</th>
-<th>Selector</th>
-<th>الوظيفة</th>
-</tr>
-<tr>
-<td>💀 Skeleton Loader</td>
-<td><code>skeleton-loader/</code></td>
-<td><code>app-skeleton-loader</code></td>
-<td>عرض هيكل التحميل</td>
-</tr>
-</table>
-
----
-
-## ⚡ خدمات الأداء
-
-### 🔄 تدفق الـ Caching
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        📥 API Request                           │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-                    ┌─────────────────┐
-                    │  Redis Cache?   │
-                    └─────────────────┘
-                     /              \
-                   ✅               ❌
-                  /                   \
-        ┌────────────┐         ┌─────────────┐
-        │ Return     │         │  MongoDB    │
-        │ Cached     │         │  Query      │
-        └────────────┘         └─────────────┘
-                                      │
-                                      ▼
-                              ┌─────────────┐
-                              │ Save to     │
-                              │ Cache       │
-                              └─────────────┘
-                                      │
-                                      ▼
-                              ┌─────────────┐
-                              │ Return      │
-                              │ Response    │
-                              └─────────────┘
+// Route-specific limits
+@Throttle({ default: { limit: 5, ttl: 60000 } }) // 5 req/min
+@Post('login')
+login() {}
 ```
 
 ---
 
-### 📦 تدفق معالجة الملفات
+### 7. Brute Force Protection (`brute-force/`)
 
-```
-┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│  📤 Upload   │───▶│  📋 Queue    │───▶│  ⚙️ Process  │
-│    File      │    │   (Bull)     │    │    File      │
-└──────────────┘    └──────────────┘    └──────────────┘
-                                              │
-                         ┌────────────────────┼────────────────────┐
-                         │                    │                    │
-                         ▼                    ▼                    ▼
-                   ┌──────────┐         ┌──────────┐         ┌──────────┐
-                   │ 🖼️ Resize│         │ 📦 Compress│       │ 🏷️ Watermark│
-                   └──────────┘         └──────────┘         └──────────┘
-                         │                    │                    │
-                         └────────────────────┼────────────────────┘
-                                              │
-                                              ▼
-                                       ┌──────────────┐
-                                       │ ☁️ Cloudinary │
-                                       │    Upload    │
-                                       └──────────────┘
-                                              │
-                                              ▼
-                                       ┌──────────────┐
-                                       │  📎 Return   │
-                                       │    URL       │
-                                       └──────────────┘
+Intelligent login attempt tracking.
+
+| Config           | Value      |
+| ---------------- | ---------- |
+| Max Attempts     | 5          |
+| Lockout Duration | 15 minutes |
+| Window           | 60 minutes |
+
+---
+
+### 8. CSRF Protection (`csrf/`)
+
+Cross-Site Request Forgery protection.
+
+```typescript
+// Cookie: XSRF-TOKEN
+// Header: X-XSRF-TOKEN
 ```
 
 ---
 
-## 🔧 متغيرات البيئة
+### 9. Helmet Security (`helmet/`)
 
-### 📄 `.env` المطلوبة للـ Backend
+HTTP security headers configuration.
+
+| Header                    | Value                           |
+| ------------------------- | ------------------------------- |
+| Content-Security-Policy   | Strict CSP                      |
+| X-Frame-Options           | DENY                            |
+| X-Content-Type-Options    | nosniff                         |
+| X-XSS-Protection          | 1; mode=block                   |
+| Strict-Transport-Security | max-age=31536000                |
+| Referrer-Policy           | strict-origin-when-cross-origin |
+
+---
+
+### 10. Sanitization (`sanitization/`)
+
+XSS and NoSQL injection prevention.
+
+| Function               | Description                              |
+| ---------------------- | ---------------------------------------- |
+| `sanitizeHtml()`       | Strip all HTML tags                      |
+| `sanitizeRichText()`   | Allow safe tags (p, b, i, ul, ol, li, a) |
+| `sanitizeMongoQuery()` | Remove `$` operators                     |
+| `sanitizeObject()`     | Deep sanitize objects                    |
+| `escapeXss()`          | Escape XSS characters                    |
+
+---
+
+### 11. Validation (`validation/`)
+
+Global validation with class-validator.
+
+- ✅ Whitelist mode - strip unknown properties
+- ✅ Transform types automatically
+- ✅ Custom error formatting
+- ✅ Show all validation errors
+
+---
+
+### 12. Audit Log (`audit-log/`)
+
+Comprehensive activity logging.
+
+| Field       | Description                         |
+| ----------- | ----------------------------------- |
+| `action`    | create, update, delete, login, etc. |
+| `resource`  | user, course, payment, etc.         |
+| `userId`    | Who performed the action            |
+| `oldData`   | Previous state (for updates)        |
+| `newData`   | New state                           |
+| `ip`        | Client IP address                   |
+| `userAgent` | Browser/device info                 |
+| `duration`  | Response time in ms                 |
+| `success`   | Success/failure status              |
+
+**Decorator:**
+
+```typescript
+@AuditLog({ action: 'create', resource: 'course' })
+@Post()
+createCourse() {}
+```
+
+---
+
+### 13. Webhook Security (`webhook-security/`)
+
+Secure webhook verification.
+
+| Provider | Algorithm   |
+| -------- | ----------- |
+| Stripe   | HMAC-SHA256 |
+| Paymob   | HMAC-SHA512 |
+| Generic  | HMAC-SHA256 |
+
+---
+
+## ⚡ Performance Module
+
+Optimized for high-traffic, low-latency operations.
+
+### 1. Circuit Breaker (`circuit-breaker/`)
+
+Fault tolerance pattern for external services.
+
+```
+┌─────────────┐     failure      ┌─────────────┐
+│   CLOSED    │ ───────────────► │    OPEN     │
+│ (Normal)    │ (5 failures)     │ (Blocking)  │
+└──────┬──────┘                  └──────┬──────┘
+       │                                │
+       │ success                        │ timeout (30s)
+       │                                ▼
+       │                         ┌─────────────┐
+       └──────────────────────── │  HALF_OPEN  │
+                  (3 successes)  │  (Testing)  │
+                                 └─────────────┘
+```
+
+| Config            | Default    |
+| ----------------- | ---------- |
+| Failure Threshold | 5          |
+| Success Threshold | 3          |
+| Timeout           | 30 seconds |
+
+---
+
+### 2. File Service (`file/`)
+
+Optimized file upload and processing.
+
+| File Type | Max Size | Processing                        |
+| --------- | -------- | --------------------------------- |
+| Images    | 5 MB     | Resize, compress, WebP conversion |
+| Videos    | 500 MB   | HLS streaming, 720p backup        |
+| Documents | 20 MB    | PDF/Office support                |
+
+**Features:**
+
+- ✅ Sharp image optimization
+- ✅ Automatic thumbnail generation (300x300)
+- ✅ HLS video streaming
+- ✅ Format validation
+- ✅ Cloudinary CDN integration
+
+---
+
+### 3. Idempotency (`idempotency/`)
+
+Duplicate request prevention.
+
+```typescript
+@Idempotent()
+@Post('payment')
+processPayment() {}
+
+// Header: Idempotency-Key: <unique-key>
+```
+
+| Config  | Value                  |
+| ------- | ---------------------- |
+| TTL     | 24 hours               |
+| Storage | Redis                  |
+| Status  | processing → completed |
+
+---
+
+### 4. Search Service (`search/`)
+
+Advanced MongoDB text search.
+
+| Feature          | Description                      |
+| ---------------- | -------------------------------- |
+| Full-text Search | Text indexes with Arabic support |
+| Regex Search     | Partial matching                 |
+| Range Filters    | Price, date ranges               |
+| Faceted Search   | Category, rating filters         |
+| Score Ranking    | Relevance-based sorting          |
+
+---
+
+### 5. Real-time (`realtime/`)
+
+Socket.io WebSocket gateway.
+
+**Events:**
+
+| Event           | Description          |
+| --------------- | -------------------- |
+| `join-room`     | Join a specific room |
+| `leave-room`    | Leave a room         |
+| `send-message`  | Send message to room |
+| `typing`        | Typing indicator     |
+| `online-status` | User presence        |
+
+**Rooms:**
+
+- `user:${userId}` - Private user room
+- `role:${role}` - Role-based room
+- `course:${courseId}` - Course room
+- `lesson:${lessonId}` - Lesson room
+- `tenant:${tenantId}` - Tenant room
+
+---
+
+### 6. Observability (`observability/`)
+
+Logging, metrics, and health checks.
+
+**Logger:**
+
+```typescript
+this.logger.info("User created", { userId, email });
+this.logger.error("Payment failed", { error, transactionId });
+```
+
+**Metrics:**
+
+| Type      | Example                  |
+| --------- | ------------------------ |
+| Counter   | http_requests_total      |
+| Gauge     | active_connections       |
+| Histogram | request_duration_seconds |
+
+**Health Endpoints:**
+
+```http
+GET /health       # Full health check
+GET /health/ready # Readiness probe
+GET /health/live  # Liveness probe
+GET /metrics      # Prometheus metrics
+```
+
+---
+
+## 🗄️ MongoDB Module
+
+Enterprise MongoDB patterns and utilities.
+
+### 1. Data Access (`data-access/`)
+
+Generic repository pattern with query builder.
+
+**BaseRepository Methods:**
+
+```typescript
+// Create
+create(data)
+createMany(data[])
+
+// Read
+findById(id)
+findOne(filter)
+findAll(filter, options)
+findWithPagination(filter, options)
+
+// Update
+updateById(id, data)
+updateOne(filter, data)
+updateMany(filter, data)
+
+// Delete
+deleteById(id)
+deleteOne(filter)
+deleteMany(filter)
+
+// Aggregations
+count(filter)
+exists(filter)
+aggregate(pipeline)
+```
+
+**TransactionService:**
+
+```typescript
+// Sequential operations
+await transactionService.executeSequential([
+  () => userRepo.create(userData),
+  () => walletRepo.create(walletData),
+]);
+
+// Parallel operations
+await transactionService.executeParallel([
+  () => notificationService.send(),
+  () => emailService.send(),
+]);
+```
+
+---
+
+### 2. Index Management (`indexes/`)
+
+Pre-configured indexes for optimal performance.
+
+| Collection    | Indexes                                           |
+| ------------- | ------------------------------------------------- |
+| users         | email (unique), role, text search                 |
+| courses       | slug (unique), category, price range, text search |
+| lessons       | course + order, section + order                   |
+| enrollments   | user + course (unique), expiry TTL                |
+| audit_logs    | createdAt (TTL: 365 days)                         |
+| notifications | createdAt (TTL: 90 days)                          |
+
+---
+
+### 3. Multi-Tenancy (`multi-tenancy/`)
+
+Complete tenant isolation.
+
+**Tenant Resolution (Priority):**
+
+1. `X-Tenant-Id` header
+2. Subdomain (tenant.classybook.com)
+3. Query parameter (development only)
+4. JWT token claim
+
+---
+
+### 4. Soft Delete (`soft-delete/`)
+
+Non-destructive deletion with restore.
+
+```typescript
+// Soft delete
+await softDeleteService.softDelete(model, id, userId);
+
+// Restore
+await softDeleteService.restore(model, id);
+
+// Query deleted only
+await softDeleteService.findDeleted(model);
+
+// Permanent cleanup (after 90 days)
+await softDeleteService.permanentlyDelete(model, 90);
+```
+
+---
+
+## 📦 Common Module
+
+Shared utilities and services.
+
+### 1. Redis Cache (`cache/`)
+
+High-performance caching layer.
+
+```typescript
+// Simple operations
+await cache.set("key", value, ttl);
+await cache.get("key");
+await cache.delete("key");
+
+// Cache-aside pattern
+const data = await cache.getOrSet(
+  "key",
+  async () => {
+    return await expensiveOperation();
+  },
+  3600,
+);
+```
+
+---
+
+### 2. Pagination (`pagination/`)
+
+Flexible pagination service.
+
+```typescript
+// Offset pagination
+const result = await paginationService.paginate(Model, {
+  page: 1,
+  limit: 20,
+  filter: { status: "active" },
+});
+
+// Cursor pagination
+const result = await paginationService.cursorPaginate(Model, {
+  cursor: "lastId",
+  limit: 20,
+});
+```
+
+**Response:**
+
+```json
+{
+  "data": [...],
+  "meta": {
+    "total": 100,
+    "page": 1,
+    "limit": 20,
+    "totalPages": 5,
+    "hasNext": true,
+    "hasPrev": false
+  }
+}
+```
+
+---
+
+### 3. Queue (`queue/`)
+
+Background job processing with Bull.
+
+| Queue              | Purpose                        |
+| ------------------ | ------------------------------ |
+| `image-processing` | Image optimization, thumbnails |
+| `video-processing` | Video transcoding, HLS         |
+| `email`            | Email sending                  |
+| `notifications`    | Push notifications             |
+
+**Configuration:**
+
+- Retry: 3 attempts with exponential backoff
+- Auto cleanup on completion
+- Redis-backed persistence
+
+---
+
+### 4. Response Optimizer (`response/`)
+
+Standardized API responses.
+
+```typescript
+// Success response
+{
+  "success": true,
+  "data": { ... },
+  "meta": { ... }
+}
+
+// Error response
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid input",
+    "details": [...]
+  }
+}
+```
+
+**Features:**
+
+- Remove sensitive fields (password, \_\_v)
+- Convert `_id` to `id`
+- Add performance headers (X-Response-Time, X-Request-Id)
+
+---
+
+## ☁️ Cloudinary Module
+
+Cloud storage and CDN integration.
+
+| Feature         | Description                       |
+| --------------- | --------------------------------- |
+| Image Upload    | Auto quality, format optimization |
+| Video Upload    | HLS streaming profiles            |
+| Document Upload | PDF, Office files                 |
+| Transformations | Resize, crop, effects             |
+| CDN Delivery    | Global edge network               |
+
+---
+
+## 🎨 Frontend Module
+
+Angular 21 with standalone components.
+
+### Core Services
+
+| Service              | Description                           |
+| -------------------- | ------------------------------------- |
+| `ApiClientService`   | HTTP client with retry, loading state |
+| `AuthService`        | JWT auth with signal-based state      |
+| `StateStoreService`  | Signal-based state management         |
+| `RealtimeService`    | Socket.io client                      |
+| `I18nService`        | i18n (Arabic/English) with RTL        |
+| `ThemeService`       | Dark/Light/System themes              |
+| `OfflineService`     | Offline support with IndexedDB        |
+| `PerformanceService` | Performance monitoring                |
+| `CachingService`     | Client-side caching                   |
+| `ToastService`       | Toast notifications                   |
+| `ModalService`       | Modal dialogs                         |
+
+### Guards
+
+| Guard             | Description                  |
+| ----------------- | ---------------------------- |
+| `authGuard`       | Protect authenticated routes |
+| `guestGuard`      | Protect public-only routes   |
+| `roleGuard`       | Role-based protection        |
+| `permissionGuard` | Permission-based protection  |
+
+### Directives
+
+| Directive         | Usage                               |
+| ----------------- | ----------------------------------- |
+| `*hasPermission`  | `*hasPermission="'courses:create'"` |
+| `*hasRole`        | `*hasRole="'admin'"`                |
+| `virtualScroll`   | Large list virtualization           |
+| `scrollAnimation` | Scroll-triggered animations         |
+
+---
+
+## 🛠️ Tech Stack
+
+| Category               | Technology            | Version   |
+| ---------------------- | --------------------- | --------- |
+| **Backend Framework**  | NestJS                | 11.0      |
+| **Frontend Framework** | Angular               | 21.0      |
+| **Language**           | TypeScript            | 5.7 / 5.9 |
+| **Database**           | MongoDB (Mongoose)    | 9.0       |
+| **Cache & Queue**      | Redis (ioredis)       | 7.0       |
+| **Real-time**          | Socket.io             | 4.0       |
+| **Authentication**     | Passport + JWT        | -         |
+| **File Storage**       | Cloudinary            | -         |
+| **Image Processing**   | Sharp                 | -         |
+| **Queue Processing**   | Bull                  | -         |
+| **API Documentation**  | Swagger               | -         |
+| **Validation**         | class-validator       | -         |
+| **Security**           | Helmet, sanitize-html | -         |
+
+---
+
+## 🔧 Environment Variables
+
+Create `.env` file in `backend/`:
 
 ```env
-# ═══════════════════════════════════════════
-# 🌐 إعدادات التطبيق
-# ═══════════════════════════════════════════
+# Application
 NODE_ENV=development
 PORT=3000
 API_PREFIX=api/v1
 
-# ═══════════════════════════════════════════
-# 🗄️ MongoDB Atlas
-# ═══════════════════════════════════════════
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/
+# MongoDB
+MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/classybook
 
-# ═══════════════════════════════════════════
-# 🔐 JWT Authentication
-# ═══════════════════════════════════════════
-JWT_SECRET=your_super_secret_key_here
-JWT_EXPIRATION=7d
-JWT_REFRESH_SECRET=your_refresh_secret_key
-JWT_REFRESH_EXPIRATION=30d
+# JWT
+JWT_SECRET=your-super-secret-jwt-key
+JWT_EXPIRES_IN=15m
+JWT_REFRESH_SECRET=your-refresh-secret-key
+JWT_REFRESH_EXPIRES_IN=7d
 
-# ═══════════════════════════════════════════
-# 📊 Redis (اختياري - يوجد fallback)
-# ═══════════════════════════════════════════
+# Redis
 REDIS_HOST=localhost
 REDIS_PORT=6379
 REDIS_PASSWORD=
-REDIS_TTL=3600
 
-# ═══════════════════════════════════════════
-# ☁️ Cloudinary
-# ═══════════════════════════════════════════
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-CLOUDINARY_FOLDER=classy-book
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
 
-# ═══════════════════════════════════════════
-# 🌍 CORS
-# ═══════════════════════════════════════════
+# Rate Limiting
+THROTTLE_TTL=60000
+THROTTLE_LIMIT=100
+
+# CORS
 CORS_ORIGIN=http://localhost:4200
 
+# Stripe (Payments)
+STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
 
-
-
-
----
-
-## 🚀 التثبيت والتشغيل
-
-### 📋 المتطلبات
-
-| الحالة | المتطلب           | الوصف                    |
-| :----: | ----------------- | ------------------------ |
-|   ✅   | **Node.js 20+**   | بيئة التشغيل             |
-|   ✅   | **npm 10+**       | مدير الحزم               |
-|   ✅   | **MongoDB Atlas** | قاعدة البيانات (مجاني)   |
-|   ✅   | **Cloudinary**    | تخزين الملفات (مجاني)    |
-|   ⭕   | **Redis**         | التخزين المؤقت (اختياري) |
+# Paymob (Payments)
+PAYMOB_API_KEY=xxx
+PAYMOB_WEBHOOK_SECRET=xxx
+```
 
 ---
 
-### 📥 خطوات التثبيت
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 22+
+- npm 10+
+- MongoDB 7+
+- Redis 7+
+
+### Installation
 
 ```bash
-# 1️⃣ استنساخ المشروع
-git clone https://github.com/username/classy-book.git
+# Clone repository
+git clone https://github.com/yourusername/classy-book.git
 cd classy-book
 
-# 2️⃣ تثبيت Backend
+# Install backend dependencies
 cd backend
 npm install
 
-# 3️⃣ إعداد متغيرات البيئة
-cp .env.example .env
-# قم بتعديل .env بالقيم الصحيحة
-
-# 4️⃣ تثبيت Frontend
+# Install frontend dependencies
 cd ../frontend
 npm install
 ```
 
----
-
-### ▶️ التشغيل
-
-<table>
-<tr>
-<th>الخدمة</th>
-<th>الأمر</th>
-<th>الرابط</th>
-</tr>
-<tr>
-<td>🖥️ Backend (Dev)</td>
-<td><code>npm run start:dev</code></td>
-<td>http://localhost:3000</td>
-</tr>
-<tr>
-<td>🖥️ Backend (Prod)</td>
-<td><code>npm run start:prod</code></td>
-<td>http://localhost:3000</td>
-</tr>
-<tr>
-<td>🎨 Frontend</td>
-<td><code>npm start</code></td>
-<td>http://localhost:4200</td>
-</tr>
-<tr>
-<td>🧪 Tests</td>
-<td><code>npm test</code></td>
-<td>-</td>
-</tr>
-<tr>
-<td>📦 Build</td>
-<td><code>npm run build</code></td>
-<td>-</td>
-</tr>
-</table>
-
----
-
-### 🔗 الروابط بعد التشغيل
-
-| الخدمة          | الرابط                       | الوصف            |
-| --------------- | ---------------------------- | ---------------- |
-| 🎨 Frontend     | http://localhost:4200        | واجهة المستخدم   |
-| 🖥️ Backend API  | http://localhost:3000/api/v1 | نقاط الـ API     |
-| 📚 Swagger Docs | http://localhost:3000/api    | توثيق API تفاعلي |
-
----
-
-## 📝 سجل التحديثات
-
-<details open>
-<summary><strong>🔄 [29 يناير 2026] - تحديث #4 ⭐ (تحسينات الأداء)</strong></summary>
-
-### ✨ إضافات جديدة للـ Backend
-
-| الإضافة               | الملفات           | الوصف                       |
-| --------------------- | ----------------- | --------------------------- |
-| 🗄️ Redis Cache        | `cache/*.ts`      | تخزين مؤقت سريع مع fallback |
-| 📋 Bull Queue         | `queue/*.ts`      | معالجة خلفية للملفات        |
-| 📦 Compression        | `main.ts`         | ضغط الاستجابات              |
-| 📄 Pagination         | `pagination/*.ts` | تقسيم البيانات              |
-| 📤 Response Optimizer | `response/*.ts`   | تحسين الاستجابات            |
-
-### 📦 المعالجات المضافة
-
-- `image-processor.service.ts` - ضغط وتحسين الصور
-- `video-processor.service.ts` - معالجة الفيديوهات
-- `email-processor.service.ts` - إرسال الإيميلات
-- `notification-processor.service.ts` - إرسال الإشعارات
-
-</details>
-
-<details>
-<summary><strong>🔄 [29 يناير 2026] - تحديث #3 (الملفات والتواصل)</strong></summary>
-
-### ✨ إضافات
-
-- ✅ تثبيت Socket.io للتواصل الفوري
-- ✅ تثبيت Cloudinary لتخزين الصور سحابياً
-- ✅ إنشاء 10 خدمات أداء للـ Frontend
-- ✅ إنشاء 2 Directives للتحريك والـ Virtual Scroll
-- ✅ إنشاء Skeleton Loader Component
-
-</details>
-
-<details>
-<summary><strong>🔄 [29 يناير 2026] - تحديث #2 (قاعدة البيانات)</strong></summary>
-
-### ✨ تغييرات
-
-- ✅ التحويل من PostgreSQL إلى MongoDB Atlas
-- ✅ إعداد Mongoose ODM
-- ✅ إنشاء ملفات `.env` و `.env.example`
-
-</details>
-
-<details>
-<summary><strong>🔄 [29 يناير 2026] - تحديث #1 (الإعداد الأولي)</strong></summary>
-
-### ✨ إضافات
-
-- ✅ إنشاء هيكل المشروع (Backend + Frontend)
-- ✅ إعداد NestJS 11 و Angular 21
-- ✅ تثبيت المكتبات الأساسية للـ SaaS
-- ✅ إنشاء ملف README الرئيسي
-
-</details>
-
----
-
-## 📊 إحصائيات المشروع
-
-<table align="center">
-<tr>
-<td align="center">
-<img src="https://img.shields.io/badge/📁_الملفات-45+-blue?style=for-the-badge" alt="Files">
-</td>
-<td align="center">
-<img src="https://img.shields.io/badge/⚙️_الخدمات-15+-green?style=for-the-badge" alt="Services">
-</td>
-<td align="center">
-<img src="https://img.shields.io/badge/📦_المكتبات-40+-orange?style=for-the-badge" alt="Libraries">
-</td>
-<td align="center">
-<img src="https://img.shields.io/badge/🧪_التغطية-قريباً-gray?style=for-the-badge" alt="Coverage">
-</td>
-</tr>
-</table>
-
----
-
-## 🤝 المساهمة
-
-نرحب بالمساهمات! يرجى اتباع الخطوات التالية:
+### Running the Application
 
 ```bash
-# 1️⃣ Fork المشروع
-# 2️⃣ إنشاء فرع جديد
-git checkout -b feature/amazing-feature
+# Terminal 1 - Backend
+cd backend
+npm run start:dev
 
-# 3️⃣ Commit التغييرات
-git commit -m 'إضافة ميزة رائعة'
+# Terminal 2 - Frontend
+cd frontend
+npm start
+```
 
-# 4️⃣ رفع التغييرات
-git push origin feature/amazing-feature
+### Build for Production
 
-# 5️⃣ فتح Pull Request
+```bash
+# Backend
+cd backend
+npm run build
+npm run start:prod
+
+# Frontend
+cd frontend
+npm run build
 ```
 
 ---
 
-<p align="center">
-  <strong>صنع بـ Abdallah hany لخدمة التعليم</strong>
-</p>
+## 📝 API Reference
 
-<p align="center">
+### Authentication
+
+| Method | Endpoint                | Description       |
+| ------ | ----------------------- | ----------------- |
+| POST   | `/api/v1/auth/register` | Register new user |
+| POST   | `/api/v1/auth/login`    | Login user        |
+| POST   | `/api/v1/auth/refresh`  | Refresh token     |
+| POST   | `/api/v1/auth/logout`   | Logout            |
+| GET    | `/api/v1/auth/me`       | Get current user  |
+
+### Users
+
+| Method | Endpoint            | Description |
+| ------ | ------------------- | ----------- |
+| GET    | `/api/v1/users`     | List users  |
+| GET    | `/api/v1/users/:id` | Get user    |
+| POST   | `/api/v1/users`     | Create user |
+| PATCH  | `/api/v1/users/:id` | Update user |
+| DELETE | `/api/v1/users/:id` | Delete user |
+
+### Health
+
+| Method | Endpoint        | Description        |
+| ------ | --------------- | ------------------ |
+| GET    | `/health`       | Health check       |
+| GET    | `/health/ready` | Readiness probe    |
+| GET    | `/health/live`  | Liveness probe     |
+| GET    | `/metrics`      | Prometheus metrics |
+
+---
+
+## 📊 Database Schema
+
+### Users Collection
+
+```typescript
+{
+  _id: ObjectId,
+  email: string,           // unique, indexed
+  password: string,        // bcrypt hashed
+  name: string,
+  phone?: string,
+  avatar?: string,
+  role: 'student' | 'teacher' | 'admin' | 'super_admin',
+  permissions: string[],
+  isEmailVerified: boolean,
+  isActive: boolean,
+  isLocked: boolean,
+  lockUntil?: Date,
+  failedLoginAttempts: number,
+  lastLogin?: Date,
+  passwordChangedAt?: Date,
+  isDeleted: boolean,
+  deletedAt?: Date,
+  deletedBy?: ObjectId,
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+### Sessions Collection
+
+```typescript
+{
+  _id: ObjectId,
+  userId: ObjectId,        // indexed
+  refreshToken: string,    // hashed
+  deviceInfo: {
+    userAgent: string,
+    ip: string,
+    fingerprint?: string
+  },
+  isRevoked: boolean,
+  lastActivity: Date,
+  expiresAt: Date,         // TTL index
+  createdAt: Date
+}
+```
+
+### Audit Logs Collection
+
+```typescript
+{
+  _id: ObjectId,
+  action: string,          // indexed
+  resource: string,        // indexed
+  resourceId?: ObjectId,
+  userId?: ObjectId,       // indexed
+  oldData?: object,
+  newData?: object,
+  ip?: string,
+  userAgent?: string,
+  duration?: number,
+  success: boolean,
+  errorMessage?: string,
+  metadata?: object,
+  tenantId?: ObjectId,
+  createdAt: Date          // TTL: 365 days
+}
+```
+
+---
+
+## 🧪 Testing
+
+```bash
+# Unit tests
+npm run test
+
+# E2E tests
+npm run test:e2e
+
+# Test coverage
+npm run test:cov
+```
+
+---
+
+## 📈 Changelog
+
+### v0.1.0 (January 2026)
+
+#### ✅ Completed
+
+**Backend - Security Module**
+
+- [x] JWT Authentication with refresh tokens
+- [x] User management with soft delete
+- [x] Session management (multi-device)
+- [x] Role-based access control (RBAC)
+- [x] API key management
+- [x] Rate limiting (Redis-backed)
+- [x] Brute force protection
+- [x] CSRF protection
+- [x] Helmet security headers
+- [x] Input sanitization (XSS/NoSQL)
+- [x] Validation module
+- [x] Audit logging
+- [x] Webhook security
+
+**Backend - Performance Module**
+
+- [x] Circuit breaker pattern
+- [x] File upload & optimization
+- [x] Idempotency handling
+- [x] Observability (logs, metrics, health)
+- [x] Real-time (Socket.io)
+- [x] Full-text search
+
+**Backend - MongoDB Module**
+
+- [x] Repository pattern
+- [x] Query builder
+- [x] Transaction service
+- [x] Index management
+- [x] Multi-tenancy
+- [x] Soft delete plugin
+
+**Backend - Common Module**
+
+- [x] Redis cache
+- [x] Pagination service
+- [x] Queue processing (Bull)
+- [x] Response optimizer
+
+**Frontend - Core Module**
+
+- [x] API client service
+- [x] Auth service (signals)
+- [x] State management
+- [x] Route guards
+- [x] HTTP interceptors
+- [x] Custom directives
+- [x] Theme service
+- [x] i18n service
+
+---
+
+<div align="center">
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our contributing guidelines.
+
+## 📄 License
+
+This project is private and proprietary.
+
+---
+
+**Built with by the Classy Book Team**
+
+<p>
+  <img src="https://img.shields.io/badge/Made_with-NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" alt="NestJS">
+  <img src="https://img.shields.io/badge/Made_with-Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" alt="Angular">
   <img src="https://img.shields.io/badge/Made_with-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
-  <img src="https://img.shields.io/badge/Built_with-NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" alt="NestJS">
-  <img src="https://img.shields.io/badge/Styled_with-Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" alt="Angular">
-</p>
-
-<p align="center">
-  <sub>© 2026 Classy Book. جميع الحقوق محفوظة.</sub>
 </p>
 
 </div>
-
