@@ -702,21 +702,9 @@ CLOUDINARY_FOLDER=classy-book
 # ═══════════════════════════════════════════
 CORS_ORIGIN=http://localhost:4200
 
-# ═══════════════════════════════════════════
-# 📧 Email Service
-# ═══════════════════════════════════════════
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USER=your_email@gmail.com
-MAIL_PASSWORD=your_app_password
-MAIL_FROM=noreply@classybook.com
 
-# ═══════════════════════════════════════════
-# 💳 Stripe Payment
-# ═══════════════════════════════════════════
-STRIPE_SECRET_KEY=sk_test_xxxxxxxxxxxx
-STRIPE_WEBHOOK_SECRET=whsec_xxxxxxxxxxxx
-```
+
+
 
 ---
 
@@ -907,7 +895,7 @@ git push origin feature/amazing-feature
 ---
 
 <p align="center">
-  <strong>صنع بـ ❤️ لخدمة التعليم</strong>
+  <strong>صنع بـ Abdallah hany لخدمة التعليم</strong>
 </p>
 
 <p align="center">
@@ -921,3 +909,4 @@ git push origin feature/amazing-feature
 </p>
 
 </div>
+
