@@ -1,10 +1,113 @@
 # 📝 Latest Updates - Classy Book Project
 
-**Last Updated:** January 30, 2026 - 18:30 PM
+**Last Updated:** January 30, 2026 - 22:30 PM
 
 ---
 
-## 🎯 New Features (January 30, 2026 - Evening Session)
+## 🎯 New Features (January 30, 2026 - Night Session)
+
+### ✅ General Monitoring System (COMPLETED)
+
+**Time: 19:00 - 22:30**
+
+#### 🔐 Master Code Protection
+
+- ✅ Master Code Guard service for sensitive pages
+- ✅ Master code: `1234` (configurable)
+- ✅ Session-based verification (30 minutes validity)
+- ✅ Automatic prompt dialog before accessing monitoring page
+- ✅ Prevents unauthorized access to sensitive data
+
+#### 📊 General Monitoring Dashboard
+
+- ✅ **Real-time Security Monitoring** with auto-refresh (30 seconds)
+- ✅ **Security Metrics Cards:**
+  - Successful Logins counter with green icon
+  - Failed Attempts counter with red icon
+  - Blocked IPs counter with orange icon
+  - Active Sessions counter with blue icon
+- ✅ **Interactive Charts (Chart.js 4.4.1):**
+  - Line chart: Login attempts timeline (24 hours)
+  - Doughnut chart: Security metrics distribution
+  - Real-time updates without page refresh
+- ✅ **Login Attempts Table:**
+  - Email, IP Address, Status, Reason, Timestamp, Session ID
+  - Color-coded status badges (Success/Failed)
+  - Responsive table with horizontal scroll
+- ✅ **Blocked IPs Table:**
+  - IP Address, Attempts count, Reason, Blocked Until
+  - Unblock button for each IP (admin action)
+  - Confirmation dialog before unblocking
+- ✅ **Skeleton Loading:** Smooth loading states
+- ✅ **Dark/Light Mode:** Full theme support
+- ✅ **RTL/LTR Support:** Arabic and English
+- ✅ **Responsive Design:** Mobile, Tablet, Desktop
+- ✅ **Route:** `/admin/monitoring` with master code guard
+- ✅ **Bundle Size:** 20.93 kB (4.99 kB gzipped)
+
+#### 🔧 Backend Monitoring API
+
+- ✅ **MonitoringModule:** Complete NestJS module
+- ✅ **MonitoringService:** Business logic layer
+  - `logLoginAttempt()` - Record all login attempts
+  - `getLoginAttempts()` - Fetch with pagination
+  - `getBlockedIPs()` - Get all blocked IPs
+  - `unblockIP()` - Unblock specific IP
+  - `getSecurityMetrics()` - Calculate metrics
+  - `getLoginAttemptsTimeline()` - For charts
+  - `cleanupOldAttempts()` - Maintenance task
+- ✅ **MonitoringController:** REST API endpoints
+  - `GET /api/v1/monitoring/login-attempts` - Get all attempts
+  - `GET /api/v1/monitoring/blocked-ips` - Get blocked IPs
+  - `POST /api/v1/monitoring/unblock-ip` - Unblock IP
+  - `GET /api/v1/monitoring/security-metrics` - Get metrics
+  - `GET /api/v1/monitoring/timeline` - Get timeline data
+  - `POST /api/v1/monitoring/cleanup` - Cleanup old data
+- ✅ **LoginAttempt Schema:** MongoDB schema with indexes
+  - Fields: email, ipAddress, userAgent, success, failureReason, sessionId, deviceFingerprint
+  - TTL index: Auto-delete after 90 days
+  - Performance indexes on email, ipAddress, timestamp
+- ✅ **Integration with AuthController:**
+  - Automatic logging of all login attempts (success/failed)
+  - Device information capture
+  - Session ID tracking
+- ✅ **BruteForceService Extensions:**
+  - `getAllBlockedIPs()` - Get blocked IPs with details
+  - `getBlockedIPsCount()` - Count blocked IPs
+  - `unblockIP()` - Unblock specific IP address
+- ✅ **Authorization:** Only super_admin and admin roles
+
+#### 🎨 Frontend Services
+
+- ✅ **MonitoringService:** HTTP client service
+  - `getLoginAttempts()` - Fetch login attempts
+  - `getBlockedIPs()` - Fetch blocked IPs
+  - `getSecurityMetrics()` - Fetch metrics
+  - `unblockIP()` - Unblock IP address
+- ✅ **MasterCodeService:** Security service
+  - Prompt-based master code verification
+  - Session-based validity (30 minutes)
+  - Auto-cleanup on timeout
+
+#### 📦 External Dependencies
+
+- ✅ **Chart.js 4.4.1** - Added via CDN
+  - UMD build for browser compatibility
+  - Integrity hash for security
+  - Deferred loading for performance
+  - Used for: Line charts, Doughnut charts
+
+#### 🔗 Dashboard Integration
+
+- ✅ Quick action card in Admin Dashboard
+- ✅ Shield icon with "Secure" badge
+- ✅ Click-to-navigate with progress bar
+- ✅ Hover effects and animations
+- ✅ Bilingual labels (AR/EN)
+
+---
+
+## 🎯 Previous Features (January 30, 2026 - Evening Session)
 
 ### ✅ Admin Login Enhancements
 
