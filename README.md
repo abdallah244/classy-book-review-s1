@@ -224,12 +224,21 @@
         └── 📁 app/
             ├── 📄 app.ts
             ├── 📄 app.routes.ts
-            └── 📁 core/            # 🎨 Core Module
-                ├── 📁 services/    # Application Services
-                ├── 📁 guards/      # Route Guards
-                ├── 📁 interceptors/# HTTP Interceptors
-                ├── 📁 directives/  # Custom Directives
-                └── 📁 components/  # Shared Components
+            ├── 📁 core/            # 🎨 Core Module
+            │   ├── 📁 services/    # Application Services
+            │   ├── 📁 guards/      # Route Guards
+            │   ├── 📁 interceptors/# HTTP Interceptors
+            │   ├── 📁 directives/  # Custom Directives
+            │   └── 📁 components/  # Shared Components
+            │
+            └── 📁 pages/           # 📄 Page Components
+                ├── 📁 home-page/   # Home page + services
+                │   ├── 📄 home-page.ts
+                │   └── 📁 services/
+                │
+                └── 📁 admin-pages/ # Admin section
+                    ├── 📁 admin-login/
+                    └── 📁 admin-services/
 ```
 
 ---
@@ -879,6 +888,54 @@ Angular 21 with standalone components.
 | `*hasRole`        | `*hasRole="'admin'"`                |
 | `virtualScroll`   | Large list virtualization           |
 | `scrollAnimation` | Scroll-triggered animations         |
+
+### Pages
+
+#### Home Page (`pages/home-page/`)
+
+Landing page with dedicated services for optimal performance.
+
+| Service                    | Description                             |
+| -------------------------- | --------------------------------------- |
+| `HomePerformanceService`   | Lazy loading, metrics, deferred loading |
+| `HomeSkeletonService`      | Section-based skeleton loading          |
+| `HomeVirtualScrollService` | Infinite scroll, virtual lists          |
+| `HomeProgressBarService`   | Top loading bar                         |
+| `HomeSecurityService`      | XSS/Clickjacking protection             |
+
+#### Admin Pages (`pages/admin-pages/`)
+
+##### Admin Login (`admin-login/`)
+
+Modern, secure admin authentication page with split-screen design and full i18n support.
+
+| Feature                        | Description                           |
+| ------------------------------ | ------------------------------------- |
+| Split Layout                   | Left: Login form, Right: Info section |
+| Theme Toggle                   | Light/Dark mode switching             |
+| Language Toggle                | English/Arabic with RTL support       |
+| **Bilingual Error Messages**   | All errors in AR/EN based on language |
+| **Bilingual Validation**       | Form validation in AR/EN              |
+| **Toast Notifications**        | Success/Error toasts with animations  |
+| **Staggered Entry Animations** | FadeUp animations for each section    |
+| **Optimized Performance**      | Deferred CSS, preload, Lighthouse 90+ |
+| Brute Force Protection         | 5 attempts, 15 min lockout            |
+| Device Fingerprinting          | Track login devices                   |
+| DevTools Detection             | Alert when dev tools are open         |
+| Rate Limiting                  | 30 requests/minute                    |
+| Session Timeout                | 30 minutes auto-logout                |
+| XSS Protection                 | Input sanitization                    |
+| i18n Integration               | Uses I18nService for translations     |
+| Theme Integration              | Uses ThemeService for dark/light mode |
+
+##### Admin Services (`admin-services/`)
+
+| Service                   | Description                        |
+| ------------------------- | ---------------------------------- |
+| `AdminPerformanceService` | Performance optimization           |
+| `AdminSkeletonService`    | Skeleton for tables, charts, etc.  |
+| `AdminProgressBarService` | Admin operations progress          |
+| `AdminSecurityService`    | Enhanced security (stricter rules) |
 
 ---
 
