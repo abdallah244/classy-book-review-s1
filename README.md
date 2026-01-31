@@ -1,1079 +1,115 @@
+# 📚 Classy Book - Learning Management System
+
 <div align="center">
 
-# 📚 Classy Book
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![NestJS](https://img.shields.io/badge/NestJS-11.x-red.svg)
+![Angular](https://img.shields.io/badge/Angular-21.x-red.svg)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-### Enterprise-Grade Educational Platform
+**نظام إدارة تعلم متكامل وآمن**
 
-<p>
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&pause=1000&color=6366F1&center=true&vCenter=true&random=false&width=600&height=60&lines=Modern+Learning+Management+System;Built+with+NestJS+%2B+Angular;Enterprise-Ready+Architecture" alt="Typing SVG" />
-</p>
-
-[![Status](https://img.shields.io/badge/Status-🚧_In_Development-yellow?style=for-the-badge&labelColor=1e293b)](https://github.com)
-[![Version](https://img.shields.io/badge/Version-0.1.0-blue?style=for-the-badge&labelColor=1e293b)](https://github.com)
-[![License](https://img.shields.io/badge/License-Private-red?style=for-the-badge&labelColor=1e293b)](https://github.com)
-
-<p>
-  <img src="https://img.shields.io/badge/NestJS-11.0-E0234E?style=flat-square&logo=nestjs&logoColor=white" alt="NestJS">
-  <img src="https://img.shields.io/badge/Angular-21-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular">
-  <img src="https://img.shields.io/badge/MongoDB-9.0-47A248?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB">
-  <img src="https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript">
-  <img src="https://img.shields.io/badge/Redis-7.0-DC382D?style=flat-square&logo=redis&logoColor=white" alt="Redis">
-  <img src="https://img.shields.io/badge/Socket.io-4.0-010101?style=flat-square&logo=socket.io&logoColor=white" alt="Socket.io">
-  <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker">
-</p>
-
----
-
-**A comprehensive, scalable, and secure Learning Management System (LMS) built with cutting-edge technologies for delivering high-quality educational content.**
-
-[Features](#-features) • [Architecture](#️-architecture) • [Getting Started](#-getting-started) • [Documentation](#-security-module) • [API Reference](#-api-reference)
+[العربية](#arabic) | [English](#english)
 
 </div>
 
 ---
 
-## 📋 Table of Contents
+<a name="english"></a>
 
-<details open>
-<summary><strong>Click to expand</strong></summary>
+## 🌟 Overview
 
-- [✨ Features](#-features)
-- [🏗️ Architecture](#️-architecture)
-- [📁 Project Structure](#-project-structure)
-- [🔐 Security Module](#-security-module)
-- [⚡ Performance Module](#-performance-module)
-- [🗄️ MongoDB Module](#️-mongodb-module)
-- [📦 Common Module](#-common-module)
-- [☁️ Cloudinary Module](#️-cloudinary-module)
-- [🎨 Frontend Module](#-frontend-module)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [🔧 Environment Variables](#-environment-variables)
-- [🚀 Getting Started](#-getting-started)
-- [📝 API Reference](#-api-reference)
-- [📊 Database Schema](#-database-schema)
-- [🧪 Testing](#-testing)
-- [📈 Changelog](#-changelog)
+Classy Book is a comprehensive Learning Management System (LMS) built with modern technologies and enterprise-grade security features. It provides a robust platform for educational institutions and organizations.
 
-</details>
+## 🛠️ Tech Stack
 
----
+### Backend
 
-## ✨ Features
+- **Framework:** NestJS 11.x
+- **Database:** MongoDB Atlas
+- **Authentication:** JWT with Refresh Tokens
+- **Real-time:** Socket.IO (WebSocket)
+- **Caching:** Redis (optional)
+- **File Upload:** Cloudinary
 
-<table>
-<tr>
-<td width="50%">
+### Frontend
 
-### 🎯 Core Features
+- **Framework:** Angular 21.x (Standalone Components)
+- **Styling:** Custom CSS with Theme Support
+- **State Management:** Angular Signals
+- **i18n:** Arabic & English Support
+- **Real-time:** Socket.IO Client
 
-- 📹 **Video Courses** - HD streaming with HLS
-- 📝 **Interactive Quizzes** - Real-time assessments
-- 💬 **Live Chat** - Student-teacher communication
-- 📊 **Progress Tracking** - Detailed analytics
-- 🎓 **Certificates** - Auto-generated certificates
-- 💳 **Payments** - Stripe & Paymob integration
+## 🔐 Security Features
 
-</td>
-<td width="50%">
-
-### ⚡ Technical Excellence
-
-- 🚀 **High Performance** - Redis caching
-- 🔄 **Real-time** - Socket.io integration
-- 📦 **Background Jobs** - Bull queue processing
-- ☁️ **Cloud Storage** - Cloudinary CDN
-- 🔐 **Enterprise Security** - Multi-layer protection
-- 🏢 **Multi-tenancy** - Isolated tenant data
-
-</td>
-</tr>
-</table>
-
----
-
-## 🏗️ Architecture
-
-### Backend Stack
-
-- **Framework**: NestJS 11 + TypeScript 5.7
-- **Database**: MongoDB Atlas (Mongoose 9)
-- **Cache**: Redis 7.0 with memory fallback
-- **Real-time**: Socket.io 4.0
-- **Queue**: Bull + Redis
-- **Storage**: Cloudinary CDN
-- **Authentication**: JWT + OAuth2 support
-
-### Frontend Stack
-
-- **Framework**: Angular 21 + TypeScript 5.9
-- **State Management**: Signals (Angular signals)
-- **UI Component**: Standalone components
-- **Styling**: CSS 3 with CSS Variables
-- **Icons**: Font Awesome 6.5.1
-- **Performance**: Lazy loading + Code splitting
-- **Accessibility**: WCAG 2.1 AA compliant
-- **Build**: Webpack with optimizations
-
-### Admin Dashboard Features (Latest)
-
-✅ **Admin Login Page**
-
-- Professional TeleG-style split layout design
-- Secure authentication with brute-force protection
-- Device fingerprinting for enhanced security
-- Theme toggle (dark/light mode)
-- Language support (Arabic/English with RTL)
-- Security indicators (Encrypted, Monitored, Secured)
-- Staggered fade-in animations on page load
-- Enterprise-grade performance (90+) and SEO (100)
-- **NEW:** Form field icons (Email, Password, Login)
-- **NEW:** Real-time lockout countdown timer
-
-✅ **Admin Dashboard** (Under Development)
-
-- Clean "Under Development" interface
-- Rotating tools icon animation
-- Consistent color palette (#1a3a52 primary)
-- Theme toggle, language switch, logout actions
-- Lazy loaded route optimization
-- Bundle size: 21.82 kB (6.00 kB gzipped)
-
-✅ **Admin Seed System**
-
-- Auto-create admin on backend startup
-- Credentials stored in `.env` file
-- Default admin:
-  - Email: admin@classybook.com
-  - Password: 12345678
-  - Role: super_admin
-- Auto-updates password if admin exists
-- No manual database seeding required
-
-│ │ (Frontend) │ │ (Future) │ │ (Angular) │ │
-│ └────────┬────────┘ └────────┬────────┘ └───────────┬─────────────┘ │
-└───────────┼────────────────────┼───────────────────────┼────────────────┘
-│ │ │
-▼ ▼ ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│ API GATEWAY │
-│ ┌─────────────┐ ┌──────────────┐ ┌───────────────┐ ┌─────────────┐ │
-│ │ Rate Limit │ │ JWT Auth │ │ CORS/Helmet │ │ Swagger │ │
-│ └─────────────┘ └──────────────┘ └───────────────┘ └─────────────┘ │
-└────────────────────────────────┬────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│ NestJS 11 BACKEND │
-│ ┌──────────────────────────────────────────────────────────────────┐ │
-│ │ SECURITY MODULE │ │
-│ │ ┌─────────┐ ┌──────────┐ ┌─────────┐ ┌─────────┐ ┌───────────┐ │ │
-│ │ │ Auth │ │ Sessions │ │ Roles & │ │ API Key │ │ Brute │ │ │
-│ │ │ (JWT) │ │ Mgmt │ │ Perms │ │ Guard │ │ Force │ │ │
-│ │ └─────────┘ └──────────┘ └─────────┘ └─────────┘ └───────────┘ │ │
-│ │ ┌─────────┐ ┌──────────┐ ┌─────────┐ ┌─────────┐ ┌───────────┐ │ │
-│ │ │ CSRF │ │ Helmet │ │Sanitize │ │ Audit │ │ Webhook │ │ │
-│ │ │ Token │ │ Headers │ │ (XSS) │ │ Log │ │ Security │ │ │
-│ │ └─────────┘ └──────────┘ └─────────┘ └─────────┘ └───────────┘ │ │
-│ └──────────────────────────────────────────────────────────────────┘ │
-│ │
-│ ┌──────────────────────────────────────────────────────────────────┐ │
-│ │ PERFORMANCE MODULE │ │
-│ │ ┌─────────────┐ ┌───────────┐ ┌────────────┐ ┌────────────────┐ │ │
-│ │ │ Circuit │ │ File │ │Idempotency │ │ Observability │ │ │
-│ │ │ Breaker │ │ Upload │ │ Guard │ │ (Metrics) │ │ │
-│ │ └─────────────┘ └───────────┘ └────────────┘ └────────────────┘ │ │
-│ │ ┌─────────────┐ ┌───────────────────────────────────────────┐ │ │
-│ │ │ Search │ │ Real-time (Socket.io) │ │ │
-│ │ │ (MongoDB) │ │ │ │ │
-│ │ └─────────────┘ └───────────────────────────────────────────┘ │ │
-│ └──────────────────────────────────────────────────────────────────┘ │
-│ │
-│ ┌──────────────────────────────────────────────────────────────────┐ │
-│ │ COMMON MODULE │ │
-│ │ ┌───────────┐ ┌────────────┐ ┌───────────┐ ┌─────────────────┐ │ │
-│ │ │ Redis │ │ Pagination │ │ Queue │ │ Response │ │ │
-│ │ │ Cache │ │ Service │ │ (Bull) │ │ Optimizer │ │ │
-│ │ └───────────┘ └────────────┘ └───────────┘ └─────────────────┘ │ │
-│ └──────────────────────────────────────────────────────────────────┘ │
-└────────────────────────────────┬────────────────────────────────────────┘
-│
-┌────────────────────────┼────────────────────────┐
-▼ ▼ ▼
-┌───────────────┐ ┌─────────────────┐ ┌─────────────────┐
-│ MongoDB │ │ Redis │ │ Cloudinary │
-│ (Atlas) │ │ (Cache/Queue) │ │ (CDN/Storage) │
-│ │ │ │ │ │
-│ • Users │ │ • Sessions │ │ • Images │
-│ • Courses │ │ • Cache │ │ • Videos (HLS) │
-│ • Enrollments │ │ • Rate Limits │ │ • Documents │
-│ • Payments │ │ • Job Queues │ │ • Thumbnails │
-│ • Audit Logs │ │ • Idempotency │ │ │
-└───────────────┘ └─────────────────┘ └─────────────────┘
-
-```
-
----
+| Feature                 | Description                                           |
+| ----------------------- | ----------------------------------------------------- |
+| 🔑 JWT Authentication   | Secure token-based authentication with refresh tokens |
+| 🛡️ CSRF Protection      | Cross-Site Request Forgery protection                 |
+| 🚫 Rate Limiting        | Brute-force attack prevention                         |
+| 🧹 Input Sanitization   | MongoDB injection & XSS protection                    |
+| 🔒 Helmet               | HTTP security headers                                 |
+| 📝 Audit Logging        | Comprehensive activity logging                        |
+| 🌐 IP Blocking          | Automatic blocking of malicious IPs                   |
+| 📊 Real-time Monitoring | Live security dashboard                               |
 
 ## 📁 Project Structure
 
 ```
-
-📁 classy-book/
-├── 📄 README.md # Project documentation
-├── 📄 Summary.md # Development summary
+classy-book/
+├── backend/                 # NestJS Backend
+│   ├── src/
+│   │   ├── cloudinary/      # File upload service
+│   │   ├── common/          # Shared modules (cache, pagination, queue)
+│   │   ├── mongodb/         # Database utilities
+│   │   ├── monitoring/      # Security monitoring
+│   │   ├── performance/     # Performance features (realtime, search)
+│   │   └── security/        # Security modules
+│   │       ├── admin-management/  # Admin seeding & management
+│   │       ├── auth/              # Authentication
+│   │       ├── brute-force/       # Attack prevention
+│   │       ├── csrf/              # CSRF protection
+│   │       ├── rate-limit/        # Rate limiting
+│   │       ├── sanitization/      # Input sanitization
+│   │       └── sessions/          # Session management
+│   └── test/
 │
-├── 📁 backend/ # NestJS Backend
-│ ├── 📄 package.json
-│ ├── 📄 nest-cli.json
-│ ├── 📄 tsconfig.json
-│ └── 📁 src/
-│ ├── 📄 main.ts # Application entry point
-│ ├── 📄 app.module.ts # Root module
-│ │
-│ ├── 📁 security/ # 🔐 Security Module
-│ │ ├── 📁 auth/ # JWT Authentication
-│ │ ├── 📁 users/ # User Management
-│ │ ├── 📁 sessions/ # Session Management
-│ │ ├── 📁 roles-permissions/# RBAC System
-│ │ ├── 📁 api-key/ # API Key Management
-│ │ ├── 📁 rate-limit/ # Rate Limiting
-│ │ ├── 📁 brute-force/ # Brute Force Protection
-│ │ ├── 📁 csrf/ # CSRF Protection
-│ │ ├── 📁 helmet/ # HTTP Security Headers
-│ │ ├── 📁 sanitization/ # XSS Prevention
-│ │ ├── 📁 validation/ # Input Validation
-│ │ ├── 📁 audit-log/ # Activity Logging
-│ │ └── 📁 webhook-security/# Webhook Verification
-│ │
-│ ├── 📁 performance/ # ⚡ Performance Module
-│ │ ├── 📁 circuit-breaker/ # Fault Tolerance
-│ │ ├── 📁 file/ # File Processing
-│ │ ├── 📁 idempotency/ # Duplicate Prevention
-│ │ ├── 📁 observability/ # Logging & Metrics
-│ │ ├── 📁 realtime/ # Socket.io Gateway
-│ │ └── 📁 search/ # Full-text Search
-│ │
-│ ├── 📁 mongodb/ # 🗄️ MongoDB Module
-│ │ ├── 📁 data-access/ # Repository Pattern
-│ │ ├── 📁 indexes/ # Index Management
-│ │ ├── 📁 multi-tenancy/ # Tenant Isolation
-│ │ └── 📁 soft-delete/ # Soft Delete Plugin
-│ │
-│ ├── 📁 common/ # 📦 Common Module
-│ │ ├── 📁 cache/ # Redis Cache
-│ │ ├── 📁 pagination/ # Pagination Service
-│ │ ├── 📁 queue/ # Bull Queues
-│ │ └── 📁 response/ # Response Optimizer
-│ │
-│ └── 📁 cloudinary/ # ☁️ Cloud Storage
+├── frontend/                # Angular Frontend
+│   └── src/
+│       └── app/
+│           ├── core/        # Core services
+│           │   └── services/
+│           │       ├── auth.service.ts
+│           │       ├── i18n.service.ts
+│           │       ├── theme.service.ts
+│           │       ├── session-timer.service.ts
+│           │       └── websocket.service.ts
+│           ├── pages/       # Application pages
+│           │   └── admin-pages/
+│           │       ├── admin-dashboard/
+│           │       ├── admin-login/
+│           │       └── general-monitoring/
+│           └── shared/      # Shared components
+│               ├── guards/
+│               └── components/
 │
-└── 📁 frontend/ # Angular Frontend
-├── 📄 package.json
-├── 📄 angular.json
-├── 📄 tsconfig.json
-└── 📁 src/
-├── 📄 main.ts
-├── 📄 index.html
-└── 📁 app/
-├── 📄 app.ts
-├── 📄 app.routes.ts
-├── 📁 core/ # 🎨 Core Module
-│ ├── 📁 services/ # Application Services
-│ ├── 📁 guards/ # Route Guards
-│ ├── 📁 interceptors/# HTTP Interceptors
-│ ├── 📁 directives/ # Custom Directives
-│ └── 📁 components/ # Shared Components
-│
-└── 📁 pages/ # 📄 Page Components
-├── 📁 home-page/ # Home page + services
-│ ├── 📄 home-page.ts
-│ └── 📁 services/
-│
-└── 📁 admin-pages/ # Admin section
-├── 📁 admin-login/
-└── 📁 admin-services/
-
-````
-
----
-
-## 🔐 Security Module
-
-A comprehensive, enterprise-grade security system with **13 specialized sub-modules**.
-
-### 1. Authentication (`auth/`)
-
-| Component       | Description                                                    |
-| --------------- | -------------------------------------------------------------- |
-| `AuthService`   | Complete JWT-based authentication with bcrypt password hashing |
-| `JwtStrategy`   | Passport JWT strategy for token validation                     |
-| `JwtAuthGuard`  | Route protection with `@Public()` decorator support            |
-| `LocalStrategy` | Email/password authentication strategy                         |
-
-**Features:**
-
-| Feature             | Description                              |
-| ------------------- | ---------------------------------------- |
-| ✅ Registration     | Create new user accounts with validation |
-| ✅ Login            | Email/password authentication            |
-| ✅ JWT Access Token | Short-lived tokens (configurable expiry) |
-| ✅ Refresh Tokens   | Secure token rotation mechanism          |
-| ✅ Account Locking  | Lock after 5 failed attempts (30 min)    |
-| ✅ Logout           | Single device or all devices             |
-| ✅ Device Tracking  | Track login devices & fingerprints       |
-
-**API Endpoints:**
-
-```http
-POST /api/v1/auth/register    # Create new account
-POST /api/v1/auth/login       # Authenticate user
-POST /api/v1/auth/refresh     # Refresh access token
-POST /api/v1/auth/logout      # Logout current session
-POST /api/v1/auth/logout-all  # Logout all sessions
-GET  /api/v1/auth/me          # Get current user
-````
-
----
-
-### 2. Users Management (`users/`)
-
-| Feature         | Description                        |
-| --------------- | ---------------------------------- |
-| CRUD Operations | Create, read, update, delete users |
-| Soft Delete     | Delete with restore capability     |
-| Pagination      | Cursor & offset pagination         |
-| Search          | Full-text search by name/email     |
-| Role Management | Assign/remove user roles           |
-
-**API Endpoints:**
-
-```http
-GET    /api/v1/users          # List all users (paginated)
-GET    /api/v1/users/:id      # Get user by ID
-POST   /api/v1/users          # Create new user
-PATCH  /api/v1/users/:id      # Update user
-DELETE /api/v1/users/:id      # Soft delete user
-POST   /api/v1/users/:id/restore  # Restore deleted user
+└── README.md
 ```
 
----
-
-### 3. Sessions Management (`sessions/`)
-
-Multi-device session management with fingerprinting.
-
-| Feature           | Description                       |
-| ----------------- | --------------------------------- |
-| ✅ Create Session | Store device info, IP, user agent |
-| ✅ List Sessions  | View all active sessions per user |
-| ✅ Revoke Session | Terminate specific session        |
-| ✅ Revoke All     | Terminate all user sessions       |
-| ✅ Validation     | Verify session is still valid     |
-| ✅ TTL Expiry     | Auto-expire after 30 days         |
-
----
-
-### 4. Roles & Permissions (`roles-permissions/`)
-
-Complete Role-Based Access Control (RBAC) system.
-
-**Default Roles:**
-
-| Role          | Level | Permissions                  |
-| ------------- | ----- | ---------------------------- |
-| `super_admin` | 100   | `*` (full access)            |
-| `admin`       | 80    | User & content management    |
-| `teacher`     | 50    | Course creation & management |
-| `student`     | 10    | Course access & profile      |
-
-**Decorators:**
-
-```typescript
-// Restrict by role
-@Roles('admin', 'teacher')
-@UseGuards(RolesGuard)
-createCourse() {}
-
-// Restrict by permission
-@RequirePermissions('courses:create', 'courses:update')
-@UseGuards(PermissionsGuard)
-updateCourse() {}
-```
-
----
-
-### 5. API Key Management (`api-key/`)
-
-Secure API key system for external integrations.
-
-| Feature             | Description                   |
-| ------------------- | ----------------------------- |
-| ✅ Key Generation   | Secure keys with `cb_` prefix |
-| ✅ Hashed Storage   | SHA-256 hashed keys           |
-| ✅ IP Whitelist     | Restrict by IP address        |
-| ✅ Domain Whitelist | Restrict by domain            |
-| ✅ Rate Limiting    | Per-key rate limits           |
-| ✅ Expiration       | Time-limited keys             |
-| ✅ Usage Tracking   | Track usage count & last used |
-
----
-
-### 6. Rate Limiting (`rate-limit/`)
-
-Redis-backed distributed rate limiting.
-
-```typescript
-// Global rate limit
-ThrottlerModule.forRoot({
-  throttlers: [{ limit: 100, ttl: 60000 }] // 100 req/min
-})
-
-// Route-specific limits
-@Throttle({ default: { limit: 5, ttl: 60000 } }) // 5 req/min
-@Post('login')
-login() {}
-```
-
----
-
-### 7. Brute Force Protection (`brute-force/`)
-
-Intelligent login attempt tracking.
-
-| Config           | Value      |
-| ---------------- | ---------- |
-| Max Attempts     | 5          |
-| Lockout Duration | 15 minutes |
-| Window           | 60 minutes |
-
----
-
-### 8. CSRF Protection (`csrf/`)
-
-Cross-Site Request Forgery protection.
-
-```typescript
-// Cookie: XSRF-TOKEN
-// Header: X-XSRF-TOKEN
-```
-
----
-
-### 9. Helmet Security (`helmet/`)
-
-HTTP security headers configuration.
-
-| Header                    | Value                           |
-| ------------------------- | ------------------------------- |
-| Content-Security-Policy   | Strict CSP                      |
-| X-Frame-Options           | DENY                            |
-| X-Content-Type-Options    | nosniff                         |
-| X-XSS-Protection          | 1; mode=block                   |
-| Strict-Transport-Security | max-age=31536000                |
-| Referrer-Policy           | strict-origin-when-cross-origin |
-
----
-
-### 10. Sanitization (`sanitization/`)
-
-XSS and NoSQL injection prevention.
-
-| Function               | Description                              |
-| ---------------------- | ---------------------------------------- |
-| `sanitizeHtml()`       | Strip all HTML tags                      |
-| `sanitizeRichText()`   | Allow safe tags (p, b, i, ul, ol, li, a) |
-| `sanitizeMongoQuery()` | Remove `$` operators                     |
-| `sanitizeObject()`     | Deep sanitize objects                    |
-| `escapeXss()`          | Escape XSS characters                    |
-
----
-
-### 11. Validation (`validation/`)
-
-Global validation with class-validator.
-
-- ✅ Whitelist mode - strip unknown properties
-- ✅ Transform types automatically
-- ✅ Custom error formatting
-- ✅ Show all validation errors
-
----
-
-### 12. Audit Log (`audit-log/`)
-
-Comprehensive activity logging.
-
-| Field       | Description                         |
-| ----------- | ----------------------------------- |
-| `action`    | create, update, delete, login, etc. |
-| `resource`  | user, course, payment, etc.         |
-| `userId`    | Who performed the action            |
-| `oldData`   | Previous state (for updates)        |
-| `newData`   | New state                           |
-| `ip`        | Client IP address                   |
-| `userAgent` | Browser/device info                 |
-| `duration`  | Response time in ms                 |
-| `success`   | Success/failure status              |
-
-**Decorator:**
-
-```typescript
-@AuditLog({ action: 'create', resource: 'course' })
-@Post()
-createCourse() {}
-```
-
----
-
-### 13. Webhook Security (`webhook-security/`)
-
-Secure webhook verification.
-
-| Provider | Algorithm   |
-| -------- | ----------- |
-| Stripe   | HMAC-SHA256 |
-| Paymob   | HMAC-SHA512 |
-| Generic  | HMAC-SHA256 |
-
----
-
-## ⚡ Performance Module
-
-Optimized for high-traffic, low-latency operations.
-
-### 1. Circuit Breaker (`circuit-breaker/`)
-
-Fault tolerance pattern for external services.
-
-```
-┌─────────────┐     failure      ┌─────────────┐
-│   CLOSED    │ ───────────────► │    OPEN     │
-│ (Normal)    │ (5 failures)     │ (Blocking)  │
-└──────┬──────┘                  └──────┬──────┘
-       │                                │
-       │ success                        │ timeout (30s)
-       │                                ▼
-       │                         ┌─────────────┐
-       └──────────────────────── │  HALF_OPEN  │
-                  (3 successes)  │  (Testing)  │
-                                 └─────────────┘
-```
-
-| Config            | Default    |
-| ----------------- | ---------- |
-| Failure Threshold | 5          |
-| Success Threshold | 3          |
-| Timeout           | 30 seconds |
-
----
-
-### 2. File Service (`file/`)
-
-Optimized file upload and processing.
-
-| File Type | Max Size | Processing                        |
-| --------- | -------- | --------------------------------- |
-| Images    | 5 MB     | Resize, compress, WebP conversion |
-| Videos    | 500 MB   | HLS streaming, 720p backup        |
-| Documents | 20 MB    | PDF/Office support                |
-
-**Features:**
-
-- ✅ Sharp image optimization
-- ✅ Automatic thumbnail generation (300x300)
-- ✅ HLS video streaming
-- ✅ Format validation
-- ✅ Cloudinary CDN integration
-
----
-
-### 3. Idempotency (`idempotency/`)
-
-Duplicate request prevention.
-
-```typescript
-@Idempotent()
-@Post('payment')
-processPayment() {}
-
-// Header: Idempotency-Key: <unique-key>
-```
-
-| Config  | Value                  |
-| ------- | ---------------------- |
-| TTL     | 24 hours               |
-| Storage | Redis                  |
-| Status  | processing → completed |
-
----
-
-### 4. Search Service (`search/`)
-
-Advanced MongoDB text search.
-
-| Feature          | Description                      |
-| ---------------- | -------------------------------- |
-| Full-text Search | Text indexes with Arabic support |
-| Regex Search     | Partial matching                 |
-| Range Filters    | Price, date ranges               |
-| Faceted Search   | Category, rating filters         |
-| Score Ranking    | Relevance-based sorting          |
-
----
-
-### 5. Real-time (`realtime/`)
-
-Socket.io WebSocket gateway.
-
-**Events:**
-
-| Event           | Description          |
-| --------------- | -------------------- |
-| `join-room`     | Join a specific room |
-| `leave-room`    | Leave a room         |
-| `send-message`  | Send message to room |
-| `typing`        | Typing indicator     |
-| `online-status` | User presence        |
-
-**Rooms:**
-
-- `user:${userId}` - Private user room
-- `role:${role}` - Role-based room
-- `course:${courseId}` - Course room
-- `lesson:${lessonId}` - Lesson room
-- `tenant:${tenantId}` - Tenant room
-
----
-
-### 6. Observability (`observability/`)
-
-Logging, metrics, and health checks.
-
-**Logger:**
-
-```typescript
-this.logger.info("User created", { userId, email });
-this.logger.error("Payment failed", { error, transactionId });
-```
-
-**Metrics:**
-
-| Type      | Example                  |
-| --------- | ------------------------ |
-| Counter   | http_requests_total      |
-| Gauge     | active_connections       |
-| Histogram | request_duration_seconds |
-
-**Health Endpoints:**
-
-```http
-GET /health       # Full health check
-GET /health/ready # Readiness probe
-GET /health/live  # Liveness probe
-GET /metrics      # Prometheus metrics
-```
-
----
-
-## 🗄️ MongoDB Module
-
-Enterprise MongoDB patterns and utilities.
-
-### 1. Data Access (`data-access/`)
-
-Generic repository pattern with query builder.
-
-**BaseRepository Methods:**
-
-```typescript
-// Create
-create(data)
-createMany(data[])
-
-// Read
-findById(id)
-findOne(filter)
-findAll(filter, options)
-findWithPagination(filter, options)
-
-// Update
-updateById(id, data)
-updateOne(filter, data)
-updateMany(filter, data)
-
-// Delete
-deleteById(id)
-deleteOne(filter)
-deleteMany(filter)
-
-// Aggregations
-count(filter)
-exists(filter)
-aggregate(pipeline)
-```
-
-**TransactionService:**
-
-```typescript
-// Sequential operations
-await transactionService.executeSequential([
-  () => userRepo.create(userData),
-  () => walletRepo.create(walletData),
-]);
-
-// Parallel operations
-await transactionService.executeParallel([
-  () => notificationService.send(),
-  () => emailService.send(),
-]);
-```
-
----
-
-### 2. Index Management (`indexes/`)
-
-Pre-configured indexes for optimal performance.
-
-| Collection    | Indexes                                           |
-| ------------- | ------------------------------------------------- |
-| users         | email (unique), role, text search                 |
-| courses       | slug (unique), category, price range, text search |
-| lessons       | course + order, section + order                   |
-| enrollments   | user + course (unique), expiry TTL                |
-| audit_logs    | createdAt (TTL: 365 days)                         |
-| notifications | createdAt (TTL: 90 days)                          |
-
----
-
-### 3. Multi-Tenancy (`multi-tenancy/`)
-
-Complete tenant isolation.
-
-**Tenant Resolution (Priority):**
-
-1. `X-Tenant-Id` header
-2. Subdomain (tenant.classybook.com)
-3. Query parameter (development only)
-4. JWT token claim
-
----
-
-### 4. Soft Delete (`soft-delete/`)
-
-Non-destructive deletion with restore.
-
-```typescript
-// Soft delete
-await softDeleteService.softDelete(model, id, userId);
-
-// Restore
-await softDeleteService.restore(model, id);
-
-// Query deleted only
-await softDeleteService.findDeleted(model);
-
-// Permanent cleanup (after 90 days)
-await softDeleteService.permanentlyDelete(model, 90);
-```
-
----
-
-## 📦 Common Module
-
-Shared utilities and services.
-
-### 1. Redis Cache (`cache/`)
-
-High-performance caching layer.
-
-```typescript
-// Simple operations
-await cache.set("key", value, ttl);
-await cache.get("key");
-await cache.delete("key");
-
-// Cache-aside pattern
-const data = await cache.getOrSet(
-  "key",
-  async () => {
-    return await expensiveOperation();
-  },
-  3600,
-);
-```
-
----
-
-### 2. Pagination (`pagination/`)
-
-Flexible pagination service.
-
-```typescript
-// Offset pagination
-const result = await paginationService.paginate(Model, {
-  page: 1,
-  limit: 20,
-  filter: { status: "active" },
-});
-
-// Cursor pagination
-const result = await paginationService.cursorPaginate(Model, {
-  cursor: "lastId",
-  limit: 20,
-});
-```
-
-**Response:**
-
-```json
-{
-  "data": [...],
-  "meta": {
-    "total": 100,
-    "page": 1,
-    "limit": 20,
-    "totalPages": 5,
-    "hasNext": true,
-    "hasPrev": false
-  }
-}
-```
-
----
-
-### 3. Queue (`queue/`)
-
-Background job processing with Bull.
-
-| Queue              | Purpose                        |
-| ------------------ | ------------------------------ |
-| `image-processing` | Image optimization, thumbnails |
-| `video-processing` | Video transcoding, HLS         |
-| `email`            | Email sending                  |
-| `notifications`    | Push notifications             |
-
-**Configuration:**
-
-- Retry: 3 attempts with exponential backoff
-- Auto cleanup on completion
-- Redis-backed persistence
-
----
-
-### 4. Response Optimizer (`response/`)
-
-Standardized API responses.
-
-```typescript
-// Success response
-{
-  "success": true,
-  "data": { ... },
-  "meta": { ... }
-}
-
-// Error response
-{
-  "success": false,
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Invalid input",
-    "details": [...]
-  }
-}
-```
-
-**Features:**
-
-- Remove sensitive fields (password, \_\_v)
-- Convert `_id` to `id`
-- Add performance headers (X-Response-Time, X-Request-Id)
-
----
-
-## ☁️ Cloudinary Module
-
-Cloud storage and CDN integration.
-
-| Feature         | Description                       |
-| --------------- | --------------------------------- |
-| Image Upload    | Auto quality, format optimization |
-| Video Upload    | HLS streaming profiles            |
-| Document Upload | PDF, Office files                 |
-| Transformations | Resize, crop, effects             |
-| CDN Delivery    | Global edge network               |
-
----
-
-## 🎨 Frontend Module
-
-Angular 21 with standalone components.
-
-### Core Services
-
-| Service              | Description                           |
-| -------------------- | ------------------------------------- |
-| `ApiClientService`   | HTTP client with retry, loading state |
-| `AuthService`        | JWT auth with signal-based state      |
-| `StateStoreService`  | Signal-based state management         |
-| `RealtimeService`    | Socket.io client                      |
-| `I18nService`        | i18n (Arabic/English) with RTL        |
-| `ThemeService`       | Dark/Light/System themes              |
-| `OfflineService`     | Offline support with IndexedDB        |
-| `PerformanceService` | Performance monitoring                |
-| `CachingService`     | Client-side caching                   |
-| `ToastService`       | Toast notifications                   |
-| `ModalService`       | Modal dialogs                         |
-
-### Guards
-
-| Guard             | Description                  |
-| ----------------- | ---------------------------- |
-| `authGuard`       | Protect authenticated routes |
-| `guestGuard`      | Protect public-only routes   |
-| `roleGuard`       | Role-based protection        |
-| `permissionGuard` | Permission-based protection  |
-
-### Directives
-
-| Directive         | Usage                               |
-| ----------------- | ----------------------------------- |
-| `*hasPermission`  | `*hasPermission="'courses:create'"` |
-| `*hasRole`        | `*hasRole="'admin'"`                |
-| `virtualScroll`   | Large list virtualization           |
-| `scrollAnimation` | Scroll-triggered animations         |
-
-### Pages
-
-#### Home Page (`pages/home-page/`)
-
-Landing page with dedicated services for optimal performance.
-
-| Service                    | Description                             |
-| -------------------------- | --------------------------------------- |
-| `HomePerformanceService`   | Lazy loading, metrics, deferred loading |
-| `HomeSkeletonService`      | Section-based skeleton loading          |
-| `HomeVirtualScrollService` | Infinite scroll, virtual lists          |
-| `HomeProgressBarService`   | Top loading bar                         |
-| `HomeSecurityService`      | XSS/Clickjacking protection             |
-
-#### Admin Pages (`pages/admin-pages/`)
-
-##### Admin Login (`admin-login/`)
-
-Modern, secure admin authentication page with split-screen design and full i18n support.
-
-| Feature                        | Description                           |
-| ------------------------------ | ------------------------------------- |
-| Split Layout                   | Left: Login form, Right: Info section |
-| Theme Toggle                   | Light/Dark mode switching             |
-| Language Toggle                | English/Arabic with RTL support       |
-| **Bilingual Error Messages**   | All errors in AR/EN based on language |
-| **Bilingual Validation**       | Form validation in AR/EN              |
-| **Toast Notifications**        | Success/Error toasts with animations  |
-| **Staggered Entry Animations** | FadeUp animations for each section    |
-| **Optimized Performance**      | Deferred CSS, preload, Lighthouse 90+ |
-| Brute Force Protection         | 5 attempts, 15 min lockout            |
-| Device Fingerprinting          | Track login devices                   |
-| DevTools Detection             | Alert when dev tools are open         |
-| Rate Limiting                  | 30 requests/minute                    |
-| Session Timeout                | 30 minutes auto-logout                |
-| XSS Protection                 | Input sanitization                    |
-| i18n Integration               | Uses I18nService for translations     |
-| Theme Integration              | Uses ThemeService for dark/light mode |
-
-##### Admin Services (`admin-services/`)
-
-| Service                   | Description                        |
-| ------------------------- | ---------------------------------- |
-| `AdminPerformanceService` | Performance optimization           |
-| `AdminSkeletonService`    | Skeleton for tables, charts, etc.  |
-| `AdminProgressBarService` | Admin operations progress          |
-| `AdminSecurityService`    | Enhanced security (stricter rules) |
-
----
-
-## 🛠️ Tech Stack
-
-| Category               | Technology            | Version   |
-| ---------------------- | --------------------- | --------- |
-| **Backend Framework**  | NestJS                | 11.0      |
-| **Frontend Framework** | Angular               | 21.0      |
-| **Language**           | TypeScript            | 5.7 / 5.9 |
-| **Database**           | MongoDB (Mongoose)    | 9.0       |
-| **Cache & Queue**      | Redis (ioredis)       | 7.0       |
-| **Real-time**          | Socket.io             | 4.0       |
-| **Authentication**     | Passport + JWT        | -         |
-| **File Storage**       | Cloudinary            | -         |
-| **Image Processing**   | Sharp                 | -         |
-| **Queue Processing**   | Bull                  | -         |
-| **API Documentation**  | Swagger               | -         |
-| **Validation**         | class-validator       | -         |
-| **Security**           | Helmet, sanitize-html | -         |
-
----
-
-## 🔧 Environment Variables
-
-Create `.env` file in `backend/`:
-
-```env
-# Application
-NODE_ENV=development
-PORT=3000
-API_PREFIX=api/v1
-
-# MongoDB
-MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/classybook
-
-# JWT
-JWT_SECRET=your-super-secret-jwt-key
-JWT_EXPIRES_IN=15m
-JWT_REFRESH_SECRET=your-refresh-secret-key
-JWT_REFRESH_EXPIRES_IN=7d
-
-# Redis
-REDIS_HOST=localhost
-REDIS_PORT=6379
-REDIS_PASSWORD=
-
-# Cloudinary
-CLOUDINARY_CLOUD_NAME=your-cloud-name
-CLOUDINARY_API_KEY=your-api-key
-CLOUDINARY_API_SECRET=your-api-secret
-
-# Rate Limiting
-THROTTLE_TTL=60000
-THROTTLE_LIMIT=100
-
-# CORS
-CORS_ORIGIN=http://localhost:4200
-
-# Stripe (Payments)
-STRIPE_SECRET_KEY=sk_test_xxx
-STRIPE_WEBHOOK_SECRET=whsec_xxx
-
-# Paymob (Payments)
-PAYMOB_API_KEY=xxx
-PAYMOB_WEBHOOK_SECRET=xxx
-```
-
----
-
-## 🚀 Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js 22+
-- npm 10+
-- MongoDB 7+
-- Redis 7+
+- Node.js 18.x or higher
+- MongoDB Atlas account (or local MongoDB)
+- npm or yarn
 
 ### Installation
 
 ```bash
-# Clone repository
-git clone https://github.com/yourusername/classy-book.git
+# Clone the repository
+git clone https://github.com/your-repo/classy-book.git
 cd classy-book
 
 # Install backend dependencies
@@ -1085,231 +121,245 @@ cd ../frontend
 npm install
 ```
 
+### Environment Setup
+
+Create `.env` file in the backend folder:
+
+```env
+# Database
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/classybook
+
+# JWT
+JWT_SECRET=your-super-secret-jwt-key-min-32-chars
+JWT_EXPIRES_IN=15m
+JWT_REFRESH_SECRET=your-refresh-token-secret
+JWT_REFRESH_EXPIRES_IN=7d
+
+# Server
+PORT=3000
+NODE_ENV=development
+
+# Admin (seeded on first run)
+ADMIN_EMAIL=admin@classybook.com
+ADMIN_PASSWORD=12345678
+```
+
 ### Running the Application
 
 ```bash
-# Terminal 1 - Backend
+# Start Backend (development)
 cd backend
 npm run start:dev
 
-# Terminal 2 - Frontend
+# Start Frontend (in another terminal)
 cd frontend
-npm start
+npm run start
 ```
 
-### Build for Production
+### Access the Application
 
-```bash
-# Backend
-cd backend
-npm run build
-npm run start:prod
+- **Frontend:** http://localhost:4200
+- **Backend API:** http://localhost:3000/api/v1
+- **Admin Login:** http://localhost:4200/admin/login
 
-# Frontend
-cd frontend
-npm run build
-```
+### Default Admin Credentials
 
----
+| Field    | Value                |
+| -------- | -------------------- |
+| Email    | admin@classybook.com |
+| Password | 12345678             |
 
-## 📝 API Reference
+## 📊 Admin Dashboard Features
+
+### Security Monitoring (Real-time)
+
+The monitoring dashboard provides real-time security insights:
+
+- ✅ **Login Attempts** - Track all login attempts with success/failure status
+- 🚫 **Blocked IPs** - View and manage blocked IP addresses
+- 📈 **Security Metrics** - Live statistics of security events
+- 🔄 **WebSocket Updates** - Instant updates without page refresh
+
+### Session Management
+
+- ⏱️ **15-minute Session Timer** - Visual countdown in navbar
+- 🔔 **Session Expiry Warning** - Alert before automatic logout
+- 🔐 **Secure Token Storage** - JWT stored securely
+
+## 🌐 API Endpoints
 
 ### Authentication
 
-| Method | Endpoint                | Description       |
-| ------ | ----------------------- | ----------------- |
-| POST   | `/api/v1/auth/register` | Register new user |
-| POST   | `/api/v1/auth/login`    | Login user        |
-| POST   | `/api/v1/auth/refresh`  | Refresh token     |
-| POST   | `/api/v1/auth/logout`   | Logout            |
-| GET    | `/api/v1/auth/me`       | Get current user  |
+| Method | Endpoint                   | Description          |
+| ------ | -------------------------- | -------------------- |
+| POST   | `/api/v1/auth/admin/login` | Admin login          |
+| POST   | `/api/v1/auth/login`       | User login           |
+| POST   | `/api/v1/auth/register`    | User registration    |
+| POST   | `/api/v1/auth/refresh`     | Refresh access token |
+| POST   | `/api/v1/auth/logout`      | Logout               |
 
-### Users
+### Monitoring (Admin Only)
 
-| Method | Endpoint            | Description |
-| ------ | ------------------- | ----------- |
-| GET    | `/api/v1/users`     | List users  |
-| GET    | `/api/v1/users/:id` | Get user    |
-| POST   | `/api/v1/users`     | Create user |
-| PATCH  | `/api/v1/users/:id` | Update user |
-| DELETE | `/api/v1/users/:id` | Delete user |
+| Method | Endpoint                              | Description               |
+| ------ | ------------------------------------- | ------------------------- |
+| GET    | `/api/v1/monitoring/security-metrics` | Get security statistics   |
+| GET    | `/api/v1/monitoring/login-attempts`   | Get recent login attempts |
+| GET    | `/api/v1/monitoring/blocked-ips`      | Get blocked IP list       |
+| POST   | `/api/v1/monitoring/unblock-ip`       | Unblock an IP address     |
 
-### Health
+## 🔌 WebSocket Events
 
-| Method | Endpoint        | Description        |
-| ------ | --------------- | ------------------ |
-| GET    | `/health`       | Health check       |
-| GET    | `/health/ready` | Readiness probe    |
-| GET    | `/health/live`  | Liveness probe     |
-| GET    | `/metrics`      | Prometheus metrics |
-
----
-
-## 📊 Database Schema
-
-### Users Collection
+### Monitoring Namespace (`/realtime`)
 
 ```typescript
-{
-  _id: ObjectId,
-  email: string,           // unique, indexed
-  password: string,        // bcrypt hashed
-  name: string,
-  phone?: string,
-  avatar?: string,
-  role: 'student' | 'teacher' | 'admin' | 'super_admin',
-  permissions: string[],
-  isEmailVerified: boolean,
-  isActive: boolean,
-  isLocked: boolean,
-  lockUntil?: Date,
-  failedLoginAttempts: number,
-  lastLogin?: Date,
-  passwordChangedAt?: Date,
-  isDeleted: boolean,
-  deletedAt?: Date,
-  deletedBy?: ObjectId,
-  createdAt: Date,
-  updatedAt: Date
-}
+// Join monitoring room (admin only)
+socket.emit("join:monitoring");
+
+// Listen for login attempts
+socket.on("monitoring:login-attempt", (data) => {
+  console.log("New login attempt:", data);
+});
+
+// Listen for IP blocked
+socket.on("monitoring:ip-blocked", (data) => {
+  console.log("IP blocked:", data);
+});
+
+// Listen for metrics updates
+socket.on("monitoring:security-metrics", (data) => {
+  console.log("Metrics updated:", data);
+});
 ```
 
-### Sessions Collection
+## 🌍 Internationalization (i18n)
 
-```typescript
-{
-  _id: ObjectId,
-  userId: ObjectId,        // indexed
-  refreshToken: string,    // hashed
-  deviceInfo: {
-    userAgent: string,
-    ip: string,
-    fingerprint?: string
-  },
-  isRevoked: boolean,
-  lastActivity: Date,
-  expiresAt: Date,         // TTL index
-  createdAt: Date
-}
-```
+The application supports:
 
-### Audit Logs Collection
+- 🇸🇦 **Arabic (ar)** - RTL support
+- 🇺🇸 **English (en)** - LTR default
 
-```typescript
-{
-  _id: ObjectId,
-  action: string,          // indexed
-  resource: string,        // indexed
-  resourceId?: ObjectId,
-  userId?: ObjectId,       // indexed
-  oldData?: object,
-  newData?: object,
-  ip?: string,
-  userAgent?: string,
-  duration?: number,
-  success: boolean,
-  errorMessage?: string,
-  metadata?: object,
-  tenantId?: ObjectId,
-  createdAt: Date          // TTL: 365 days
-}
-```
+Language can be switched from the navbar.
 
----
+## 🎨 Theming
+
+Three theme options available:
+
+- ☀️ **Light Mode**
+- 🌙 **Dark Mode**
+- 💻 **System Default**
 
 ## 🧪 Testing
 
 ```bash
-# Unit tests
+# Backend unit tests
+cd backend
 npm run test
 
-# E2E tests
+# Backend e2e tests
 npm run test:e2e
 
-# Test coverage
-npm run test:cov
+# Frontend tests
+cd frontend
+npm run test
 ```
+
+## 📦 Building for Production
+
+```bash
+# Build Backend
+cd backend
+npm run build
+
+# Build Frontend
+cd frontend
+npm run build
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ---
 
-## 📈 Changelog
+<a name="arabic"></a>
 
-### v0.1.0 (January 2026)
+## 🌟 نظرة عامة
 
-#### ✅ Completed
+كلاسي بوك هو نظام إدارة تعلم شامل مبني بتقنيات حديثة وميزات أمان على مستوى المؤسسات.
 
-**Backend - Security Module**
+## 🚀 البدء السريع
 
-- [x] JWT Authentication with refresh tokens
-- [x] User management with soft delete
-- [x] Session management (multi-device)
-- [x] Role-based access control (RBAC)
-- [x] API key management
-- [x] Rate limiting (Redis-backed)
-- [x] Brute force protection
-- [x] CSRF protection
-- [x] Helmet security headers
-- [x] Input sanitization (XSS/NoSQL)
-- [x] Validation module
-- [x] Audit logging
-- [x] Webhook security
+### المتطلبات
 
-**Backend - Performance Module**
+- Node.js 18.x أو أعلى
+- حساب MongoDB Atlas
+- npm أو yarn
 
-- [x] Circuit breaker pattern
-- [x] File upload & optimization
-- [x] Idempotency handling
-- [x] Observability (logs, metrics, health)
-- [x] Real-time (Socket.io)
-- [x] Full-text search
+### التثبيت
 
-**Backend - MongoDB Module**
+```bash
+# تثبيت الـ Backend
+cd backend
+npm install
 
-- [x] Repository pattern
-- [x] Query builder
-- [x] Transaction service
-- [x] Index management
-- [x] Multi-tenancy
-- [x] Soft delete plugin
+# تثبيت الـ Frontend
+cd frontend
+npm install
+```
 
-**Backend - Common Module**
+### التشغيل
 
-- [x] Redis cache
-- [x] Pagination service
-- [x] Queue processing (Bull)
-- [x] Response optimizer
+```bash
+# تشغيل الـ Backend
+cd backend
+npm run start:dev
 
-**Frontend - Core Module**
+# تشغيل الـ Frontend (في terminal آخر)
+cd frontend
+npm run start
+```
 
-- [x] API client service
-- [x] Auth service (signals)
-- [x] State management
-- [x] Route guards
-- [x] HTTP interceptors
-- [x] Custom directives
-- [x] Theme service
-- [x] i18n service
+### الوصول
+
+- **الواجهة:** http://localhost:4200
+- **تسجيل دخول الأدمن:** http://localhost:4200/admin/login
+
+### بيانات الأدمن الافتراضية
+
+| الحقل             | القيمة               |
+| ----------------- | -------------------- |
+| البريد الإلكتروني | admin@classybook.com |
+| كلمة المرور       | 12345678             |
+
+## 📊 لوحة تحكم الأدمن
+
+### مراقبة الأمان (في الوقت الفعلي)
+
+- ✅ **محاولات تسجيل الدخول** - تتبع جميع المحاولات
+- 🚫 **عناوين IP المحظورة** - عرض وإدارة العناوين المحظورة
+- 📈 **إحصائيات الأمان** - بيانات حية
+- 🔄 **تحديثات WebSocket** - تحديثات فورية بدون تحديث الصفحة
+
+### إدارة الجلسات
+
+- ⏱️ **مؤقت الجلسة 15 دقيقة** - عداد تنازلي مرئي
+- 🔔 **تنبيه انتهاء الجلسة** - تنبيه قبل تسجيل الخروج التلقائي
+- 🔐 **تخزين آمن للرموز** - JWT مخزن بشكل آمن
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
 
 ---
 
 <div align="center">
 
-## 🤝 Contributing
-
-Contributions are welcome! Please read our contributing guidelines.
-
-## 📄 License
-
-This project is private and proprietary.
-
----
-
-**Built with by the Classy Book Team**
-
-<p>
-  <img src="https://img.shields.io/badge/Made_with-NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" alt="NestJS">
-  <img src="https://img.shields.io/badge/Made_with-Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" alt="Angular">
-  <img src="https://img.shields.io/badge/Made_with-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
-</p>
+**Made with ❤️ by the Classy Book Team**
 
 </div>
