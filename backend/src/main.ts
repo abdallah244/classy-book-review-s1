@@ -55,9 +55,9 @@ async function bootstrap() {
   app.setGlobalPrefix(process.env.API_PREFIX || 'api/v1');
 
   const port = process.env.PORT ?? 3000;
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
 
-  logger.log(`🚀 Application is running on: http://localhost:${port}`);
+  logger.log(`🚀 Application is running on port: ${port}`);
   logger.log(`📚 API Prefix: ${process.env.API_PREFIX || 'api/v1'}`);
   logger.log(
     `🌐 CORS Origin: ${process.env.CORS_ORIGIN || 'http://localhost:4200'}`,
