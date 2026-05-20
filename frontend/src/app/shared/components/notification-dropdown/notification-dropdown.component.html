@@ -1,0 +1,53 @@
+<div class="notif-wrapper" [dir]="isAr() ? 'rtl' : 'ltr'">
+  
+  <!-- Bell Icon -->
+  <button class="bell-btn" (click)="toggleDropdown()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    @if (notificationsService.unreadCount() > 0) {
+      <span class="unread-badge">{{ notificationsService.unreadCount() }}</span>
+    }
+  </button>
+
+  <!-- Dropdown Menu -->
+  @if (isOpen()) {
+    <div class="dropdown-menu">
+      <div class="dropdown-header">
+        <h3>{{ isAr() ? 'الإشعارات' : 'Notifications' }}</h3>
+        <button (click)="markAllRead()">{{ isAr() ? 'تحديد الكل كمقروء' : 'Mark all read' }}</button>
+      </div>
+
+      <div class="notif-list">
+        @for (notif of notificationsService.notifications(); track notif._id) {
+          <div class="notif-item" [class.unread]="!notif.isRead" (click)="handleNotificationClick(notif)">
+            <div class="notif-avatar">
+              @if (notif.senderId?.avatar) {
+                <img [src]="notif.senderId.avatar" />
+              } @else {
+                <div class="avatar-placeholder">{{ notif.senderId?.name?.charAt(0) }}</div>
+              }
+            </div>
+            <div class="notif-content">
+              <p class="notif-text">{{ getNotificationText(notif) }}</p>
+              <span class="notif-time">{{ formatDate(notif.createdAt) }}</span>
+            </div>
+            @if (!notif.isRead) { <span class="blue-dot"></span> }
+          </div>
+        } @empty {
+          <div class="empty-state">
+            <p>{{ isAr() ? 'لا توجد إشعارات حالياً' : 'No notifications yet' }}</p>
+          </div>
+        }
+      </div>
+
+      <div class="dropdown-footer">
+        <a routerLink="/social/notifications" (click)="isOpen.set(false)">
+          {{ isAr() ? 'عرض كل الإشعارات' : 'View all notifications' }}
+        </a>
+      </div>
+    </div>
+
+    <!-- Backdrop to close -->
+    <div class="dropdown-backdrop" (click)="isOpen.set(false)"></div>
+  }
+
+</div>

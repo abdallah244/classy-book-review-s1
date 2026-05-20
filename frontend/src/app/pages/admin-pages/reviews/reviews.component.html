@@ -1,0 +1,62 @@
+<app-admin-layout>
+  <div class="reviews-page">
+    <div class="stats-row">
+      @for (stat of stats; track stat.label) {
+        <div class="stat-card">
+          <div class="stat-icon" [style.background]="stat.color + '15'" [style.color]="stat.color">
+            <i [class]="stat.icon"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">{{ stat.value }}</span
+            ><span class="stat-label">{{ stat.label }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="reviews-list">
+      @for (review of reviews(); track review.id) {
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-user">
+              <div class="review-avatar">{{ review.avatar }}</div>
+              <div class="review-user-info">
+                <span class="review-user-name">{{ review.user }}</span>
+                <span class="review-course"
+                  ><i class="fa-solid fa-graduation-cap"></i> {{ review.course }}</span
+                >
+              </div>
+            </div>
+            <div class="review-right">
+              <span class="status-badge" [class]="getStatusClass(review.status)">{{
+                review.status
+              }}</span>
+              <span class="review-date">{{ review.date }}</span>
+            </div>
+          </div>
+          <div class="review-stars">
+            @for (s of getStars(review.rating); track $index) {
+              <i class="fa-solid fa-star filled"></i>
+            }
+            @for (s of getEmptyStars(review.rating); track $index) {
+              <i class="fa-solid fa-star empty"></i>
+            }
+            <span class="rating-num">{{ review.rating }}.0</span>
+          </div>
+          <p class="review-comment">{{ review.comment }}</p>
+          <div class="review-actions">
+            <button class="action-btn approve" (click)="approveReview(review)">
+              <i class="fa-solid fa-check"></i> Approve
+            </button>
+            <button class="action-btn reject" (click)="rejectReview(review)">
+              <i class="fa-solid fa-xmark"></i> Reject
+            </button>
+            <button class="action-btn delete" (click)="deleteReview(review)">
+              <i class="fa-solid fa-trash"></i> Delete
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</app-admin-layout>

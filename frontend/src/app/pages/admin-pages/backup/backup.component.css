@@ -1,0 +1,235 @@
+:host {
+  display: block;
+}
+.backup-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+}
+.stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+}
+.stat-label {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-title i {
+  color: #3b82f6;
+  font-size: 0.85rem;
+}
+
+.backup-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.backup-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: all 0.3s;
+  background: rgba(255, 255, 255, 0.03);
+}
+.backup-btn:hover {
+  transform: translateY(-2px);
+}
+.backup-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.backup-btn i {
+  font-size: 1.5rem;
+}
+.backup-btn.full {
+  color: #3b82f6;
+}
+.backup-btn.full:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  background: rgba(59, 130, 246, 0.05);
+}
+.backup-btn.db {
+  color: #10b981;
+}
+.backup-btn.db:hover {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.05);
+}
+.backup-btn.inc {
+  color: #8b5cf6;
+}
+.backup-btn.inc:hover {
+  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(139, 92, 246, 0.05);
+}
+.backup-btn-label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+.backup-btn-desc {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.table-container {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th {
+  text-align: left;
+  padding: 0.85rem 1.2rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 0.85rem 1.2rem;
+  font-size: 0.88rem;
+  color: #cbd5e1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+.data-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+.backup-id {
+  font-weight: 700;
+  color: #3b82f6;
+  font-size: 0.82rem;
+}
+.date-cell {
+  font-size: 0.8rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+.type-badge {
+  padding: 0.15rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.type-full {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+.type-incremental {
+  background: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
+}
+.type-database {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+.status-badge {
+  padding: 0.2rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.status-completed {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+.status-in-progress {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+.status-failed {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+.action-btns {
+  display: flex;
+  gap: 0.4rem;
+}
+.action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  transition: all 0.2s;
+}
+.action-btn:hover {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+.action-btn.restore:hover {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+.action-btn.danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+@media (max-width: 768px) {
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .backup-actions {
+    grid-template-columns: 1fr;
+  }
+}

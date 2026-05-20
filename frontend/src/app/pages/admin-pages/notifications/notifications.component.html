@@ -1,0 +1,100 @@
+<app-admin-layout>
+  <div class="notifications-page">
+    <div class="stats-row">
+      @for (stat of stats; track stat.label) {
+        <div class="stat-card">
+          <div class="stat-icon" [style.background]="stat.color + '15'" [style.color]="stat.color">
+            <i [class]="stat.icon"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">{{ stat.value }}</span
+            ><span class="stat-label">{{ stat.label }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="toolbar">
+      <h3 class="toolbar-title">Notification History</h3>
+      <button class="btn-primary" (click)="toggleCompose()">
+        <i class="fa-solid fa-plus"></i> Compose
+      </button>
+    </div>
+
+    <!-- Compose Modal -->
+    @if (showCompose()) {
+      <div class="compose-card">
+        <h3><i class="fa-solid fa-paper-plane"></i> New Notification</h3>
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" placeholder="Notification title..." class="form-input" />
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Write your message..." class="form-textarea" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Target Audience</label>
+            <select class="form-select">
+              <option>All Users</option>
+              <option>Students</option>
+              <option>Instructors</option>
+              <option>Admins</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Type</label>
+            <select class="form-select">
+              <option>Info</option>
+              <option>Success</option>
+              <option>Warning</option>
+              <option>Error</option>
+            </select>
+          </div>
+        </div>
+        <div class="compose-actions">
+          <button class="btn-secondary" (click)="toggleCompose()">Cancel</button>
+          <button class="btn-primary" (click)="sendNotification()">
+            <i class="fa-solid fa-paper-plane"></i> Send
+          </button>
+        </div>
+      </div>
+    }
+
+    <div class="notifications-list">
+      @for (n of notifications(); track n.id) {
+        <div class="notif-card">
+          <div class="notif-icon" [class]="getTypeClass(n.type)"><i [class]="n.icon"></i></div>
+          <div class="notif-content">
+            <div class="notif-header">
+              <span class="notif-title">{{ n.title }}</span>
+              <span class="type-badge" [class]="getTypeClass(n.type)">{{ n.type }}</span>
+            </div>
+            <p class="notif-message">{{ n.message }}</p>
+            <div class="notif-meta">
+              <span
+                ><i class="fa-solid fa-users"></i> {{ n.target }} · Sent:
+                {{ n.sent | number }}</span
+              >
+              <span
+                ><i class="fa-solid fa-eye"></i> Read: {{ n.read | number }} ({{
+                  getReadRate(n)
+                }}%)</span
+              >
+              <span><i class="fa-solid fa-clock"></i> {{ n.date }}</span>
+            </div>
+          </div>
+          <div class="notif-actions">
+            <button class="action-btn" (click)="resendNotification(n)" title="Resend">
+              <i class="fa-solid fa-redo"></i>
+            </button>
+            <button class="action-btn danger" (click)="deleteNotification(n)" title="Delete">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</app-admin-layout>

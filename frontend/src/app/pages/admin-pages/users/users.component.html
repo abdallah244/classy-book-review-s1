@@ -1,0 +1,109 @@
+<app-admin-layout>
+  <div class="users-page">
+    <!-- Stats Row -->
+    <div class="stats-row">
+      @for (stat of stats; track stat.label) {
+        <div class="stat-card">
+          <div class="stat-icon" [style.background]="stat.color + '15'" [style.color]="stat.color">
+            <i [class]="stat.icon"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">{{ stat.value }}</span>
+            <span class="stat-label">{{ stat.label }}</span>
+          </div>
+          <span class="stat-trend" [class.up]="stat.up" [class.down]="!stat.up">
+            <i [class]="stat.up ? 'fa-solid fa-arrow-up' : 'fa-solid fa-arrow-down'"></i>
+            {{ stat.trend }}
+          </span>
+        </div>
+      }
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search users..." (input)="onSearch($event)" />
+        </div>
+        <select class="filter-select" (change)="onRoleFilter($event)">
+          @for (r of roles; track r) {
+            <option [value]="r">{{ r === 'all' ? 'All Roles' : r }}</option>
+          }
+        </select>
+        <select class="filter-select" (change)="onStatusFilter($event)">
+          @for (s of statuses; track s) {
+            <option [value]="s">{{ s === 'all' ? 'All Status' : s }}</option>
+          }
+        </select>
+      </div>
+      <div class="toolbar-right">
+        <button class="btn-secondary" (click)="exportUsers()">
+          <i class="fa-solid fa-file-export"></i> Export
+        </button>
+        <button class="btn-primary"><i class="fa-solid fa-user-plus"></i> Add User</button>
+      </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Courses</th>
+            <th>Joined</th>
+            <th>Last Login</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of filteredUsers(); track user.id) {
+            <tr>
+              <td>
+                <div class="user-cell">
+                  <div class="user-avatar">{{ user.avatar }}</div>
+                  <div class="user-info">
+                    <span class="user-name">{{ user.name }}</span>
+                    <span class="user-email">{{ user.email }}</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="role-badge" [class]="getRoleClass(user.role)">{{ user.role }}</span>
+              </td>
+              <td>
+                <span class="status-badge" [class]="getStatusClass(user.status)">{{
+                  user.status
+                }}</span>
+              </td>
+              <td>{{ user.courses }}</td>
+              <td>{{ user.joinDate }}</td>
+              <td>{{ user.lastLogin }}</td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                  <button class="action-btn" title="Toggle Status" (click)="toggleUserStatus(user)">
+                    <i class="fa-solid fa-toggle-on"></i>
+                  </button>
+                  <button class="action-btn warn" title="Ban" (click)="banUser(user)">
+                    <i class="fa-solid fa-ban"></i>
+                  </button>
+                  <button class="action-btn danger" title="Delete" (click)="deleteUser(user)">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" class="empty-state">No users found</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-admin-layout>

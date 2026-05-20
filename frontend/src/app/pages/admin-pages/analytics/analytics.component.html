@@ -1,0 +1,132 @@
+<app-admin-layout>
+  <div class="analytics-page">
+    <!-- KPIs -->
+    <div class="kpi-row">
+      @for (kpi of kpis; track kpi.label) {
+        <div class="kpi-card">
+          <div class="kpi-icon" [style.background]="kpi.color + '15'" [style.color]="kpi.color">
+            <i [class]="kpi.icon"></i>
+          </div>
+          <div class="kpi-info">
+            <span class="kpi-value">{{ kpi.value }}</span
+            ><span class="kpi-label">{{ kpi.label }}</span>
+          </div>
+          <span class="kpi-trend" [class.up]="kpi.up" [class.down]="!kpi.up">
+            <i [class]="kpi.up ? 'fa-solid fa-arrow-up' : 'fa-solid fa-arrow-down'"></i>
+            {{ kpi.trend }}
+          </span>
+        </div>
+      }
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-row">
+      <!-- Revenue Chart -->
+      <div class="chart-card wide">
+        <h3 class="chart-title"><i class="fa-solid fa-chart-line"></i> Revenue Overview</h3>
+        <div class="bar-chart">
+          @for (bar of revenueChart; track bar.month) {
+            <div class="bar-col">
+              <div
+                class="bar"
+                [style.height.%]="bar.height"
+                style="background: linear-gradient(to top, #3b82f6, #6366f1)"
+              >
+                <span class="bar-tooltip">${{ bar.value | number }}</span>
+              </div>
+              <span class="bar-label">{{ bar.month }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Enrollments Chart -->
+      <div class="chart-card">
+        <h3 class="chart-title"><i class="fa-solid fa-user-plus"></i> Weekly Enrollments</h3>
+        <div class="bar-chart">
+          @for (bar of enrollmentChart; track bar.day) {
+            <div class="bar-col">
+              <div
+                class="bar"
+                [style.height.%]="bar.height"
+                style="background: linear-gradient(to top, #10b981, #06b6d4)"
+              >
+                <span class="bar-tooltip">{{ bar.value }}</span>
+              </div>
+              <span class="bar-label">{{ bar.day }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="bottom-row">
+      <!-- Top Pages -->
+      <div class="chart-card">
+        <h3 class="chart-title"><i class="fa-solid fa-fire"></i> Top Pages</h3>
+        <div class="top-pages">
+          @for (page of topPages; track page.page) {
+            <div class="page-item">
+              <div class="page-info">
+                <span class="page-url">{{ page.page }}</span
+                ><span class="page-views">{{ page.views | number }} views</span>
+              </div>
+              <div class="page-bar-track">
+                <div class="page-bar-fill" [style.width.%]="page.percentage"></div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Traffic Sources -->
+      <div class="chart-card">
+        <h3 class="chart-title"><i class="fa-solid fa-globe"></i> Traffic Sources</h3>
+        <div class="source-list">
+          @for (src of trafficSources; track src.source) {
+            <div class="source-item">
+              <div class="source-icon" [style.color]="src.color"><i [class]="src.icon"></i></div>
+              <div class="source-info">
+                <span class="source-name">{{ src.source }}</span>
+                <div class="source-bar-track">
+                  <div
+                    class="source-bar-fill"
+                    [style.width.%]="src.percentage"
+                    [style.background]="src.color"
+                  ></div>
+                </div>
+              </div>
+              <span class="source-pct">{{ src.percentage }}%</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Device Breakdown -->
+      <div class="chart-card">
+        <h3 class="chart-title"><i class="fa-solid fa-laptop"></i> Devices</h3>
+        <div class="device-list">
+          @for (dev of deviceBreakdown; track dev.device) {
+            <div class="device-item">
+              <div class="device-icon" [style.color]="dev.color"><i [class]="dev.icon"></i></div>
+              <div class="device-info">
+                <div class="device-header">
+                  <span class="device-name">{{ dev.device }}</span
+                  ><span class="device-pct">{{ dev.percentage }}%</span>
+                </div>
+                <div class="device-bar-track">
+                  <div
+                    class="device-bar-fill"
+                    [style.width.%]="dev.percentage"
+                    [style.background]="dev.color"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</app-admin-layout>

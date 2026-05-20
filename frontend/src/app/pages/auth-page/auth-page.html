@@ -1,0 +1,399 @@
+<div class="auth-page" [dir]="isAr() ? 'rtl' : 'ltr'">
+
+  <!-- ═══ LEFT: 3D Branding Panel ═══ -->
+  <aside class="brand-panel">
+    <!-- Ambient floating shapes -->
+    <div class="ambient-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+      <div class="shape shape-5"></div>
+    </div>
+
+    <!-- Grid overlay -->
+    <div class="grid-overlay"></div>
+
+    <div class="brand-inner">
+      <!-- Top: logo -->
+      <a class="brand-logo" routerLink="/">
+        <div class="logo-icon-wrap">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <span>Classy Book</span>
+      </a>
+
+      <!-- Center: 3D floating dashboard mockup -->
+      <div class="brand-3d-scene">
+        <div class="mockup-container">
+          <!-- Main floating card -->
+          <div class="float-card main-card">
+            <div class="card-header-bar">
+              <div class="dot red"></div>
+              <div class="dot yellow"></div>
+              <div class="dot green"></div>
+              <span class="card-title">{{ isAr() ? 'لوحة التحكم' : 'Dashboard' }}</span>
+            </div>
+            <div class="card-body-mock">
+              <div class="chart-bars">
+                <div class="bar" style="--h: 45%"></div>
+                <div class="bar" style="--h: 72%"></div>
+                <div class="bar" style="--h: 58%"></div>
+                <div class="bar" style="--h: 90%"></div>
+                <div class="bar" style="--h: 65%"></div>
+                <div class="bar" style="--h: 80%"></div>
+                <div class="bar" style="--h: 50%"></div>
+              </div>
+              <div class="progress-row">
+                <div class="progress-label">{{ isAr() ? 'التقدم' : 'Progress' }}</div>
+                <div class="progress-track"><div class="progress-fill"></div></div>
+                <span class="progress-pct">78%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating badge: courses -->
+          <div class="float-badge badge-courses">
+            <div class="badge-icon"><i class="fa-solid fa-play-circle"></i></div>
+            <div class="badge-info">
+              <span class="badge-num">2,400+</span>
+              <span class="badge-label">{{ isAr() ? 'دورة' : 'Courses' }}</span>
+            </div>
+          </div>
+
+          <!-- Floating badge: students -->
+          <div class="float-badge badge-students">
+            <div class="badge-icon"><i class="fa-solid fa-users"></i></div>
+            <div class="badge-info">
+              <span class="badge-num">50K+</span>
+              <span class="badge-label">{{ isAr() ? 'طالب' : 'Students' }}</span>
+            </div>
+          </div>
+
+          <!-- Floating badge: rating -->
+          <div class="float-badge badge-rating">
+            <div class="badge-icon"><i class="fa-solid fa-star"></i></div>
+            <div class="badge-info">
+              <span class="badge-num">4.9</span>
+              <span class="badge-label">{{ isAr() ? 'تقييم' : 'Rating' }}</span>
+            </div>
+          </div>
+
+          <!-- Floating notification -->
+          <div class="float-notification">
+            <div class="notif-avatar">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="notif-text">
+              <strong>{{ isAr() ? 'تهانينا!' : 'Congrats!' }}</strong>
+              <span>{{ isAr() ? 'أكملت 5 دورات' : '5 courses completed' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Headline -->
+        <div class="brand-headline">
+          <h1>{{ isAr() ? 'ابدأ رحلتك التعليمية' : 'Start Your Learning Journey' }}</h1>
+          <p>{{ isAr()
+            ? 'انضم لأكثر من 50,000 متعلم يطورون مهاراتهم مع دورات تفاعلية.'
+            : 'Join 50,000+ learners building skills with interactive courses.' }}</p>
+        </div>
+      </div>
+
+      <!-- Bottom: trust row -->
+      <div class="brand-trust">
+        <div class="trust-row">
+          <div class="trust-item">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>{{ isAr() ? 'آمن 100%' : '100% Secure' }}</span>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-item">
+            <i class="fa-solid fa-bolt"></i>
+            <span>{{ isAr() ? 'مجاني للأبد' : 'Free Forever' }}</span>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-item">
+            <i class="fa-solid fa-certificate"></i>
+            <span>{{ isAr() ? 'شهادات معتمدة' : 'Certified' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══ RIGHT: Form Panel ═══ -->
+  <main class="form-panel">
+    <!-- Top actions -->
+    <div class="form-topbar">
+      <a routerLink="/" class="back-link">
+        <i [class]="isAr() ? 'fa-solid fa-arrow-right' : 'fa-solid fa-arrow-left'"></i>
+        {{ isAr() ? 'الرئيسية' : 'Home' }}
+      </a>
+      <div class="topbar-actions">
+        <button class="icon-btn" (click)="toggleTheme()" aria-label="Toggle theme">
+          <i [class]="themeService.effectiveTheme() === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
+        </button>
+        <button class="icon-btn" (click)="toggleLanguage()" aria-label="Toggle language">
+          <span class="lang-label">{{ isAr() ? 'EN' : 'ع' }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Form Content -->
+    <div class="form-content">
+      <div class="form-card-3d-wrapper">
+        <div class="form-card" #formCard>
+          <!-- Header -->
+          <div class="form-header">
+            <div class="header-icon">
+              @if (mode() === 'login') {
+                <i class="fa-solid fa-right-to-bracket"></i>
+              } @else {
+                <i class="fa-solid fa-user-plus"></i>
+              }
+            </div>
+            <h2>
+              @if (mode() === 'login') {
+                {{ isAr() ? 'مرحباً بعودتك' : 'Welcome back' }}
+              } @else {
+                {{ isAr() ? 'أنشئ حسابك' : 'Create your account' }}
+              }
+            </h2>
+            <p>
+              @if (mode() === 'login') {
+                {{ isAr() ? 'سجّل دخولك للمتابعة' : 'Sign in to continue learning' }}
+              } @else {
+                {{ isAr() ? 'ابدأ رحلتك التعليمية اليوم' : 'Start your learning journey today' }}
+              }
+            </p>
+          </div>
+
+          <!-- Tabs -->
+          <div class="auth-tabs">
+            <button [class.active]="mode() === 'login'" (click)="switchMode('login')">
+              <i class="fa-solid fa-right-to-bracket"></i>
+              {{ isAr() ? 'تسجيل الدخول' : 'Sign In' }}
+            </button>
+            <button [class.active]="mode() === 'register'" (click)="switchMode('register')">
+              <i class="fa-solid fa-user-plus"></i>
+              {{ isAr() ? 'حساب جديد' : 'Sign Up' }}
+            </button>
+            <div class="tab-indicator" [class.register]="mode() === 'register'"></div>
+          </div>
+
+          <!-- Error -->
+          @if (errorMessage()) {
+            <div class="auth-error">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span>{{ errorMessage() }}</span>
+            </div>
+          }
+
+          <!-- Login Form -->
+          @if (mode() === 'login') {
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form">
+              <div class="form-field" [class.invalid]="isInvalid('login', 'email')" [class.focused]="focusedField() === 'login-email'">
+                <label>{{ isAr() ? 'البريد الإلكتروني' : 'Email address' }}</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-envelope"></i>
+                  <input
+                    type="email"
+                    formControlName="email"
+                    [placeholder]="isAr() ? 'name@example.com' : 'name@example.com'"
+                    autocomplete="email"
+                    (focus)="setFocus('login-email')"
+                    (blur)="setFocus(null)"
+                  />
+                  <div class="input-glow"></div>
+                </div>
+              </div>
+
+              <div class="form-field" [class.invalid]="isInvalid('login', 'password')" [class.focused]="focusedField() === 'login-pass'">
+                <div class="label-row">
+                  <label>{{ isAr() ? 'كلمة المرور' : 'Password' }}</label>
+                  <a class="forgot-link">{{ isAr() ? 'نسيت كلمة المرور؟' : 'Forgot password?' }}</a>
+                </div>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-lock"></i>
+                  <input
+                    [type]="showPassword() ? 'text' : 'password'"
+                    formControlName="password"
+                    [placeholder]="isAr() ? '••••••••' : '••••••••'"
+                    autocomplete="current-password"
+                    (focus)="setFocus('login-pass')"
+                    (blur)="setFocus(null)"
+                  />
+                  <button type="button" class="toggle-pass" (click)="togglePassword()">
+                    <i [class]="showPassword() ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+                  </button>
+                  <div class="input-glow"></div>
+                </div>
+              </div>
+
+              <button type="submit" class="auth-submit" [disabled]="isLoading()">
+                <div class="btn-bg"></div>
+                @if (isLoading()) {
+                  <span class="spinner"></span>
+                }
+                <span class="btn-text">{{ isAr() ? 'تسجيل الدخول' : 'Sign In' }}</span>
+                <i class="fa-solid fa-arrow-right btn-arrow"></i>
+              </button>
+            </form>
+          }
+
+          <!-- Register Form -->
+          @if (mode() === 'register') {
+            <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="auth-form">
+              <div class="form-field" [class.invalid]="isInvalid('register', 'name')" [class.focused]="focusedField() === 'reg-name'">
+                <label>{{ isAr() ? 'الاسم الكامل' : 'Full name' }}</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-user"></i>
+                  <input
+                    type="text"
+                    formControlName="name"
+                    [placeholder]="isAr() ? 'عبدالله فارس' : 'John Doe'"
+                    autocomplete="name"
+                    (focus)="setFocus('reg-name')"
+                    (blur)="setFocus(null)"
+                  />
+                  <div class="input-glow"></div>
+                </div>
+              </div>
+
+              <div class="form-field" [class.invalid]="isInvalid('register', 'email')" [class.focused]="focusedField() === 'reg-email'">
+                <label>{{ isAr() ? 'البريد الإلكتروني' : 'Email address' }}</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-envelope"></i>
+                  <input
+                    type="email"
+                    formControlName="email"
+                    [placeholder]="isAr() ? 'name@example.com' : 'name@example.com'"
+                    autocomplete="email"
+                    (focus)="setFocus('reg-email')"
+                    (blur)="setFocus(null)"
+                  />
+                  <div class="input-glow"></div>
+                </div>
+              </div>
+
+              <div class="form-field" [class.invalid]="isInvalid('register', 'password')" [class.focused]="focusedField() === 'reg-pass'">
+                <label>{{ isAr() ? 'كلمة المرور' : 'Password' }}</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-lock"></i>
+                  <input
+                    [type]="showPassword() ? 'text' : 'password'"
+                    formControlName="password"
+                    [placeholder]="isAr() ? '8 أحرف على الأقل' : 'At least 8 characters'"
+                    autocomplete="new-password"
+                    (focus)="setFocus('reg-pass')"
+                    (blur)="setFocus(null)"
+                  />
+                  <button type="button" class="toggle-pass" (click)="togglePassword()">
+                    <i [class]="showPassword() ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+                  </button>
+                  <div class="input-glow"></div>
+                </div>
+                <!-- Password strength -->
+                @if (registerForm.get('password')?.value) {
+                  <div class="password-strength">
+                    <div class="strength-bars">
+                      <div class="sbar" [class.active]="passwordStrength() >= 1" [class.weak]="passwordStrength() === 1" [class.medium]="passwordStrength() === 2" [class.strong]="passwordStrength() >= 3"></div>
+                      <div class="sbar" [class.active]="passwordStrength() >= 2" [class.medium]="passwordStrength() === 2" [class.strong]="passwordStrength() >= 3"></div>
+                      <div class="sbar" [class.active]="passwordStrength() >= 3" [class.strong]="passwordStrength() >= 3"></div>
+                      <div class="sbar" [class.active]="passwordStrength() >= 4" [class.strong]="passwordStrength() >= 3"></div>
+                    </div>
+                    <span class="strength-label" [class.weak]="passwordStrength() === 1" [class.medium]="passwordStrength() === 2" [class.strong]="passwordStrength() >= 3">
+                      {{ passwordStrengthLabel() }}
+                    </span>
+                  </div>
+                }
+              </div>
+
+              <div class="form-field" [class.focused]="focusedField() === 'reg-phone'">
+                <label>{{ isAr() ? 'رقم الهاتف' : 'Phone number' }} <span class="optional">{{ isAr() ? '(اختياري)' : '(optional)' }}</span></label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-phone"></i>
+                  <input
+                    type="tel"
+                    formControlName="phone"
+                    [placeholder]="isAr() ? '+20 xxx xxx xxxx' : '+1 xxx xxx xxxx'"
+                    autocomplete="tel"
+                    (focus)="setFocus('reg-phone')"
+                    (blur)="setFocus(null)"
+                  />
+                  <div class="input-glow"></div>
+                </div>
+              </div>
+
+              <button type="submit" class="auth-submit" [disabled]="isLoading()">
+                <div class="btn-bg"></div>
+                @if (isLoading()) {
+                  <span class="spinner"></span>
+                }
+                <span class="btn-text">{{ isAr() ? 'إنشاء حساب' : 'Create Account' }}</span>
+                <i class="fa-solid fa-arrow-right btn-arrow"></i>
+              </button>
+
+              <p class="terms-text">
+                {{ isAr() ? 'بإنشاء حساب، أنت توافق على' : 'By creating an account, you agree to our' }}
+                <a>{{ isAr() ? 'شروط الخدمة' : 'Terms' }}</a>
+                {{ isAr() ? 'و' : '&' }}
+                <a>{{ isAr() ? 'سياسة الخصوصية' : 'Privacy Policy' }}</a>
+              </p>
+            </form>
+          }
+
+          <!-- Divider -->
+          <div class="divider">
+            <span>{{ isAr() ? 'أو' : 'OR' }}</span>
+          </div>
+
+          <!-- Social -->
+          <div class="social-buttons">
+            <button class="social-btn google" type="button" (click)="socialLogin('Google')">
+              <i class="fa-brands fa-google"></i>
+              <span>Google</span>
+            </button>
+            <button class="social-btn github" type="button" (click)="socialLogin('GitHub')">
+              <i class="fa-brands fa-github"></i>
+              <span>GitHub</span>
+            </button>
+            <button class="social-btn linkedin" type="button" (click)="socialLogin('LinkedIn')">
+              <i class="fa-brands fa-linkedin-in"></i>
+              <span>LinkedIn</span>
+            </button>
+            <button class="social-btn x" type="button" (click)="socialLogin('X')">
+              <i class="fa-brands fa-x-twitter"></i>
+              <span>X</span>
+            </button>
+            <button class="social-btn facebook" type="button" (click)="socialLogin('Facebook')">
+              <i class="fa-brands fa-facebook-f"></i>
+              <span>Facebook</span>
+            </button>
+            <button class="social-btn microsoft" type="button" (click)="socialLogin('Microsoft')">
+              <i class="fa-brands fa-microsoft"></i>
+              <span>Microsoft</span>
+            </button>
+          </div>
+
+          <!-- Switch mode -->
+          <p class="switch-text">
+            @if (mode() === 'login') {
+              {{ isAr() ? 'ليس لديك حساب؟' : "Don't have an account?" }}
+              <a (click)="switchMode('register')">{{ isAr() ? 'أنشئ حساب مجاني' : 'Sign up for free' }}</a>
+            } @else {
+              {{ isAr() ? 'لديك حساب بالفعل؟' : 'Already have an account?' }}
+              <a (click)="switchMode('login')">{{ isAr() ? 'سجل دخول' : 'Sign in' }}</a>
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="form-footer">
+      <span>© 2026 Classy Book</span>
+    </div>
+  </main>
+</div>

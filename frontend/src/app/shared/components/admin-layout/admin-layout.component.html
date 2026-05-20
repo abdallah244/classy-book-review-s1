@@ -1,0 +1,132 @@
+<div
+  class="admin-layout"
+  [attr.dir]="currentDirection()"
+  [class.sidebar-collapsed]="!sidebarOpen()"
+>
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.open]="sidebarOpen()">
+    <!-- Sidebar Header -->
+    <div class="sidebar-header">
+      <div class="sidebar-brand" *ngIf="sidebarOpen()">
+        <i class="fa-solid fa-book-open brand-icon"></i>
+        <span class="brand-text">Classy Book</span>
+      </div>
+      <button class="sidebar-toggle" (click)="toggleSidebar()" [attr.aria-label]="'Toggle sidebar'">
+        <i [class]="sidebarOpen() ? 'fa-solid fa-angles-left' : 'fa-solid fa-angles-right'"></i>
+      </button>
+    </div>
+
+    <!-- Sidebar Links -->
+    <nav class="sidebar-nav">
+      @for (link of sidebarLinks(); track link.route) {
+        <div
+          class="sidebar-link"
+          [class.disabled]="link.disabled"
+          [class.active]="isLinkActive(link.route)"
+          [attr.title]="
+            link.disabled
+              ? currentLanguage() === 'ar'
+                ? 'تحت التطوير'
+                : 'Under Development'
+              : null
+          "
+          (click)="navigateToLink(link)"
+        >
+          <i [class]="link.icon"></i>
+          <span class="link-label" *ngIf="sidebarOpen()">
+            {{ currentLanguage() === 'ar' ? link.labelAr : link.labelEn }}
+          </span>
+          <span class="dev-badge" *ngIf="sidebarOpen() && link.disabled">
+            <i class="fa-solid fa-lock"></i>
+          </span>
+        </div>
+      }
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer" *ngIf="sidebarOpen()">
+      <div class="dev-notice">
+        <i class="fa-solid fa-tools"></i>
+        <span>{{ currentLanguage() === 'ar' ? 'تحت التطوير' : 'Under Development' }}</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="main-area">
+    <!-- Navbar -->
+    <nav class="admin-navbar">
+      <!-- Left Section -->
+      <div class="navbar-left">
+        <button class="sidebar-toggle-mobile" (click)="toggleSidebar()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <button class="back-btn" (click)="navigateToDashboard()" *ngIf="!isOnDashboard">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <h1 class="navbar-title">
+          {{ currentLanguage() === 'ar' ? currentPageTitle.ar : currentPageTitle.en }}
+        </h1>
+      </div>
+
+      <!-- Center Section: Session Timer -->
+      <div class="navbar-center" *ngIf="sessionTimer.isSessionActive()">
+        <div class="session-timer" [class.warning]="sessionTimer.isExpiringSoon()">
+          <i class="fa-solid fa-clock"></i>
+          <span class="timer-label">
+            {{ currentLanguage() === 'ar' ? 'الجلسة:' : 'Session:' }}
+          </span>
+          <span class="timer-value">{{ sessionTimer.remainingTime() }}</span>
+          <button class="extend-btn" (click)="extendSession()" [disabled]="extendingSession">
+            <i class="fa-solid fa-plus"></i>
+            <span class="extend-text">{{ currentLanguage() === 'ar' ? 'تمديد' : 'Extend' }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Section -->
+      <div class="navbar-right">
+        <button
+          class="action-btn"
+          (click)="toggleTheme()"
+          [attr.aria-label]="currentTheme() === 'dark' ? 'Light mode' : 'Dark mode'"
+        >
+          <i [class]="currentTheme() === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
+        </button>
+        <button
+          class="action-btn"
+          (click)="toggleLanguage()"
+          [attr.aria-label]="currentLanguage() === 'ar' ? 'English' : 'العربية'"
+        >
+          <span class="lang">{{ currentLanguage() === 'ar' ? 'EN' : 'ع' }}</span>
+        </button>
+        <button
+          class="action-btn logout-btn"
+          (click)="logout()"
+          [attr.aria-label]="currentLanguage() === 'ar' ? 'تسجيل الخروج' : 'Logout'"
+        >
+          <i class="fa-solid fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Master Code Modal (global for guards) -->
+    <app-master-code-modal></app-master-code-modal>
+
+    <!-- Toast Notifications -->
+    <app-toast></app-toast>
+
+    <!-- Page Content -->
+    <div class="page-content">
+      <ng-content></ng-content>
+    </div>
+
+    <!-- Footer -->
+    <footer class="layout-footer">
+      <span>Classy Book © 2026 - Admin Panel</span>
+    </footer>
+  </div>
+
+  <!-- Sidebar Overlay (mobile) -->
+  <div class="sidebar-overlay" *ngIf="sidebarOpen()" (click)="toggleSidebar()"></div>
+</div>

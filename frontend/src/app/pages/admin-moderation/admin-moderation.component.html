@@ -1,0 +1,114 @@
+<div class="moderation-container" [dir]="isAr() ? 'rtl' : 'ltr'">
+  
+  <header class="mod-header">
+    <div class="header-titles">
+      <h1>{{ isAr() ? 'مراقبة المحتوى' : 'Content Moderation' }}</h1>
+      <p>{{ isAr() ? 'إدارة البلاغات، المنشورات، وحظر المستخدمين المسيئين' : 'Manage reports, posts, and user punishments' }}</p>
+    </div>
+
+    <nav class="mod-tabs">
+      <button [class.active]="activeTab() === 'stats'" (click)="setTab('stats')">{{ isAr() ? 'الإحصائيات' : 'Stats' }}</button>
+      <button [class.active]="activeTab() === 'reports'" (click)="setTab('reports')">{{ isAr() ? 'البلاغات' : 'Reports' }}</button>
+      <button [class.active]="activeTab() === 'posts'" (click)="setTab('posts')">{{ isAr() ? 'المنشورات' : 'Posts' }}</button>
+    </nav>
+  </header>
+
+  <main class="mod-content">
+    
+    <!-- Tab: Stats -->
+    @if (activeTab() === 'stats') {
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-label">{{ isAr() ? 'إجمالي المنشورات' : 'Total Posts' }}</span>
+          <span class="stat-value">{{ stats()?.totalPosts || 0 }}</span>
+        </div>
+        <div class="stat-card highlight">
+          <span class="stat-label">{{ isAr() ? 'منشورات اليوم' : 'Posts Today' }}</span>
+          <span class="stat-value">{{ stats()?.todayPosts || 0 }}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">{{ isAr() ? 'إجمالي التعليقات' : 'Total Comments' }}</span>
+          <span class="stat-value">{{ stats()?.totalComments || 0 }}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">{{ isAr() ? 'إجمالي الإعجابات' : 'Total Likes' }}</span>
+          <span class="stat-value">{{ stats()?.totalLikes || 0 }}</span>
+        </div>
+      </div>
+    }
+
+    <!-- Tab: Reports -->
+    @if (activeTab() === 'reports') {
+      <div class="filters-bar">
+        <select [(ngModel)]="reportStatus" (change)="loadReports()">
+          <option value="pending">{{ isAr() ? 'قيد الانتظار' : 'Pending' }}</option>
+          <option value="reviewed">{{ isAr() ? 'تمت المراجعة' : 'Reviewed' }}</option>
+          <option value="dismissed">{{ isAr() ? 'تم التجاهل' : 'Dismissed' }}</option>
+        </select>
+      </div>
+
+      <div class="reports-table-wrap">
+        <table class="mod-table">
+          <thead>
+            <tr>
+              <th>{{ isAr() ? 'المُبلغ' : 'Reporter' }}</th>
+              <th>{{ isAr() ? 'السبب' : 'Reason' }}</th>
+              <th>{{ isAr() ? 'المحتوى' : 'Content' }}</th>
+              <th>{{ isAr() ? 'التاريخ' : 'Date' }}</th>
+              <th>{{ isAr() ? 'الإجراء' : 'Actions' }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (report of reports(); track report._id) {
+              <tr>
+                <td>{{ report.reporterId?.name }}</td>
+                <td><span class="badge reason">{{ report.reason }}</span></td>
+                <td class="content-cell">
+                  <p class="truncate">{{ report.postId?.content }}</p>
+                  <small class="author">By: {{ report.postId?.authorId?.name }}</small>
+                </td>
+                <td>{{ formatDate(report.createdAt) }}</td>
+                <td class="actions-cell">
+                  <button class="btn-success" (click)="resolveReport(report._id, 'reviewed')">Check</button>
+                  <button class="btn-danger" (click)="deletePost(report.postId?._id)">Delete Post</button>
+                  <button class="btn-warn" (click)="toggleBan(report.postId?.authorId?._id)">
+                    {{ report.postId?.authorId?.isSocialBanned ? 'Unban' : 'Social Ban' }}
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    <!-- Tab: Posts -->
+    @if (activeTab() === 'posts') {
+      <div class="filters-bar">
+        <input type="text" [(ngModel)]="postSearch" (keyup.enter)="loadPosts()" [placeholder]="isAr() ? 'ابحث في المنشورات...' : 'Search posts...'">
+        <button (click)="loadPosts()">{{ isAr() ? 'بحث' : 'Search' }}</button>
+      </div>
+
+      <div class="posts-admin-list">
+        @for (post of posts(); track post.id) {
+          <div class="admin-post-item" [class.deleted]="post.isDeleted">
+            <div class="post-info">
+              <strong>{{ post.author?.name }}</strong>
+              <p>{{ post.content }}</p>
+              <small>{{ formatDate(post.createdAt) }} | Likes: {{ post.likesCount }}</small>
+            </div>
+            <div class="post-actions">
+              @if (!post.isDeleted) {
+                <button class="btn-danger-sm" (click)="deletePost(post.id)">Delete</button>
+              } @else {
+                <span class="deleted-tag">Deleted</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+  </main>
+
+</div>

@@ -1,0 +1,104 @@
+<app-admin-layout>
+  <div class="activity-page">
+    <!-- Stats -->
+    <div class="stats-row">
+      @for (stat of stats(); track stat.label) {
+        <div class="stat-card">
+          <div class="stat-icon" [style.background]="stat.color + '15'" [style.color]="stat.color">
+            <i [class]="stat.icon"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">{{ stat.value }}</span>
+            <span class="stat-label">{{ i18n.language() === 'ar' ? stat.labelAr : stat.label }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" [placeholder]="i18n.language() === 'ar' ? 'بحث في السجل...' : 'Search activity...'" (input)="onSearch($event)" />
+        </div>
+        <select class="filter-select" (change)="onSeverityFilter($event)">
+          <option value="all">{{ i18n.language() === 'ar' ? 'جميع الحالات' : 'All Status' }}</option>
+          <option value="info">{{ i18n.language() === 'ar' ? 'ناجح' : 'Success' }}</option>
+          <option value="warning">{{ i18n.language() === 'ar' ? 'فشل' : 'Failure' }}</option>
+          <option value="critical">{{ i18n.language() === 'ar' ? 'خطأ' : 'Error' }}</option>
+        </select>
+      </div>
+      <div class="toolbar-right">
+        <span class="total-badge">
+          <i class="fa-solid fa-list"></i> {{ totalLogs() }}
+        </span>
+        <button class="btn-secondary" (click)="clearOldLogs()">
+          <i class="fa-solid fa-info-circle"></i> {{ i18n.language() === 'ar' ? 'تنظيف تلقائي' : 'Auto Cleanup' }}
+        </button>
+        <button class="btn-primary" (click)="exportLog()">
+          <i class="fa-solid fa-file-export"></i> {{ i18n.language() === 'ar' ? 'تصدير' : 'Export' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Activity Timeline -->
+    @if (isLoading()) {
+      <div class="loading-state">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        <span>{{ i18n.language() === 'ar' ? 'جاري التحميل...' : 'Loading...' }}</span>
+      </div>
+    } @else if (filteredActivities().length === 0) {
+      <div class="empty-state">
+        <i class="fa-solid fa-clipboard-list"></i>
+        <span>{{ i18n.language() === 'ar' ? 'لا توجد سجلات' : 'No activity logs found' }}</span>
+      </div>
+    } @else {
+      <div class="timeline-container">
+        @for (act of filteredActivities(); track act._id) {
+          <div class="timeline-item">
+            <div
+              class="timeline-icon"
+              [style.background]="getActionColor(act) + '15'"
+              [style.color]="getActionColor(act)"
+            >
+              <i [class]="getActionIcon(act)"></i>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <span class="timeline-action">{{ act.action }}</span>
+                <span class="severity-badge" [class]="getSeverityClass(act.status)">{{ act.status }}</span>
+                <span class="action-type-badge">{{ act.actionType }}</span>
+              </div>
+              <div class="timeline-meta">
+                <span><i class="fa-solid fa-user"></i> {{ getUserName(act.userId) }}</span>
+                <span><i class="fa-solid fa-cube"></i> {{ act.resource }}</span>
+                @if (act.method && act.path) {
+                  <span><i class="fa-solid fa-route"></i> {{ act.method }} {{ act.path }}</span>
+                }
+                <span><i class="fa-solid fa-network-wired"></i> {{ act.ip }}</span>
+                @if (act.duration) {
+                  <span><i class="fa-solid fa-stopwatch"></i> {{ act.duration }}ms</span>
+                }
+              </div>
+              <span class="timeline-time"><i class="fa-solid fa-clock"></i> {{ formatTimeAgo(act.createdAt) }}</span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Pagination -->
+      @if (totalPages() > 1) {
+        <div class="pagination">
+          <button class="page-btn" [disabled]="currentPage() <= 1" (click)="prevPage()">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <span class="page-info">{{ currentPage() }} / {{ totalPages() }}</span>
+          <button class="page-btn" [disabled]="currentPage() >= totalPages()" (click)="nextPage()">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      }
+    }
+  </div>
+</app-admin-layout>

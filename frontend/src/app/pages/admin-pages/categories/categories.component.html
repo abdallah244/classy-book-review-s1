@@ -1,0 +1,52 @@
+<app-admin-layout>
+  <div class="categories-page">
+    <div class="page-header">
+      <div>
+        <h2 class="page-title">Categories</h2>
+        <p class="page-sub">Manage course categories and topics</p>
+      </div>
+      <button class="btn-primary"><i class="fa-solid fa-plus"></i> New Category</button>
+    </div>
+
+    <div class="categories-grid">
+      @for (cat of categories(); track cat.id) {
+        <div class="cat-card">
+          <div class="cat-header">
+            <div class="cat-icon" [style.background]="cat.color + '15'" [style.color]="cat.color">
+              <i [class]="cat.icon"></i>
+            </div>
+            <span
+              class="cat-status"
+              [class.active]="cat.status === 'active'"
+              [class.inactive]="cat.status === 'inactive'"
+            >
+              {{ cat.status }}
+            </span>
+          </div>
+          <h3 class="cat-name">{{ cat.name }}</h3>
+          <div class="cat-stats">
+            <div class="cat-stat">
+              <span class="cat-stat-value">{{ cat.courses }}</span>
+              <span class="cat-stat-label">Courses</span>
+            </div>
+            <div class="cat-stat">
+              <span class="cat-stat-value">{{ cat.students | number }}</span>
+              <span class="cat-stat-label">Students</span>
+            </div>
+          </div>
+          <div class="cat-actions">
+            <button class="action-btn" (click)="editCategory(cat)" title="Edit">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button class="action-btn" (click)="toggleStatus(cat)" title="Toggle">
+              <i class="fa-solid fa-toggle-on"></i>
+            </button>
+            <button class="action-btn danger" (click)="deleteCategory(cat)" title="Delete">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</app-admin-layout>

@@ -1,0 +1,237 @@
+<!-- Admin Login - TeleG Style -->
+<main class="login-page" [attr.dir]="currentDirection()" [class.ready]="isPageReady()">
+  <!-- Toast -->
+  @if (toast.toasts().length > 0) {
+    <div class="toast-container">
+      @for (t of toast.toasts(); track t.id) {
+        <div class="toast" [class]="'toast--' + t.type">
+          <div class="toast__icon">
+            @switch (t.type) {
+              @case ('success') {
+                <i class="fa-solid fa-circle-check"></i>
+              }
+              @case ('error') {
+                <i class="fa-solid fa-circle-xmark"></i>
+              }
+              @case ('warning') {
+                <i class="fa-solid fa-triangle-exclamation"></i>
+              }
+              @case ('info') {
+                <i class="fa-solid fa-circle-info"></i>
+              }
+            }
+          </div>
+          <div class="toast__content">
+            <strong>{{ t.title }}</strong>
+            @if (t.message) {
+              <p>{{ t.message }}</p>
+            }
+          </div>
+          @if (t.dismissible) {
+            <button class="toast__close" (click)="toast.dismiss(t.id)">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          }
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Progress Bar -->
+  @if (progressBar.isVisible()) {
+    <div class="progress-bar-wrap">
+      <div
+        class="progress-bar"
+        [style.width.%]="progressBar.progress()"
+        [class.loading]="progressBar.isIndeterminate()"
+      ></div>
+    </div>
+  }
+
+  <!-- Left: Info Section -->
+  <section class="info-section anim anim--5">
+    <!-- Theme & Language Buttons -->
+    <div class="actions">
+      <button
+        class="act-btn"
+        (click)="toggleTheme()"
+        [attr.aria-label]="currentTheme() === 'dark' ? 'Light mode' : 'Dark mode'"
+      >
+        <i [class]="currentTheme() === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
+      </button>
+      <button
+        class="act-btn"
+        (click)="toggleLanguage()"
+        [attr.aria-label]="currentLanguage() === 'ar' ? 'English' : 'العربية'"
+      >
+        <span class="lang">{{ currentLanguage() === 'ar' ? 'EN' : 'ع' }}</span>
+      </button>
+    </div>
+
+    <div class="info-content anim anim--6">
+      <!-- Logo -->
+      <div class="logo">
+        <img src="/ck.png" alt="Classy Book Logo" width="100" height="100" />
+      </div>
+
+      <!-- Title and Description Content -->
+      <div class="content-center">
+        <!-- Title -->
+        <h2>
+          {{ currentLanguage() === 'ar' ? 'لوحة تحكم كلاسي بوك' : 'Classy Book Admin Dashboard' }}
+        </h2>
+
+        <!-- Description -->
+        <p class="desc">
+          {{
+            currentLanguage() === 'ar'
+              ? 'مرحباً بك في لوحة تحكم Classy Book! هنا يمكنك إدارة جميع جوانب منصتك التعليمية. تحكم في المستخدمين والطلاب والمدرسين، راقب التحليلات والإيرادات، أنشئ وعدّل الدورات والمحتوى التعليمي، وأدر جميع الاشتراكات والمدفوعات من مكان واحد.'
+              : 'Welcome to Classy Book Admin Panel! Here you can manage all aspects of your educational platform. Control users, students and teachers, monitor analytics and revenue, create and edit courses and educational content, and manage all subscriptions and payments from one place.'
+          }}
+        </p>
+
+        <!-- Security Features -->
+        <div class="security-features anim anim--3">
+          <div class="security-item anim anim--1">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>{{ currentLanguage() === 'ar' ? 'محمي بالتشفير' : 'Encrypted' }}</span>
+          </div>
+          <div class="security-item anim anim--2">
+            <i class="fa-solid fa-eye"></i>
+            <span>{{ currentLanguage() === 'ar' ? 'مراقب 24/7' : 'Monitored' }}</span>
+          </div>
+          <div class="security-item anim anim--3">
+            <i class="fa-solid fa-lock"></i>
+            <span>{{ currentLanguage() === 'ar' ? 'محمي تماماً' : 'Secured' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Right: Form Section -->
+  <section class="form-section anim anim--1">
+    <div class="form-container">
+      <div class="form-box">
+        <!-- Header -->
+        <header class="form-header anim anim--2">
+          <h1>{{ currentLanguage() === 'ar' ? 'تسجيل الدخول' : 'Log in' }}</h1>
+        </header>
+
+        <!-- Alerts -->
+        @if (devToolsOpen()) {
+          <div class="alert warn">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>{{
+              currentLanguage() === 'ar' ? 'تم اكتشاف أدوات المطور' : 'Developer tools detected'
+            }}</span>
+          </div>
+        }
+
+        @if (isLocked()) {
+          <div class="alert err">
+            <i class="fa-solid fa-lock"></i>
+            <div>
+              <strong>{{ currentLanguage() === 'ar' ? 'الحساب مقفل' : 'Account Locked' }}</strong>
+              <span
+                >{{ currentLanguage() === 'ar' ? 'انتظر' : 'Wait' }}
+                {{ formattedLockoutTime() }}</span
+              >
+            </div>
+          </div>
+        }
+
+        @if (errorMessage()) {
+          <div class="alert err">
+            <i class="fa-solid fa-circle-xmark"></i>
+            <span>{{ errorMessage() }}</span>
+          </div>
+        }
+
+        @if (successMessage()) {
+          <div class="alert ok">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>{{ successMessage() }}</span>
+          </div>
+        }
+
+        <!-- Form -->
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form anim anim--3">
+          <!-- Email -->
+          <div class="field">
+            <label for="email">{{
+              currentLanguage() === 'ar' ? 'البريد الإلكتروني' : 'Email'
+            }}</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-envelope field-icon"></i>
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                [placeholder]="currentLanguage() === 'ar' ? 'البريد الإلكتروني' : 'Email'"
+                autocomplete="email"
+                [class.err]="isFieldInvalid('email')"
+              />
+            </div>
+            @if (isFieldInvalid('email')) {
+              <span class="err-msg">{{ getFieldError('email') }}</span>
+            }
+          </div>
+
+          <!-- Password -->
+          <div class="field">
+            <label for="password">{{
+              currentLanguage() === 'ar' ? 'كلمة المرور' : 'Password'
+            }}</label>
+            <div class="pass-wrap">
+              <i class="fa-solid fa-lock field-icon"></i>
+              <input
+                [type]="showPassword() ? 'text' : 'password'"
+                id="password"
+                formControlName="password"
+                [placeholder]="currentLanguage() === 'ar' ? 'كلمة المرور' : 'Password'"
+                autocomplete="current-password"
+                [class.err]="isFieldInvalid('password')"
+              />
+              <button type="button" class="eye-btn" (click)="togglePasswordVisibility()">
+                <i [class]="showPassword() ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+              </button>
+            </div>
+            @if (isFieldInvalid('password')) {
+              <span class="err-msg">{{ getFieldError('password') }}</span>
+            }
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="submit-btn"
+            [disabled]="isLocked() || isLoading() || loginForm.invalid"
+          >
+            @if (isLoading()) {
+              <span class="spin"></span>
+              {{ currentLanguage() === 'ar' ? 'جاري الدخول...' : 'Signing in...' }}
+            } @else {
+              <i class="fa-solid fa-arrow-right-to-bracket"></i>
+              {{ currentLanguage() === 'ar' ? 'تسجيل الدخول' : 'Log in' }}
+            }
+          </button>
+
+          @if (!isLocked() && remainingAttempts() < 5) {
+            <p class="warn-msg">
+              <i class="fa-solid fa-exclamation-circle"></i>
+              {{ currentLanguage() === 'ar' ? 'المحاولات المتبقية:' : 'Attempts left:' }}
+              {{ remainingAttempts() }}
+            </p>
+          }
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="form-footer">
+      <i class="fa-solid fa-fingerprint"></i>
+      <span>{{ deviceFingerprint().slice(0, 8) }}</span>
+    </footer>
+  </section>
+</main>

@@ -1,0 +1,617 @@
+﻿<!-- ═══════════════════════════════════════════════ -->
+<!--  Classy Book — Professional Landing Page       -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<!-- ─── SCROLL PROGRESS BAR ─── -->
+<div class="scroll-progress-bar" [style.width.%]="scrollProgress()"></div>
+
+<!-- ─── NAVBAR ─── -->
+<nav class="landing-nav" [class.solid]="navSolid()" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">
+      <i class="fa-solid fa-book-open"></i>
+      <span>Classy Book</span>
+    </a>
+    <div class="nav-links" [class.open]="menuOpen()">
+      <a href="#features" (click)="menuOpen.set(false)">{{ isAr() ? 'المميزات' : 'Features' }}</a>
+      <a href="#categories" (click)="menuOpen.set(false)">{{ isAr() ? 'التصنيفات' : 'Categories' }}</a>
+      <a href="#pricing" (click)="menuOpen.set(false)">{{ isAr() ? 'الأسعار' : 'Pricing' }}</a>
+      <a href="#testimonials" (click)="menuOpen.set(false)">{{ isAr() ? 'آراء الطلاب' : 'Reviews' }}</a>
+      <a routerLink="/auth" (click)="menuOpen.set(false)">{{ isAr() ? 'ابدأ الآن' : 'Get Started' }}</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" (click)="toggleTheme()" aria-label="Toggle theme">
+        <i [class]="themeService.effectiveTheme() === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
+      </button>
+      <button class="nav-icon-btn" (click)="toggleLanguage()" aria-label="Toggle language">
+        <span class="lang-label">{{ isAr() ? 'EN' : 'ع' }}</span>
+      </button>
+      <a routerLink="/auth" class="nav-btn filled">{{ isAr() ? 'ابدأ مجاناً' : 'Start Free' }}</a>
+    </div>
+    <button class="mobile-toggle" (click)="toggleMenu()">
+      <i [class]="menuOpen() ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="hero" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="hero-bg">
+    <div class="hero-gradient"></div>
+    <div class="hero-shape hs-1"></div>
+    <div class="hero-shape hs-2"></div>
+    <div class="hero-shape hs-3"></div>
+  </div>
+  <div class="hero-content reveal">
+    <div class="hero-badge">
+      <i class="fa-solid fa-sparkles"></i>
+      <span>{{ isAr() ? 'مستقبل التعليم يبدأ هنا' : 'The Future of Education is Here' }}</span>
+    </div>
+    <h1>
+      {{ isAr() ? 'تعلّم بلا' : 'Learn Without' }}
+      <span class="gradient-text">{{ isAr() ? 'حدود' : 'Limits' }}</span>
+    </h1>
+    <p class="hero-sub">
+      {{ isAr()
+        ? 'انضم لآلاف المتعلمين على Classy Book — المنصة المتكاملة للدورات التفاعلية والتعلم الاجتماعي والمهارات العملية. تواصل، تعاون، وانمو معاً.'
+        : 'Join thousands of learners on Classy Book — the all-in-one platform for interactive courses, social learning, and real-world skills. Connect, collaborate, and grow together.'
+      }}
+    </p>
+    <div class="hero-actions">
+      <a routerLink="/auth" class="btn-hero primary">
+        <span>{{ isAr() ? 'ابدأ التعلم مجاناً' : 'Start Learning Free' }}</span>
+        <i [class]="isAr() ? 'fa-solid fa-arrow-left' : 'fa-solid fa-arrow-right'"></i>
+      </a>
+      <a href="#features" class="btn-hero ghost">
+        <i class="fa-solid fa-play"></i>
+        <span>{{ isAr() ? 'شاهد كيف يعمل' : 'See How It Works' }}</span>
+      </a>
+    </div>
+    <!-- Stats bar with animated counters -->
+    <div class="stats-bar" #statsBar>
+      @for (stat of stats; track stat.labelEn; let i = $index) {
+        <div class="stat-item">
+          <span class="stat-value">{{ animatedStats()[i] || stat.value }}</span>
+          <span class="stat-label">{{ isAr() ? stat.labelAr : stat.labelEn }}</span>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="hero-visual reveal">
+    <div class="hero-mockup">
+      <div class="mockup-header">
+        <div class="mockup-dots"><span></span><span></span><span></span></div>
+        <span class="mockup-url">classybook.com/dashboard</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-sidebar">
+          <div class="mockup-nav-item active"></div>
+          <div class="mockup-nav-item"></div>
+          <div class="mockup-nav-item"></div>
+          <div class="mockup-nav-item"></div>
+        </div>
+        <div class="mockup-content">
+          <div class="mockup-top-bar"></div>
+          <div class="mockup-cards">
+            <div class="mockup-card c1"></div>
+            <div class="mockup-card c2"></div>
+            <div class="mockup-card c3"></div>
+          </div>
+          <div class="mockup-chart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="floating-card fc-1">
+      <i class="fa-solid fa-trophy"></i>
+      <span>{{ isAr() ? 'تم الحصول على شهادة!' : 'Certificate Earned!' }}</span>
+    </div>
+    <div class="floating-card fc-2">
+      <i class="fa-solid fa-users"></i>
+      <span>{{ isAr() ? '+2.4 ألف متصل الآن' : '+2.4K Online Now' }}</span>
+    </div>
+    <div class="floating-card fc-3">
+      <i class="fa-solid fa-star"></i>
+      <span>{{ isAr() ? 'تقييم 4.9' : '4.9 Rating' }}</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TRUSTED BY ─── -->
+<section class="section trusted-section" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="section-inner">
+    <p class="trusted-label reveal">{{ isAr() ? 'موثوق من قبل أكثر من 500 مؤسسة حول العالم' : 'Trusted by 500+ organizations worldwide' }}</p>
+    <div class="trusted-logos reveal">
+      <div class="logos-track">
+        @for (logo of trustedLogos; track logo.name) {
+          <div class="trusted-logo">
+            <i [class]="logo.icon"></i>
+            <span>{{ logo.name }}</span>
+          </div>
+        }
+        @for (logo of trustedLogos; track logo.name) {
+          <div class="trusted-logo">
+            <i [class]="logo.icon"></i>
+            <span>{{ logo.name }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LIVE ACTIVITY TICKER ─── -->
+<div class="activity-ticker" [class.visible]="showTicker()">
+  <div class="ticker-content">
+    <div class="ticker-avatar">{{ currentActivity().avatar }}</div>
+    <span class="ticker-text">{{ isAr() ? currentActivity().textAr : currentActivity().textEn }}</span>
+    <span class="ticker-time">{{ isAr() ? currentActivity().timeAr : currentActivity().timeEn }}</span>
+  </div>
+</div>
+
+<!-- ─── FEATURES ─── -->
+<section class="section features-section" id="features" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="section-inner reveal">
+    <div class="section-badge">
+      <i class="fa-solid fa-puzzle-piece"></i>
+      <span>{{ isAr() ? 'لماذا Classy Book؟' : 'Why Classy Book?' }}</span>
+    </div>
+    <h2 class="section-title">
+      {{ isAr() ? 'كل ما تحتاجه لـ' : 'Everything You Need to ' }}
+      <span class="gradient-text">{{ isAr() ? 'النجاح' : 'Succeed' }}</span>
+    </h2>
+    <p class="section-sub">
+      {{ isAr()
+        ? 'منظومة متكاملة للتعلم والتواصل وتطوير مهاراتك'
+        : 'A complete ecosystem for learning, connecting, and growing your skills'
+      }}
+    </p>
+    <div class="features-grid">
+      @for (f of features; track f.titleEn) {
+        <div class="feature-card reveal">
+          <div class="feature-icon" [style.background]="f.color + '15'" [style.color]="f.color">
+            <i [class]="f.icon"></i>
+          </div>
+          <h3>{{ isAr() ? f.titleAr : f.titleEn }}</h3>
+          <p>{{ isAr() ? f.descAr : f.descEn }}</p>
+          <div class="feature-glow" [style.background]="f.color + '08'"></div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section class="section how-section" id="how" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="section-inner reveal">
+    <div class="section-badge">
+      <i class="fa-solid fa-route"></i>
+      <span>{{ isAr() ? 'خطوات بسيطة' : 'Simple Steps' }}</span>
+    </div>
+    <h2 class="section-title">
+      {{ isAr() ? 'ابدأ التعلم في ' : 'Start Learning in ' }}
+      <span class="gradient-text">{{ isAr() ? '3 خطوات' : '3 Steps' }}</span>
+    </h2>
+    <div class="steps-row">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <div class="step-icon"><i class="fa-solid fa-user-plus"></i></div>
+        <h3>{{ isAr() ? 'أنشئ حساب' : 'Create Account' }}</h3>
+        <p>{{ isAr() ? 'سجّل مجاناً في ثوانٍ' : 'Sign up for free in seconds' }}</p>
+      </div>
+      <div class="step-connector">
+        <i [class]="isAr() ? 'fa-solid fa-arrow-left' : 'fa-solid fa-arrow-right'"></i>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">02</div>
+        <div class="step-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+        <h3>{{ isAr() ? 'تصفّح الدورات' : 'Browse Courses' }}</h3>
+        <p>{{ isAr() ? 'استكشف +1,200 دورة متخصصة' : 'Explore 1,200+ expert courses' }}</p>
+      </div>
+      <div class="step-connector">
+        <i [class]="isAr() ? 'fa-solid fa-arrow-left' : 'fa-solid fa-arrow-right'"></i>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">03</div>
+        <div class="step-icon"><i class="fa-solid fa-rocket"></i></div>
+        <h3>{{ isAr() ? 'ابدأ التعلم' : 'Start Learning' }}</h3>
+        <p>{{ isAr() ? 'تعلّم بالسرعة التي تناسبك' : 'Learn at your own pace' }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SOCIAL LEARNING ─── -->
+<section class="section social-section" id="social" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="section-inner">
+    <div class="social-layout reveal">
+      <div class="social-text">
+        <div class="section-badge">
+          <i class="fa-solid fa-heart"></i>
+          <span>{{ isAr() ? 'التعلم الاجتماعي' : 'Social Learning' }}</span>
+        </div>
+        <h2 class="section-title left">
+          {{ isAr() ? 'تعلّموا معاً،' : 'Learn Together,' }}<br />
+          <span class="gradient-text">{{ isAr() ? 'انمو معاً' : 'Grow Together' }}</span>
+        </h2>
+        <p class="section-sub left">
+          {{ isAr()
+            ? 'Classy Book ليست مجرد دورات — إنها مجتمع نابض بالحياة. اطرح أسئلة، شارك تقدمك، انضم لمجموعات الدراسة، وتواصل مع زملائك حول العالم.'
+            : "Classy Book isn't just courses — it's a vibrant community. Ask questions, share progress, join study groups, and connect with peers worldwide."
+          }}
+        </p>
+        <ul class="social-features">
+          <li>
+            <i class="fa-solid fa-check-circle"></i>
+            {{ isAr() ? 'محادثات فورية مع الزملاء' : 'Real-time chat with classmates' }}
+          </li>
+          <li>
+            <i class="fa-solid fa-check-circle"></i>
+            {{ isAr() ? 'منتديات نقاش لكل دورة' : 'Discussion forums per course' }}
+          </li>
+          <li>
+            <i class="fa-solid fa-check-circle"></i>
+            {{ isAr() ? 'مجموعات دراسة وغرف تعاون' : 'Study groups & collaboration rooms' }}
+          </li>
+          <li>
+            <i class="fa-solid fa-check-circle"></i>
+            {{ isAr() ? 'شارك إنجازاتك في ملفك الشخصي' : 'Share achievements on your profile' }}
+          </li>
+          <li>
+            <i class="fa-solid fa-check-circle"></i>
+            {{ isAr() ? 'تابع المعلمين واحصل على التحديثات' : 'Follow instructors & get updates' }}
+          </li>
+        </ul>
+      </div>
+      <div class="social-visual">
+        <div class="social-mockup">
+          <div class="chat-bubble left-bubble">
+            <div class="chat-avatar">A</div>
+            <div class="chat-msg">{{ isAr() ? 'مرحباً! هل حلّ أحد التحدي رقم 5؟' : 'Hey! Anyone solved challenge 5?' }}</div>
+          </div>
+          <div class="chat-bubble right-bubble">
+            <div class="chat-msg">{{ isAr() ? 'نعم! جرّب استخدام reduce() بدلاً من ذلك' : 'Yes! Try using reduce() instead' }}</div>
+            <div class="chat-avatar">S</div>
+          </div>
+          <div class="chat-bubble left-bubble">
+            <div class="chat-avatar">M</div>
+            <div class="chat-msg">{{ isAr() ? 'نصيحة رائعة! نجحت تماماً' : 'Great tip! That worked perfectly' }}</div>
+          </div>
+          <div class="social-notif">
+            <i class="fa-solid fa-bell"></i>
+            <span>{{ isAr() ? 'سارة حصلت على وسام "خبيرة JavaScript"' : 'Sara earned "JavaScript Master" badge' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INSTRUCTOR SPOTLIGHT ─── -->
+<section class="section instructors-section" id="instructors" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="section-inner reveal">
+    <div class="section-badge">
+      <i class="fa-solid fa-chalkboard-user"></i>
+      <span>{{ isAr() ? 'نخبة المعلمين' : 'Top Instructors' }}</span>
+    </div>
+    <h2 class="section-title">
+      {{ isAr() ? 'تعلّم من ' : 'Learn from ' }}
+      <span class="gradient-text">{{ isAr() ? 'الخبراء' : 'the Experts' }}</span>
+    </h2>
+    <p class="section-sub">
+      {{ isAr()
+        ? 'معلمون محترفون من أفضل الشركات والجامعات العالمية'
+        : 'Professional instructors from top companies and universities worldwide'
+      }}
+    </p>
+    <div class="instructors-grid">
+      @for (inst of instructors; track inst.nameEn) {
+        <div class="instructor-card reveal">
+          <div class="instructor-avatar-wrapper">
+            <div class="instructor-avatar">{{ inst.avatar }}</div>
+            <div class="instructor-status"></div>
+          </div>
+          <h3>{{ isAr() ? inst.nameAr : inst.nameEn }}</h3>
+          <span class="instructor-role">{{ isAr() ? inst.roleAr : inst.roleEn }}</span>
+          <span class="instructor-company">
+            <i [class]="inst.companyIcon"></i>
+            {{ inst.company }}
+          </span>
+          <div class="instructor-stats">
+            <div class="inst-stat">
+              <strong>{{ inst.students }}</strong>
+              <span>{{ isAr() ? 'طالب' : 'Students' }}</span>
+            </div>
+            <div class="inst-stat">
+              <strong>{{ inst.courses }}</strong>
+              <span>{{ isAr() ? 'دورة' : 'Courses' }}</span>
+            </div>
+            <div class="inst-stat">
+              <strong>{{ inst.rating }}</strong>
+              <span><i class="fa-solid fa-star"></i></span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ─── CATEGORIES ─── -->
+<section class="section categories-section" id="categories" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="section-inner reveal">
+    <div class="section-badge">
+      <i class="fa-solid fa-layer-group"></i>
+      <span>{{ isAr() ? 'تصفّح المواضيع' : 'Browse Topics' }}</span>
+    </div>
+    <h2 class="section-title">
+      {{ isAr() ? 'استكشف ' : 'Explore ' }}
+      <span class="gradient-text">{{ isAr() ? 'التصنيفات' : 'Categories' }}</span>
+    </h2>
+    <p class="section-sub">
+      {{ isAr()
+        ? 'اعثر على الدورة المثالية في مجالك المفضل'
+        : 'Find the perfect course in your favorite field'
+      }}
+    </p>
+    <div class="categories-grid">
+      @for (cat of categories; track cat.labelEn) {
+        <div class="category-card reveal">
+          <div class="cat-icon"><i [class]="cat.icon"></i></div>
+          <h3>{{ isAr() ? cat.labelAr : cat.labelEn }}</h3>
+          <span class="cat-count">{{ cat.count }}{{ isAr() ? '+ دورة' : '+ courses' }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ─── -->
+<section class="section pricing-section" id="pricing" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="section-inner reveal">
+    <div class="section-badge">
+      <i class="fa-solid fa-tags"></i>
+      <span>{{ isAr() ? 'خطط الأسعار' : 'Pricing Plans' }}</span>
+    </div>
+    <h2 class="section-title">
+      {{ isAr() ? 'اختر الخطة ' : 'Choose the Plan ' }}
+      <span class="gradient-text">{{ isAr() ? 'المناسبة لك' : 'That Fits You' }}</span>
+    </h2>
+    <p class="section-sub">
+      {{ isAr()
+        ? 'ابدأ مجاناً وطوّر حسابك حسب احتياجاتك'
+        : 'Start free and upgrade as your needs grow'
+      }}
+    </p>
+    <div class="pricing-toggle">
+      <span [class.active]="!yearlyPricing()">{{ isAr() ? 'شهري' : 'Monthly' }}</span>
+      <button class="toggle-switch" (click)="yearlyPricing.set(!yearlyPricing())" [class.active]="yearlyPricing()">
+        <span class="toggle-knob"></span>
+      </button>
+      <span [class.active]="yearlyPricing()">
+        {{ isAr() ? 'سنوي' : 'Yearly' }}
+        <span class="save-badge">{{ isAr() ? 'وفّر 20%' : 'Save 20%' }}</span>
+      </span>
+    </div>
+    <div class="pricing-grid">
+      @for (plan of pricingPlans; track plan.nameEn) {
+        <div class="pricing-card reveal" [class.popular]="plan.popular">
+          @if (plan.popular) {
+            <div class="popular-badge">{{ isAr() ? 'الأكثر شعبية' : 'Most Popular' }}</div>
+          }
+          <div class="pricing-header">
+            <div class="pricing-icon"><i [class]="plan.icon"></i></div>
+            <h3>{{ isAr() ? plan.nameAr : plan.nameEn }}</h3>
+            <p class="pricing-desc">{{ isAr() ? plan.descAr : plan.descEn }}</p>
+          </div>
+          <div class="pricing-price">
+            <span class="price-currency">$</span>
+            <span class="price-amount">{{ yearlyPricing() ? plan.yearlyPrice : plan.monthlyPrice }}</span>
+            <span class="price-period">/{{ isAr() ? (yearlyPricing() ? 'سنة' : 'شهر') : (yearlyPricing() ? 'year' : 'mo') }}</span>
+          </div>
+          <ul class="pricing-features">
+            @for (feat of plan.features; track feat.en) {
+              <li [class.disabled]="!feat.included">
+                <i [class]="feat.included ? 'fa-solid fa-check' : 'fa-solid fa-xmark'"></i>
+                {{ isAr() ? feat.ar : feat.en }}
+              </li>
+            }
+          </ul>
+          <a routerLink="/auth" class="btn-hero" [class.primary]="plan.popular" [class.ghost]="!plan.popular">
+            <span>{{ isAr() ? plan.ctaAr : plan.ctaEn }}</span>
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section class="section testimonials-section" id="testimonials" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="section-inner reveal">
+    <div class="section-badge">
+      <i class="fa-solid fa-quote-left"></i>
+      <span>{{ isAr() ? 'ماذا يقول الطلاب' : 'What Students Say' }}</span>
+    </div>
+    <h2 class="section-title">
+      {{ isAr() ? 'محبوبة من ' : 'Loved by ' }}
+      <span class="gradient-text">{{ isAr() ? 'الآلاف' : 'Thousands' }}</span>
+    </h2>
+    <div class="testimonials-grid">
+      @for (t of testimonials; track t.nameEn) {
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            @for (s of [1, 2, 3, 4, 5]; track s) {
+              <i class="fa-solid fa-star"></i>
+            }
+          </div>
+          <p class="testimonial-text">"{{ isAr() ? t.textAr : t.textEn }}"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">{{ t.avatar }}</div>
+            <div>
+              <strong>{{ isAr() ? t.nameAr : t.nameEn }}</strong>
+              <span>{{ isAr() ? t.roleAr : t.roleEn }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section class="section faq-section" id="faq" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="section-inner reveal">
+    <div class="section-badge">
+      <i class="fa-solid fa-circle-question"></i>
+      <span>{{ isAr() ? 'أسئلة شائعة' : 'FAQ' }}</span>
+    </div>
+    <h2 class="section-title">
+      {{ isAr() ? 'الأسئلة ' : 'Frequently Asked ' }}
+      <span class="gradient-text">{{ isAr() ? 'الشائعة' : 'Questions' }}</span>
+    </h2>
+    <p class="section-sub">
+      {{ isAr()
+        ? 'أجوبة سريعة على أكثر الأسئلة شيوعاً'
+        : 'Quick answers to the most common questions'
+      }}
+    </p>
+    <div class="faq-list">
+      @for (faq of faqs; track faq.questionEn; let i = $index) {
+        <div class="faq-item" [class.open]="openFaqIndex() === i">
+          <button class="faq-question" (click)="toggleFaq(i)">
+            <span>{{ isAr() ? faq.questionAr : faq.questionEn }}</span>
+            <i [class]="openFaqIndex() === i ? 'fa-solid fa-minus' : 'fa-solid fa-plus'"></i>
+          </button>
+          @if (openFaqIndex() === i) {
+            <div class="faq-answer">
+              <p>{{ isAr() ? faq.answerAr : faq.answerEn }}</p>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ─── NEWSLETTER ─── -->
+<section class="section newsletter-section" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="section-inner reveal">
+    <div class="newsletter-card">
+      <div class="newsletter-content">
+        <div class="newsletter-icon">
+          <i class="fa-solid fa-envelope-open-text"></i>
+        </div>
+        <h3>{{ isAr() ? 'ابقَ على اطلاع' : 'Stay in the Loop' }}</h3>
+        <p>{{ isAr()
+          ? 'اشترك في نشرتنا البريدية واحصل على أحدث الدورات والعروض مباشرة'
+          : 'Subscribe to our newsletter and get the latest courses and offers directly'
+        }}</p>
+        <div class="newsletter-form">
+          <div class="newsletter-input-wrapper">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" [placeholder]="isAr() ? 'أدخل بريدك الإلكتروني' : 'Enter your email'" />
+          </div>
+          <button class="btn-hero primary" (click)="subscribeNewsletter()">
+            <span>{{ isAr() ? 'اشترك' : 'Subscribe' }}</span>
+            <i [class]="isAr() ? 'fa-solid fa-arrow-left' : 'fa-solid fa-arrow-right'"></i>
+          </button>
+        </div>
+        <span class="newsletter-note">
+          <i class="fa-solid fa-lock"></i>
+          {{ isAr() ? 'لن نشارك بريدك أبداً. يمكنك إلغاء الاشتراك في أي وقت.' : 'We never share your email. Unsubscribe anytime.' }}
+        </span>
+      </div>
+      <div class="newsletter-visual">
+        <div class="nl-float nl-1"><i class="fa-solid fa-paper-plane"></i></div>
+        <div class="nl-float nl-2"><i class="fa-solid fa-bell"></i></div>
+        <div class="nl-float nl-3"><i class="fa-solid fa-gift"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="section cta-section" id="cta" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="cta-inner reveal">
+    <div class="cta-glow"></div>
+    <h2>{{ isAr() ? 'مستعد لتغيير مستقبلك؟' : 'Ready to Transform Your Future?' }}</h2>
+    <p>{{ isAr()
+      ? 'انضم لأكثر من 50,000 متعلم يطورون مهاراتهم على Classy Book'
+      : 'Join 50,000+ learners already building their skills on Classy Book'
+    }}</p>
+    <div class="cta-actions">
+      <a routerLink="/auth" class="btn-hero primary lg">
+        <span>{{ isAr() ? 'ابدأ الآن — مجاناً' : "Get Started — It's Free" }}</span>
+        <i [class]="isAr() ? 'fa-solid fa-arrow-left' : 'fa-solid fa-arrow-right'"></i>
+      </a>
+    </div>
+    <div class="cta-trust">
+      <span>{{ isAr() ? 'بدون بطاقة ائتمان' : 'No credit card required' }}</span>
+      <span>&bull;</span>
+      <span>{{ isAr() ? 'إلغاء في أي وقت' : 'Cancel anytime' }}</span>
+      <span>&bull;</span>
+      <span>{{ isAr() ? 'خطة مجانية للأبد' : 'Free forever plan' }}</span>
+    </div>
+    <p class="cta-instructor">
+      {{ isAr() ? 'إذا كنت صاحب شركة،' : 'If you are a business owner,' }}
+      <a routerLink="/provider/register">{{ isAr() ? 'انقر هنا لتسجيل شركتك' : 'click here to register your business' }}</a>
+    </p>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="landing-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="footer-inner">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <i class="fa-solid fa-book-open"></i>
+          <span>Classy Book</span>
+        </div>
+        <p>{{ isAr()
+          ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي والنمو المهني.'
+          : 'The all-in-one platform for interactive learning, social collaboration, and career growth.'
+        }}</p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>{{ isAr() ? 'المنصة' : 'Platform' }}</h4>
+        <a href="#features">{{ isAr() ? 'المميزات' : 'Features' }}</a>
+        <a href="#categories">{{ isAr() ? 'التصنيفات' : 'Categories' }}</a>
+        <a href="#pricing">{{ isAr() ? 'الأسعار' : 'Pricing' }}</a>
+        <a href="#">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
+      </div>
+      <div class="footer-col">
+        <h4>{{ isAr() ? 'الشركة' : 'Company' }}</h4>
+        <a href="#">{{ isAr() ? 'من نحن' : 'About Us' }}</a>
+        <a href="#">{{ isAr() ? 'الوظائف' : 'Careers' }}</a>
+        <a href="#">{{ isAr() ? 'المدونة' : 'Blog' }}</a>
+        <a href="#">{{ isAr() ? 'تواصل معنا' : 'Contact' }}</a>
+      </div>
+      <div class="footer-col">
+        <h4>{{ isAr() ? 'الدعم' : 'Support' }}</h4>
+        <a href="#">{{ isAr() ? 'مركز المساعدة' : 'Help Center' }}</a>
+        <a href="#">{{ isAr() ? 'المجتمع' : 'Community' }}</a>
+        <a href="#">{{ isAr() ? 'سياسة الخصوصية' : 'Privacy Policy' }}</a>
+        <a href="#">{{ isAr() ? 'شروط الخدمة' : 'Terms of Service' }}</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{{ isAr()
+        ? '© 2026 Classy Book. جميع الحقوق محفوظة.'
+        : '© 2026 Classy Book. All rights reserved.'
+      }}</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── SCROLL TO TOP ─── -->
+<button class="scroll-top-btn" [class.visible]="showScrollTop()" (click)="scrollToTop()" aria-label="Scroll to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>

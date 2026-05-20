@@ -1,0 +1,422 @@
+<app-admin-layout>
+  <div
+    class="monitoring-container"
+    [attr.data-theme]="currentTheme()"
+    [attr.dir]="currentDirection()"
+  >
+    <!-- ═══════════════ HEADER ═══════════════ -->
+    <header class="mon-header">
+      <div class="header-left">
+        <div class="header-icon-wrap">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div>
+          <h1>{{ t().pageTitle }}</h1>
+          <p>{{ t().pageSubtitle }}</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="ws-status" [class.connected]="wsConnected()">
+          <i class="fa-solid fa-circle"></i>
+          {{
+            wsConnected()
+              ? currentLang() === 'ar'
+                ? 'مباشر'
+                : 'Live'
+              : currentLang() === 'ar'
+                ? 'غير متصل'
+                : 'Offline'
+          }}
+        </div>
+        <button
+          class="btn-icon"
+          (click)="printReport()"
+          [disabled]="loading()"
+          [title]="currentLang() === 'ar' ? 'طباعة' : 'Print'"
+        >
+          <i class="fa-solid fa-print"></i>
+        </button>
+        <button class="btn-primary" (click)="refreshData()" [disabled]="loading()">
+          <i class="fa-solid fa-arrows-rotate" [class.spinning]="loading()"></i>
+          {{ t().refresh }}
+        </button>
+      </div>
+    </header>
+
+    <!-- ═══════════════ LOADING ═══════════════ -->
+    @if (loading()) {
+      <div class="skeleton-grid">
+        @for (i of [1, 2, 3, 4]; track i) {
+          <div class="skel-card">
+            <div class="skel-circle"></div>
+            <div class="skel-lines">
+              <div class="skel-line w60"></div>
+              <div class="skel-line w40"></div>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="skel-table">
+        @for (i of [1, 2, 3, 4, 5]; track i) {
+          <div class="skel-row"></div>
+        }
+      </div>
+    }
+
+    <!-- ═══════════════ ERROR ═══════════════ -->
+    @if (!loading() && error()) {
+      <div class="error-banner">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span>{{ error() }}</span>
+        <button class="btn-primary btn-sm" (click)="refreshData()">
+          <i class="fa-solid fa-arrows-rotate"></i>
+          {{ t().refresh }}
+        </button>
+      </div>
+    }
+
+    <!-- ═══════════════ CONTENT ═══════════════ -->
+    @if (!loading() && !error()) {
+      <!-- ────── Row 1: Threat Level + Metric Cards ────── -->
+      <section class="row-threat">
+        <div class="threat-panel">
+          <div class="threat-gauge">
+            <svg viewBox="0 0 200 120" class="gauge-svg">
+              <path
+                d="M20 110 A80 80 0 0 1 180 110"
+                fill="none"
+                stroke="var(--bg-3)"
+                stroke-width="14"
+                stroke-linecap="round"
+              />
+              <path
+                d="M20 110 A80 80 0 0 1 180 110"
+                fill="none"
+                [attr.stroke]="threatColor()"
+                stroke-width="14"
+                stroke-linecap="round"
+                [style.stroke-dasharray]="threatArc()"
+                class="gauge-fill"
+              />
+            </svg>
+            <div class="gauge-center">
+              <span class="gauge-value" [style.color]="threatColor()">{{ threatScore() }}%</span>
+              <span class="gauge-text">{{
+                currentLang() === 'ar' ? 'مستوى التهديد' : 'Threat Level'
+              }}</span>
+            </div>
+          </div>
+          <div
+            class="threat-badge"
+            [style.background]="threatColor() + '18'"
+            [style.color]="threatColor()"
+          >
+            <i [class]="threatIcon()"></i>
+            {{ threatLabel() }}
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card metric-success">
+            <div class="metric-ring">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value">{{ securityMetrics()?.successfulLogins || 0 }}</span>
+              <span class="metric-label">{{ t().successfulLogins }}</span>
+            </div>
+            <div class="metric-spark success"></div>
+          </div>
+          <div class="metric-card metric-danger">
+            <div class="metric-ring">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value">{{ securityMetrics()?.failedLogins || 0 }}</span>
+              <span class="metric-label">{{ t().failedAttempts }}</span>
+            </div>
+            <div class="metric-spark danger"></div>
+          </div>
+          <div class="metric-card metric-warning">
+            <div class="metric-ring">
+              <i class="fa-solid fa-ban"></i>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value">{{ securityMetrics()?.blockedIPs || 0 }}</span>
+              <span class="metric-label">{{ t().blockedIPs }}</span>
+            </div>
+            <div class="metric-spark warning"></div>
+          </div>
+          <div class="metric-card metric-info">
+            <div class="metric-ring">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value">{{ securityMetrics()?.activeSessions || 0 }}</span>
+              <span class="metric-label">{{ t().activeSessions }}</span>
+            </div>
+            <div class="metric-spark info"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ────── Row 2: Login Attempts Table ────── -->
+      <section class="card-panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <i class="fa-solid fa-list-check"></i>
+            <h2>{{ t().recentLoginAttempts }}</h2>
+          </div>
+          <div class="panel-badges">
+            <span class="badge badge-count">{{ loginAttempts().length }} {{ t().attempts }}</span>
+            <button
+              class="btn-trash"
+              (click)="clearLoginAttempts()"
+              [disabled]="loginAttempts().length === 0"
+            >
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="mon-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>{{ t().email }}</th>
+                <th>{{ t().ipAddress }}</th>
+                <th>{{ t().status }}</th>
+                <th>{{ t().reason }}</th>
+                <th>{{ t().timestamp }}</th>
+                <th>{{ t().sessionId }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (attempt of currentPageAttempts(); track attempt._id; let i = $index) {
+                <tr [class.row-failed]="!attempt.success">
+                  <td>
+                    <span class="row-num">{{ getAttemptIndex(i) }}</span>
+                  </td>
+                  <td class="cell-email">{{ attempt.email }}</td>
+                  <td>
+                    <code class="code-tag">{{ attempt.ipAddress }}</code>
+                  </td>
+                  <td>
+                    <span
+                      class="status-pill"
+                      [class]="attempt.success ? 'pill-success' : 'pill-danger'"
+                    >
+                      <i [class]="attempt.success ? 'fa-solid fa-check' : 'fa-solid fa-xmark'"></i>
+                      {{ getAttemptStatusText(attempt.success) }}
+                    </span>
+                  </td>
+                  <td class="cell-reason">{{ attempt.failureReason || '-' }}</td>
+                  <td class="cell-time">{{ formatDate(attempt.timestamp) }}</td>
+                  <td>
+                    <code class="code-tag code-session">{{ attempt.sessionId || '-' }}</code>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="7" class="empty-cell">
+                    <i class="fa-solid fa-inbox"></i>
+                    {{ t().noLoginAttempts }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        @if (totalPages() > 1) {
+          <div class="pagination">
+            <button class="page-btn" (click)="prevPage()" [disabled]="currentPage() === 0">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            @for (p of pagesArray(); track p) {
+              <button class="page-btn" [class.active]="p === currentPage()" (click)="goToPage(p)">
+                {{ p + 1 }}
+              </button>
+            }
+            <button
+              class="page-btn"
+              (click)="nextPage()"
+              [disabled]="currentPage() === totalPages() - 1"
+            >
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        }
+      </section>
+
+      <!-- ────── Row 3: Admin Sessions ────── -->
+      <section class="card-panel sessions-panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <i class="fa-solid fa-user-shield"></i>
+            <h2>{{ t().activeAdminSessions }}</h2>
+          </div>
+          <div class="panel-badges">
+            <span class="badge badge-live">
+              <i class="fa-solid fa-circle pulse-dot"></i>
+              {{ adminSessions().length }} {{ currentLang() === 'ar' ? 'جلسة نشطة' : 'active' }}
+            </span>
+            <button
+              class="btn-trash"
+              (click)="clearAdminSessions()"
+              [disabled]="adminSessions().length === 0"
+            >
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="sessions-grid">
+          @for (session of adminSessions(); track session.sessionId) {
+            <div class="session-card" [class.is-me]="session.email === auth.getAdminData()?.email">
+              <div class="session-top">
+                <div class="session-avatar">
+                  <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <div class="session-info">
+                  <span class="session-name">
+                    {{ session.firstName }} {{ session.lastName }}
+                    @if (session.email === auth.getAdminData()?.email) {
+                      <span class="you-chip">{{ currentLang() === 'ar' ? 'أنت' : 'You' }}</span>
+                    }
+                  </span>
+                  <span class="session-email">{{ session.email }}</span>
+                </div>
+                <span [class]="'role-chip role-' + session.role">
+                  {{
+                    session.role === 'super_admin'
+                      ? currentLang() === 'ar'
+                        ? 'سوبر أدمن'
+                        : 'Super Admin'
+                      : currentLang() === 'ar'
+                        ? 'أدمن'
+                        : 'Admin'
+                  }}
+                </span>
+              </div>
+              <div class="session-details">
+                <div class="detail-item">
+                  <i class="fa-solid fa-network-wired"></i>
+                  <code>{{ session.ipAddress }}</code>
+                </div>
+                <div class="detail-item">
+                  <i class="fa-solid fa-clock"></i>
+                  {{ formatDate(session.loginAt) }}
+                </div>
+                <div class="detail-item">
+                  <i class="fa-solid fa-hourglass-half"></i>
+                  <span
+                    [class]="
+                      'time-badge time-' +
+                      (session.remainingMinutes < 5
+                        ? 'critical'
+                        : session.remainingMinutes < 15
+                          ? 'warn'
+                          : 'ok')
+                    "
+                  >
+                    {{ formatRemainingTime(session.remainingMinutes) }}
+                  </span>
+                </div>
+              </div>
+              <div class="session-actions">
+                <select
+                  class="extend-select"
+                  [value]="getExtendMinutes(session.sessionId)"
+                  (change)="setExtendMinutes(session.sessionId, +$any($event.target).value)"
+                >
+                  <option value="15">15 {{ t().minutes }}</option>
+                  <option value="30" selected>30 {{ t().minutes }}</option>
+                  <option value="60">60 {{ t().minutes }}</option>
+                  <option value="120">120 {{ t().minutes }}</option>
+                </select>
+                <button
+                  class="btn-extend"
+                  (click)="extendSession(session.sessionId, getExtendMinutes(session.sessionId))"
+                  [disabled]="extendingSession() === session.sessionId"
+                >
+                  @if (extendingSession() === session.sessionId) {
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                  } @else {
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                  }
+                  {{ t().extendSession }}
+                </button>
+              </div>
+            </div>
+          } @empty {
+            <div class="empty-sessions">
+              <i class="fa-solid fa-user-slash"></i>
+              <p>{{ t().noActiveSessions }}</p>
+            </div>
+          }
+        </div>
+      </section>
+
+      <!-- ────── Row 4: Blocked IPs ────── -->
+      <section class="card-panel blocked-panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <i class="fa-solid fa-shield-virus"></i>
+            <h2>{{ t().blockedIPAddresses }}</h2>
+          </div>
+          <div class="panel-badges">
+            <span class="badge badge-blocked">{{ blockedIPs().length }} {{ t().blocked }}</span>
+            <button
+              class="btn-trash"
+              (click)="clearBlockedIPs()"
+              [disabled]="blockedIPs().length === 0"
+            >
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="mon-table">
+            <thead>
+              <tr>
+                <th>{{ t().ipAddress }}</th>
+                <th>{{ t().attempts }}</th>
+                <th>{{ t().reason }}</th>
+                <th>{{ t().blockedUntil }}</th>
+                <th>{{ t().actions }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (ip of blockedIPs(); track ip._id) {
+                <tr>
+                  <td>
+                    <code class="code-tag code-ip-block">{{ ip.ipAddress }}</code>
+                  </td>
+                  <td>
+                    <span class="attempts-chip">{{ ip.attempts }}</span>
+                  </td>
+                  <td>{{ ip.reason }}</td>
+                  <td class="cell-time">{{ formatDate(ip.blockedUntil) }}</td>
+                  <td>
+                    <button class="btn-unblock" (click)="unblockIP(ip.ipAddress)">
+                      <i class="fa-solid fa-lock-open"></i>
+                      {{ t().unblock }}
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="empty-cell">
+                    <i class="fa-solid fa-check-double"></i>
+                    {{ t().noBlockedIPs }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+  </div>
+</app-admin-layout>

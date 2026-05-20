@@ -1,0 +1,532 @@
+<!-- User Dashboard — Social Media Overview -->
+
+<div class="social-feed" [dir]="isAr() ? 'rtl' : 'ltr'">
+
+    <!-- ═══ COVER + PROFILE HEADER ═══ -->
+    <section class="profile-hero">
+      <!-- 3D Cover -->
+      <div class="cover-wrap">
+        <div class="cover-bg">
+          <div class="cover-pattern"></div>
+          <div class="cover-gradient"></div>
+          <div class="cover-shape shape-1"></div>
+          <div class="cover-shape shape-2"></div>
+          <div class="cover-shape shape-3"></div>
+          <div class="cover-shape shape-4"></div>
+          <div class="cover-shape shape-5"></div>
+          <!-- Cover greeting overlay -->
+          <div class="cover-greeting">
+            <span class="cover-greeting-text">{{ greeting() }}</span>
+            <span class="cover-quote">{{ motivationalQuote() }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Info Card -->
+      <div class="profile-card">
+        <div class="profile-card-inner">
+          <!-- Avatar -->
+          <div class="profile-avatar-3d">
+            <div class="avatar-ring"></div>
+            <div class="avatar-main">
+              @if (user()?.avatar) {
+                <img [src]="user()!.avatar" alt="avatar" />
+              } @else {
+                <span class="avatar-letter-big">{{ userInitial() }}</span>
+              }
+            </div>
+            <div class="avatar-status"></div>
+          </div>
+
+          <!-- Name + Bio -->
+          <div class="profile-info">
+            <div class="profile-name-row">
+              <h1 class="profile-name">{{ user()?.name || 'User' }}</h1>
+              <span class="verified-icon" title="Verified">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+              </span>
+            </div>
+            <p class="profile-handle">{{ '@' + ((user()?.email ?? '').split('@')[0] || 'user') }}</p>
+            <p class="profile-bio">{{ userBio() }}</p>
+            @if (memberSince()) {
+              <p class="profile-member-since">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                {{ memberSince() }}
+              </p>
+            }
+          </div>
+
+          <!-- Stats -->
+          <div class="profile-stats">
+            @for (stat of profileStats(); track stat.labelEn) {
+              <div class="profile-stat">
+                <div class="stat-icon-wrap">
+                  @switch (stat.icon) {
+                    @case ('book') {
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                    }
+                    @case ('award') {
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+                    }
+                    @case ('clock') {
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    }
+                    @case ('fire') {
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c0 4-4 6-4 10a4 4 0 008 0c0-4-4-6-4-10z"/></svg>
+                    }
+                  }
+                </div>
+                <span class="stat-number">{{ stat.value }}</span>
+                <span class="stat-text">{{ isAr() ? stat.labelAr : stat.labelEn }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ STORIES SECTION ═══ -->
+    <section class="stories-feed-container">
+      <app-stories></app-stories>
+    </section>
+
+    <!-- ═══ STATUS / WHAT'S ON YOUR MIND ═══ -->
+    <section class="status-section">
+      <div class="status-card" [class.focused]="statusFocused()">
+        <div class="status-avatar">
+          @if (user()?.avatar) {
+            <img [src]="user()!.avatar" alt="avatar" />
+          } @else {
+            <span class="status-avatar-letter">{{ userInitial() }}</span>
+          }
+        </div>
+        <div class="status-input-wrap">
+          <input
+            class="status-input"
+            type="text"
+            [placeholder]="isAr() ? 'ما الذي يدور في ذهنك؟ 💭' : 'What\'s on your mind? 💭'"
+            [value]="statusText()"
+            (input)="onStatusInput($event)"
+            (keyup.enter)="createPost()"
+            (focus)="statusFocused.set(true)"
+            [disabled]="isPosting()"
+          />
+
+          <!-- Image Previews -->
+          @if (imagePreviews().length > 0) {
+            <div class="image-previews-grid">
+              @for (url of imagePreviews(); track $index) {
+                <div class="preview-item">
+                  <img [src]="url" alt="preview" />
+                  <button class="remove-preview" (click)="removeImage($index)">×</button>
+                </div>
+              }
+            </div>
+          }
+
+          <div class="status-actions">
+            <button class="status-action-btn" (click)="fileInput.click()" [title]="isAr() ? 'صورة' : 'Photo'">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </button>
+            <input #fileInput type="file" multiple (change)="onFileSelected($event)" style="display: none" accept="image/*" />
+            
+            <button class="status-action-btn emoji" [title]="isAr() ? 'ايموجي' : 'Emoji'">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </button>
+            
+            <button 
+              class="status-post-btn" 
+              [class.active]="statusText().trim().length > 0 || selectedFiles().length > 0"
+              (click)="createPost()"
+              [disabled]="isPosting() || (!statusText().trim() && selectedFiles().length === 0)"
+            >
+              @if (isPosting() || isUploading()) {
+                <span class="spinner"></span>
+              } @else {
+                {{ isAr() ? 'نشر' : 'Post' }}
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONTENT GRID ═══ -->
+    <div class="content-grid">
+
+      <!-- Left Column -->
+      <div class="content-col-main">
+
+        <!-- Quick Actions -->
+        <section class="quick-actions-card card-3d">
+          <h3 class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            {{ isAr() ? 'إجراءات سريعة' : 'Quick Actions' }}
+          </h3>
+          <div class="quick-actions-grid">
+            @for (action of quickActions(); track action.labelEn) {
+              <button class="quick-action-item" [style.--action-color]="action.color">
+                <div class="quick-action-icon">
+                  @switch (action.icon) {
+                    @case ('compass') {
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                    }
+                    @case ('chart') {
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    }
+                    @case ('award') {
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+                    }
+                    @case ('settings') {
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                    }
+                  }
+                </div>
+                <span class="quick-action-label">{{ isAr() ? action.labelAr : action.labelEn }}</span>
+              </button>
+            }
+          </div>
+        </section>
+
+        <!-- Social Feed -->
+        <section class="social-feed-container">
+          
+          @if (socialService.isLoading() && socialService.feed().length === 0) {
+            <div class="feed-posts">
+              @for (i of [1, 2, 3]; track i) {
+                <div class="skeleton-card skeleton-shimmer">
+                  <div class="skeleton-header">
+                    <div class="skeleton-avatar"></div>
+                    <div class="skeleton-meta">
+                      <div class="skeleton-line title"></div>
+                      <div class="skeleton-line sub"></div>
+                    </div>
+                  </div>
+                  <div class="skeleton-line body-1"></div>
+                  <div class="skeleton-line body-2"></div>
+                  <div class="skeleton-line body-3"></div>
+                  <div class="skeleton-media"></div>
+                  <div class="skeleton-footer">
+                    <div class="skeleton-btn"></div>
+                    <div class="skeleton-btn"></div>
+                    <div class="skeleton-btn"></div>
+                  </div>
+                </div>
+              }
+            </div>
+          } @else if (socialService.feed().length === 0) {
+            <div class="feed-empty card-3d">
+              <div class="empty-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </div>
+              <p>{{ isAr() ? 'لا توجد منشورات حتى الآن. كن أول من ينشر!' : 'No posts yet. Be the first to post!' }}</p>
+            </div>
+          } @else {
+            <div class="feed-posts">
+              @for (post of socialService.feed(); track post.id) {
+                <div class="post-card card-3d">
+                  <!-- Post Header -->
+                  <div class="post-header">
+                    <div class="post-author-avatar">
+                      @if (post.author?.avatar) {
+                        <img [src]="post.author.avatar" [alt]="post.author.name" />
+                      } @else {
+                        <span class="avatar-letter">{{ post.author?.name?.charAt(0)?.toUpperCase() || 'U' }}</span>
+                      }
+                    </div>
+                    <div class="post-author-info">
+                      <div class="name-row">
+                        <span class="author-name">{{ post.author?.name || 'User' }}</span>
+                        @if (post.author?.role === 'admin' || post.author?.role === 'teacher') {
+                          <span class="verified-icon small">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                          </span>
+                        }
+                      </div>
+                      <span class="post-time">{{ formatDate(post.createdAt) }}</span>
+                    </div>
+                    
+                    @if (post.isOwn) {
+                      <button class="post-options-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                      </button>
+                    }
+                  </div>
+
+                  <!-- Post Content -->
+                   <div class="post-content">
+                     <p>{{ post.content }}</p>
+                     
+                     <!-- Post Media -->
+                     @if (post.media?.length) {
+                       <div class="post-media" [class.multi]="post.media.length > 1">
+                         @for (url of post.media; track url) {
+                           <div class="media-item">
+                             <img [src]="url" alt="post media" loading="lazy" />
+                           </div>
+                         }
+                       </div>
+                     }
+
+                     <!-- Repost Content -->
+                     @if (post.type === 'repost' && post.originalPost) {
+                       <div class="reposted-content-card">
+                         <div class="repost-header">
+                           <div class="repost-avatar">
+                             @if (post.originalPost.author?.avatar) {
+                               <img [src]="post.originalPost.author.avatar" alt="avatar" />
+                             } @else {
+                               <span class="avatar-letter-xs">{{ post.originalPost.author?.name?.charAt(0) }}</span>
+                             }
+                           </div>
+                           <div class="repost-meta">
+                             <span class="repost-author-name">{{ post.originalPost.author?.name }}</span>
+                             <span class="repost-date">{{ formatDate(post.originalPost.createdAt) }}</span>
+                           </div>
+                         </div>
+                         <div class="repost-body">
+                           <p>{{ post.originalPost.content }}</p>
+                           @if (post.originalPost.media?.length) {
+                             <div class="repost-media-preview">
+                               <img [src]="post.originalPost.media[0]" alt="repost media" />
+                             </div>
+                           }
+                         </div>
+                       </div>
+                     }
+
+                     @if (post.hashtags?.length) {
+                       <div class="post-hashtags">
+                         @for (tag of post.hashtags; track tag) {
+                           <span class="hashtag">#{{ tag }}</span>
+                         }
+                       </div>
+                     }
+                   </div>
+
+                  <!-- Post Stats -->
+                  <div class="post-stats">
+                    <span class="stat-item">{{ post.likesCount }} {{ isAr() ? 'إعجاب' : 'Likes' }}</span>
+                    <span class="stat-item">{{ post.commentsCount }} {{ isAr() ? 'تعليق' : 'Comments' }}</span>
+                    <span class="stat-item">{{ post.repostCount || 0 }} {{ isAr() ? 'مشاركة' : 'Shares' }}</span>
+                  </div>
+
+                  <!-- Post Actions -->
+                  <div class="post-actions">
+                    <div class="post-action-wrap">
+                      <button class="action-btn like-btn" [class.liked]="post.isLiked" 
+                        (mouseenter)="showReactionPicker(post.id)"
+                        (click)="toggleReaction(post, 'like')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" [attr.fill]="post.isLiked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        <span>{{ isAr() ? 'أعجبني' : 'Like' }}</span>
+                      </button>
+
+                      @if (activeReactionPicker() === post.id) {
+                        <div class="reaction-picker" (mouseleave)="hideReactionPicker()">
+                          <button (click)="toggleReaction(post, 'like')" title="Like">👍</button>
+                          <button (click)="toggleReaction(post, 'love')" title="Love">❤️</button>
+                          <button (click)="toggleReaction(post, 'haha')" title="Haha">😂</button>
+                          <button (click)="toggleReaction(post, 'wow')" title="Wow">😮</button>
+                          <button (click)="toggleReaction(post, 'sad')" title="Sad">😢</button>
+                          <button (click)="toggleReaction(post, 'angry')" title="Angry">😡</button>
+                        </div>
+                      }
+                    </div>
+                    
+                    <button class="action-btn comment-btn" (click)="toggleComments(post.id)">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                      <span>{{ isAr() ? 'تعليق' : 'Comment' }}</span>
+                    </button>
+                    
+                    <button class="action-btn share-btn" (click)="repost(post.id)">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                      <span>{{ isAr() ? 'مشاركة' : 'Share' }}</span>
+                    </button>
+                  </div>
+
+                  <!-- Comments Section -->
+                  @if (openCommentSections()[post.id]) {
+                    <div class="comments-section">
+                      <!-- Comment Input -->
+                      <div class="comment-input-wrap">
+                        <div class="comment-avatar">
+                          @if (user()?.avatar) {
+                            <img [src]="user()!.avatar" alt="avatar" />
+                          } @else {
+                            <span class="avatar-letter-small">{{ userInitial() }}</span>
+                          }
+                        </div>
+                        <input 
+                          type="text" 
+                          class="comment-input" 
+                          [placeholder]="isAr() ? 'اكتب تعليقاً...' : 'Write a comment...'"
+                          [value]="commentInputs()[post.id] || ''"
+                          (input)="onCommentInput(post.id, $event)"
+                          (keyup.enter)="submitComment(post.id)"
+                        />
+                        <button 
+                          class="comment-submit-btn" 
+                          [disabled]="!commentInputs()[post.id]?.trim()"
+                          (click)="submitComment(post.id)"
+                        >
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        </button>
+                      </div>
+
+                      <!-- Comments List -->
+                      @if (post.comments?.length) {
+                        <div class="comments-list">
+                          @for (comment of post.comments; track comment._id) {
+                            <div class="comment-item">
+                              <div class="comment-avatar">
+                                @if (comment.userId?.avatar) {
+                                  <img [src]="comment.userId.avatar" alt="avatar" />
+                                } @else {
+                                  <span class="avatar-letter-small">{{ comment.userId?.name?.charAt(0)?.toUpperCase() || 'U' }}</span>
+                                }
+                              </div>
+                              <div class="comment-content-wrap">
+                                <div class="comment-bubble">
+                                  <span class="comment-author">{{ comment.userId?.name || 'User' }}</span>
+                                  <p class="comment-text">{{ comment.content }}</p>
+                                </div>
+                                <span class="comment-time">{{ formatDate(comment.createdAt) }}</span>
+                              </div>
+                            </div>
+                          }
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </section>
+
+      </div>
+
+      <!-- Right Column (Sidebar Widgets) -->
+      <div class="content-col-side">
+
+        <!-- Learning Progress Widget -->
+        <section class="progress-widget card-3d">
+          <h3 class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            {{ isAr() ? 'مستوى التعلم' : 'Learning Level' }}
+          </h3>
+          <div class="level-ring-wrap">
+            <svg class="level-ring" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="var(--border)" stroke-width="8"/>
+              <circle cx="60" cy="60" r="52" fill="none" stroke="url(#levelGrad)" stroke-width="8" stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="327" class="level-progress"/>
+              <defs>
+                <linearGradient id="levelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#166534"/>
+                  <stop offset="100%" stop-color="#22c55e"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="level-center">
+              <span class="level-num">1</span>
+              <span class="level-label">{{ isAr() ? 'مبتدئ' : 'Beginner' }}</span>
+            </div>
+          </div>
+          <div class="level-meta">
+            <span>0 / 100 XP</span>
+            <span class="level-next">{{ isAr() ? 'المستوى التالي' : 'Next Level' }}</span>
+          </div>
+        </section>
+
+        <!-- Streaks Widget (existing) -->
+        <section class="streak-widget card-3d">
+          <div class="streak-header">
+            <div class="streak-flame">🔥</div>
+            <div class="streak-info">
+              <span class="streak-count">0 {{ isAr() ? 'يوم' : 'Day' }}</span>
+              <span class="streak-sub">{{ isAr() ? 'سلسلة التعلم' : 'Learning Streak' }}</span>
+            </div>
+          </div>
+          <div class="streak-days">
+            @for (day of [1,2,3,4,5,6,7]; track day) {
+              <div class="streak-day" [class.active]="day === 1">
+                <span class="streak-day-label">{{ day }}</span>
+                <div class="streak-dot"></div>
+              </div>
+            }
+          </div>
+        </section>
+
+        <!-- Profile Completeness Widget -->
+        @if (profileCompletion() < 100) {
+          <section class="completion-widget card-3d">
+            <h3 class="section-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              {{ isAr() ? 'أكمل ملفك الشخصي' : 'Complete Your Profile' }}
+            </h3>
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill" [style.width.%]="profileCompletion()"></div>
+            </div>
+            <p class="completion-text">
+              {{ isAr() ? 'ملفك مكتمل بنسبة ' : 'Profile is ' }}{{ profileCompletion() }}% {{ isAr() ? 'اكتمل' : 'complete' }}
+            </p>
+            <button class="complete-btn" [routerLink]="['/dashboard/settings']">
+              {{ isAr() ? 'أكمل الآن' : 'Complete Now' }}
+            </button>
+          </section>
+        }
+
+        <!-- Who to Follow -->
+        <section class="suggested-users-widget card-3d">
+          <h3 class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+            {{ isAr() ? 'اقتراحات الأصدقاء' : 'Who to Follow' }}
+          </h3>
+          <div class="suggested-list">
+            @for (sUser of suggestedUsers(); track sUser._id) {
+              <div class="suggested-item">
+                <img [src]="sUser.avatar || 'assets/default-avatar.png'" class="suggested-avatar">
+                <div class="suggested-info">
+                  <span class="suggested-name">{{ sUser.name }}</span>
+                  <span class="suggested-meta">{{ sUser.role }}</span>
+                </div>
+                <button class="follow-btn-sm" (click)="toggleFollow(sUser._id)">
+                  {{ isAr() ? 'متابعة' : 'Follow' }}
+                </button>
+              </div>
+            }
+          </div>
+        </section>
+
+        <!-- Trending Hashtags -->
+        <section class="trending-widget card-3d">
+          <h3 class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            {{ isAr() ? 'الأكثر تداولاً' : 'Trending' }}
+          </h3>
+          <div class="trending-list">
+            @for (trend of socialService.trending(); track trend.hashtag) {
+              <div class="trend-item">
+                <span class="trend-hash">#{{ trend.hashtag }}</span>
+                <span class="trend-count">{{ trend.count }} {{ isAr() ? 'منشور' : 'posts' }}</span>
+              </div>
+            }
+          </div>
+        </section>
+
+        <!-- Suggested for You -->
+        <section class="suggested-widget card-3d">
+          <h3 class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            {{ isAr() ? 'مقترح لك' : 'Suggested for You' }}
+          </h3>
+          <div class="suggested-empty">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" opacity="0.5"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+            <p>{{ isAr() ? 'ابدأ رحلتك التعليمية!' : 'Start your learning journey!' }}</p>
+            <button class="explore-btn">{{ isAr() ? 'استكشف الدورات' : 'Explore Courses' }}</button>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+  </div>

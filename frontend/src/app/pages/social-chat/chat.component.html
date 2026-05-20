@@ -1,0 +1,89 @@
+<div class="chat-container" [dir]="isAr() ? 'rtl' : 'ltr'">
+  
+  <!-- Conversations Sidebar -->
+  <div class="chat-sidebar">
+    <div class="sidebar-header">
+      <h2>{{ isAr() ? 'المحادثات' : 'Messages' }}</h2>
+    </div>
+    <div class="conversations-list">
+      @for (conv of conversations(); track conv._id) {
+        <div class="conversation-item" [class.active]="activeChat()?._id === conv.otherUser?._id" (click)="selectChat(conv)">
+          <div class="avatar-container">
+            @if (conv.otherUser?.avatar) {
+              <img [src]="conv.otherUser.avatar" class="user-avatar" />
+            } @else {
+              <div class="user-avatar placeholder">{{ conv.otherUser?.name?.charAt(0) }}</div>
+            }
+            @if (!conv.isRead && conv.receiverId === currentUser()?._id) {
+              <span class="unread-dot"></span>
+            }
+          </div>
+          <div class="conv-info">
+            <div class="conv-name">
+              <span>{{ conv.otherUser?.name }}</span>
+              <span class="conv-time">{{ formatDate(conv.createdAt) }}</span>
+            </div>
+            <p class="last-msg" [class.unread]="!conv.isRead && conv.receiverId === currentUser()?._id">
+              {{ conv.content }}
+            </p>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-conversations">
+          <p>{{ isAr() ? 'لا توجد محادثات بعد' : 'No conversations yet' }}</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Chat Window -->
+  <div class="chat-window">
+    @if (activeChat()) {
+      <div class="chat-header">
+        <div class="header-user">
+          @if (activeChat().avatar) {
+            <img [src]="activeChat().avatar" class="user-avatar-sm" />
+          } @else {
+            <div class="user-avatar-sm placeholder">{{ activeChat().name?.charAt(0) }}</div>
+          }
+          <div class="header-info">
+            <span class="header-name">{{ activeChat().name }}</span>
+            <span class="header-status">Online</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="messages-area" #scrollContainer>
+        @if (isLoadingMessages()) {
+          <div class="loading-messages"><div class="spinner"></div></div>
+        } @else {
+          @for (msg of messages(); track msg._id) {
+            <div class="message-wrapper" [class.sent]="msg.senderId === currentUser()?._id">
+              <div class="message-bubble">
+                <p class="message-content">{{ msg.content }}</p>
+                <span class="message-time">{{ formatDate(msg.createdAt) }}</span>
+              </div>
+            </div>
+          }
+        }
+      </div>
+
+      <div class="chat-input-area">
+        <input type="text" [placeholder]="isAr() ? 'اكتب رسالة...' : 'Type a message...'" 
+               [(ngModel)]="newMessage" (keyup.enter)="sendMessage()">
+        <button class="send-btn" (click)="sendMessage()" [disabled]="!newMessage().trim()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        </button>
+      </div>
+    } @else {
+      <div class="no-chat-selected">
+        <div class="no-chat-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>{{ isAr() ? 'اختر محادثة للبدء' : 'Select a chat to start' }}</h3>
+        <p>{{ isAr() ? 'تواصل مع أصدقائك وزملائك في الدراسة' : 'Connect with your friends and classmates' }}</p>
+      </div>
+    }
+  </div>
+
+</div>

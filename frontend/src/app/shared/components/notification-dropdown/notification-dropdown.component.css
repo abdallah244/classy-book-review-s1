@@ -1,0 +1,95 @@
+.notif-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.bell-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+  position: relative;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+}
+.bell-btn:hover { background: var(--bg-page); color: var(--green); }
+
+.unread-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 800;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--bg-card);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 320px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+  margin-top: 12px;
+  z-index: 1001;
+  overflow: hidden;
+}
+[dir='rtl'] .dropdown-menu { right: auto; left: 0; }
+
+.dropdown-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dropdown-header h3 { margin: 0; font-size: 1rem; font-weight: 800; }
+.dropdown-header button {
+  background: none; border: none; font-size: 0.75rem; color: var(--green); cursor: pointer; font-weight: 600;
+}
+
+.notif-list { max-height: 400px; overflow-y: auto; }
+.notif-item {
+  display: flex; gap: 12px; padding: 12px 16px; cursor: pointer; transition: 0.2s;
+  border-bottom: 1px solid rgba(0,0,0,0.02); position: relative;
+}
+.notif-item:hover { background: var(--bg-page); }
+.notif-item.unread { background: rgba(22, 101, 52, 0.03); }
+
+.notif-avatar img, .avatar-placeholder { width: 40px; height: 40px; border-radius: 12px; object-fit: cover; }
+.avatar-placeholder {
+  display: flex; align-items: center; justify-content: center; background: var(--bg-page); color: var(--green); font-weight: 800;
+}
+
+.notif-content { flex: 1; }
+.notif-text { font-size: 0.85rem; margin: 0 0 4px 0; line-height: 1.4; color: var(--text-primary); }
+.notif-time { font-size: 0.75rem; color: var(--text-muted); }
+
+.blue-dot {
+  width: 8px; height: 8px; background: var(--green); border-radius: 50%; align-self: center;
+}
+
+.dropdown-footer {
+  padding: 12px; text-align: center; border-top: 1px solid var(--border-light); background: var(--bg-page);
+}
+.dropdown-footer a { font-size: 0.85rem; color: var(--text-secondary); text-decoration: none; font-weight: 600; }
+
+.dropdown-backdrop {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1000;
+}
+
+.empty-state { padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem; }

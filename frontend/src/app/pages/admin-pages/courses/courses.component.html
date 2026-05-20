@@ -1,0 +1,146 @@
+<app-admin-layout>
+  <div class="courses-page">
+    <!-- Stats -->
+    <div class="stats-row">
+      @for (stat of stats; track stat.label) {
+        <div class="stat-card">
+          <div class="stat-icon" [style.background]="stat.color + '15'" [style.color]="stat.color">
+            <i [class]="stat.icon"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">{{ stat.value }}</span>
+            <span class="stat-label">{{ stat.label }}</span>
+          </div>
+          <span class="stat-trend up"><i class="fa-solid fa-arrow-up"></i> {{ stat.trend }}</span>
+        </div>
+      }
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search courses..." (input)="onSearch($event)" />
+        </div>
+        <select class="filter-select" (change)="onCategoryFilter($event)">
+          @for (c of categories; track c) {
+            <option [value]="c">{{ c === 'all' ? 'All Categories' : c }}</option>
+          }
+        </select>
+        <select class="filter-select" (change)="onStatusFilter($event)">
+          <option value="all">All Status</option>
+          <option value="published">Published</option>
+          <option value="draft">Draft</option>
+          <option value="review">In Review</option>
+        </select>
+      </div>
+      <div class="toolbar-right">
+        <button
+          class="btn-icon"
+          (click)="toggleView()"
+          [title]="viewMode() === 'grid' ? 'Table View' : 'Grid View'"
+        >
+          <i [class]="viewMode() === 'grid' ? 'fa-solid fa-table-list' : 'fa-solid fa-grid-2'"></i>
+        </button>
+        <button class="btn-primary"><i class="fa-solid fa-plus"></i> New Course</button>
+      </div>
+    </div>
+
+    <!-- Grid View -->
+    @if (viewMode() === 'grid') {
+      <div class="courses-grid">
+        @for (course of filteredCourses(); track course.id) {
+          <div class="course-card">
+            <div class="course-thumb">
+              <span class="thumb-emoji">{{ course.thumbnail }}</span>
+              <span class="course-status" [class]="getStatusClass(course.status)">{{
+                course.status
+              }}</span>
+            </div>
+            <div class="course-body">
+              <span class="course-category">{{ course.category }}</span>
+              <h3 class="course-title">{{ course.title }}</h3>
+              <span class="course-instructor"
+                ><i class="fa-solid fa-user"></i> {{ course.instructor }}</span
+              >
+              <div class="course-meta">
+                <span><i class="fa-solid fa-users"></i> {{ course.students }}</span>
+                <span><i class="fa-solid fa-play-circle"></i> {{ course.lessons }} lessons</span>
+                <span class="course-rating"
+                  ><i class="fa-solid fa-star"></i> {{ course.rating }}</span
+                >
+              </div>
+              <div class="course-footer">
+                <span class="course-price">${{ course.price }}</span>
+                <div class="course-actions">
+                  <button class="action-btn" (click)="editCourse(course)">
+                    <i class="fa-solid fa-pen"></i>
+                  </button>
+                  <button class="action-btn danger" (click)="deleteCourse(course)">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        } @empty {
+          <div class="empty-state">No courses found</div>
+        }
+      </div>
+    }
+
+    <!-- Table View -->
+    @if (viewMode() === 'table') {
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>Instructor</th>
+              <th>Category</th>
+              <th>Students</th>
+              <th>Rating</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (course of filteredCourses(); track course.id) {
+              <tr>
+                <td>
+                  <span class="course-title-cell">{{ course.thumbnail }} {{ course.title }}</span>
+                </td>
+                <td>{{ course.instructor }}</td>
+                <td>{{ course.category }}</td>
+                <td>{{ course.students }}</td>
+                <td>
+                  <span class="rating-cell"
+                    ><i class="fa-solid fa-star"></i> {{ course.rating }}</span
+                  >
+                </td>
+                <td>${{ course.price }}</td>
+                <td>
+                  <span class="status-badge" [class]="getStatusClass(course.status)">{{
+                    course.status
+                  }}</span>
+                </td>
+                <td>
+                  <div class="action-btns">
+                    <button class="action-btn" (click)="editCourse(course)">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn danger" (click)="deleteCourse(course)">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</app-admin-layout>

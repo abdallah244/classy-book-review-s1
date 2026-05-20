@@ -1,0 +1,689 @@
+<div class="provider-page" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <!-- ═══ LEFT: Immersive 3D Branding Panel ═══ -->
+  <aside class="brand-panel">
+    <!-- Ambient particles -->
+    <div class="particles">
+      <div class="particle p1"></div>
+      <div class="particle p2"></div>
+      <div class="particle p3"></div>
+      <div class="particle p4"></div>
+      <div class="particle p5"></div>
+      <div class="particle p6"></div>
+      <div class="particle p7"></div>
+      <div class="particle p8"></div>
+    </div>
+
+    <!-- Grid overlay -->
+    <div class="grid-overlay"></div>
+
+    <div class="brand-inner">
+      <!-- Logo -->
+      <a class="brand-logo" routerLink="/">
+        <div class="logo-box"><i class="fa-solid fa-book-open"></i></div>
+        <span>Classy Book</span>
+      </a>
+
+      <!-- 3D Dashboard Scene -->
+      <div class="scene-3d">
+        <div class="dashboard-mockup">
+          <!-- Browser chrome -->
+          <div class="browser-bar">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">
+              <i class="fa-solid fa-lock"></i> classybook.com/partner/dashboard
+            </div>
+          </div>
+
+          <!-- Dashboard content -->
+          <div class="dashboard-body">
+            <!-- Top metrics -->
+            <div class="metrics-row">
+              <div class="metric-card mc-1">
+                <div class="metric-icon"><i class="fa-solid fa-users"></i></div>
+                <div class="metric-data">
+                  <span class="metric-value">12,847</span>
+                  <span class="metric-label">{{ isAr() ? 'طالب نشط' : 'Active Students' }}</span>
+                </div>
+                <span class="metric-badge up"><i class="fa-solid fa-arrow-up"></i> 24%</span>
+              </div>
+              <div class="metric-card mc-2">
+                <div class="metric-icon"><i class="fa-solid fa-dollar-sign"></i></div>
+                <div class="metric-data">
+                  <span class="metric-value">$48.2K</span>
+                  <span class="metric-label">{{ isAr() ? 'الإيرادات' : 'Revenue' }}</span>
+                </div>
+                <span class="metric-badge up"><i class="fa-solid fa-arrow-up"></i> 18%</span>
+              </div>
+            </div>
+
+            <!-- Chart area -->
+            <div class="chart-area">
+              <div class="chart-header">
+                <span>{{ isAr() ? 'نمو الإيرادات' : 'Revenue Growth' }}</span>
+                <span class="chart-period">{{ isAr() ? 'آخر 7 أشهر' : 'Last 7 months' }}</span>
+              </div>
+              <div class="chart-visual">
+                <svg viewBox="0 0 280 80" class="chart-svg">
+                  <defs>
+                    <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="rgba(34,197,94,0.4)" />
+                      <stop offset="100%" stop-color="rgba(34,197,94,0)" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d="M0,70 Q40,60 70,50 T140,35 T210,20 T280,10 V80 H0 Z"
+                    fill="url(#chartGrad)"
+                    class="chart-fill"
+                  />
+                  <path
+                    d="M0,70 Q40,60 70,50 T140,35 T210,20 T280,10"
+                    fill="none"
+                    stroke="#22c55e"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    class="chart-line"
+                  />
+                  <circle cx="280" cy="10" r="4" fill="#22c55e" class="chart-dot" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Activity row -->
+            <div class="activity-row">
+              <div class="activity-item">
+                <div class="activity-avatar a1"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="activity-info">
+                  <span>{{ isAr() ? 'دورة جديدة نُشرت' : 'New course published' }}</span>
+                  <small>{{ isAr() ? 'منذ 2 ساعة' : '2h ago' }}</small>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-avatar a2"><i class="fa-solid fa-star"></i></div>
+                <div class="activity-info">
+                  <span>{{ isAr() ? 'تقييم 5 نجوم' : '5-star review received' }}</span>
+                  <small>{{ isAr() ? 'منذ 4 ساعات' : '4h ago' }}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating elements -->
+        <div class="float-badge fb-growth">
+          <div class="fb-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="fb-content">
+            <span class="fb-value">+340%</span>
+            <span class="fb-label">{{ isAr() ? 'نمو' : 'Growth' }}</span>
+          </div>
+        </div>
+
+        <div class="float-badge fb-rating">
+          <div class="fb-icon star"><i class="fa-solid fa-star"></i></div>
+          <div class="fb-content">
+            <span class="fb-value">4.9</span>
+            <span class="fb-label">{{ isAr() ? 'تقييم' : 'Rating' }}</span>
+          </div>
+        </div>
+
+        <div class="float-badge fb-learners">
+          <div class="fb-icon learners"><i class="fa-solid fa-users"></i></div>
+          <div class="fb-content">
+            <span class="fb-value">50K+</span>
+            <span class="fb-label">{{ isAr() ? 'متعلم' : 'Learners' }}</span>
+          </div>
+        </div>
+
+        <div class="float-notification">
+          <div class="notif-icon"><i class="fa-solid fa-check-circle"></i></div>
+          <div class="notif-body">
+            <strong>{{ isAr() ? 'تم التسجيل!' : 'Verified!' }}</strong>
+            <span>{{ isAr() ? 'حسابك جاهز' : 'Account ready' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom: headline + trust -->
+      <div class="brand-bottom">
+        <h1>{{ isAr() ? 'انضم كشريك أعمال' : 'Partner With Us' }}</h1>
+        <p>
+          {{
+            isAr()
+              ? 'سجّل شركتك وابدأ في تقديم خدماتك لأكثر من 50,000 متعلم.'
+              : 'Register your business and reach 50,000+ learners.'
+          }}
+        </p>
+        <div class="trust-row">
+          <div class="trust-chip">
+            <i class="fa-solid fa-shield-halved"></i> {{ isAr() ? 'آمن' : 'Secure' }}
+          </div>
+          <div class="trust-chip">
+            <i class="fa-solid fa-bolt"></i> {{ isAr() ? 'مجاني' : 'Free' }}
+          </div>
+          <div class="trust-chip">
+            <i class="fa-solid fa-headset"></i> {{ isAr() ? 'دعم 24/7' : '24/7 Support' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══ RIGHT: Form Panel ═══ -->
+  <main class="form-panel">
+    <!-- Sticky top bar -->
+    <div class="form-topbar">
+      <a routerLink="/" class="back-link">
+        <i [class]="isAr() ? 'fa-solid fa-arrow-right' : 'fa-solid fa-arrow-left'"></i>
+        {{ isAr() ? 'الرئيسية' : 'Home' }}
+      </a>
+      <div class="topbar-actions">
+        <button class="icon-btn" (click)="toggleTheme()" aria-label="Toggle theme">
+          <i
+            [class]="
+              themeService.effectiveTheme() === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'
+            "
+          ></i>
+        </button>
+        <button class="icon-btn" (click)="toggleLanguage()" aria-label="Toggle language">
+          <span class="lang-label">{{ isAr() ? 'EN' : 'ع' }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Scrollable content -->
+    <div class="form-content">
+      <div class="form-card">
+        <!-- Header with completion % -->
+        <div class="form-header">
+          <div class="header-left">
+            <div class="header-icon-wrap">
+              <i class="fa-solid fa-building-columns"></i>
+            </div>
+            <div>
+              <h2>{{ isAr() ? 'تسجيل شركة جديدة' : 'Business Registration' }}</h2>
+              <p>
+                {{
+                  isAr()
+                    ? 'أكمل البيانات لتسجيل شركتك'
+                    : 'Complete the details to register your business'
+                }}
+              </p>
+            </div>
+          </div>
+          <div class="completion-ring">
+            <svg viewBox="0 0 44 44">
+              <circle cx="22" cy="22" r="18" fill="none" stroke="var(--border)" stroke-width="3" />
+              <circle
+                cx="22"
+                cy="22"
+                r="18"
+                fill="none"
+                stroke="var(--green)"
+                stroke-width="3"
+                stroke-linecap="round"
+                [attr.stroke-dasharray]="113"
+                [attr.stroke-dashoffset]="113 - (113 * completionPercent()) / 100"
+                transform="rotate(-90 22 22)"
+              />
+            </svg>
+            <span class="ring-text">{{ completionPercent() }}%</span>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" [style.width.%]="((step() - 1) / 2) * 100"></div>
+        </div>
+
+        <!-- Step indicator -->
+        <div class="steps-nav">
+          @for (s of stepsMeta; track s.num) {
+            <button
+              class="step-btn"
+              [class.active]="step() >= s.num"
+              [class.done]="step() > s.num"
+              [disabled]="step() < s.num"
+              (click)="goToStep(s.num)"
+            >
+              <div class="step-circle">
+                @if (step() > s.num) {
+                  <i class="fa-solid fa-check"></i>
+                } @else {
+                  <span>{{ s.num }}</span>
+                }
+              </div>
+              <div class="step-info">
+                <span class="step-title">{{ isAr() ? s.titleAr : s.titleEn }}</span>
+                <span class="step-sub">{{ isAr() ? s.subAr : s.subEn }}</span>
+              </div>
+            </button>
+          }
+        </div>
+
+        <!-- ═══ STEP 1: Company Info ═══ -->
+        @if (step() === 1) {
+          <form [formGroup]="companyForm" class="provider-form" (ngSubmit)="nextStep()">
+            <div class="form-section-title">
+              <i class="fa-solid fa-building"></i>
+              {{ isAr() ? 'معلومات الشركة' : 'Company Information' }}
+            </div>
+
+            <div class="form-row">
+              <div class="form-field" [class.invalid]="isInvalid(1, 'companyName')">
+                <label
+                  >{{ isAr() ? 'اسم الشركة (إنجليزي)' : 'Company Name (English)' }}
+                  <span class="req">*</span></label
+                >
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-building"></i>
+                  <input
+                    type="text"
+                    formControlName="companyName"
+                    [placeholder]="isAr() ? 'مثال: Classy Tech' : 'e.g. Classy Tech'"
+                  />
+                </div>
+              </div>
+              <div class="form-field">
+                <label>{{ isAr() ? 'اسم الشركة (عربي)' : 'Company Name (Arabic)' }}</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-building"></i>
+                  <input
+                    type="text"
+                    formControlName="companyNameAr"
+                    [placeholder]="isAr() ? 'مثال: كلاسي تك' : 'e.g. كلاسي تك'"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field" [class.invalid]="isInvalid(1, 'industry')">
+                <label>{{ isAr() ? 'مجال العمل' : 'Industry' }} <span class="req">*</span></label>
+                <div class="input-wrapper select-wrapper">
+                  <i class="fa-solid fa-briefcase"></i>
+                  <select formControlName="industry">
+                    <option value="">{{ isAr() ? 'اختر المجال' : 'Select industry' }}</option>
+                    @for (ind of industries; track ind.value) {
+                      <option [value]="ind.value">{{ isAr() ? ind.labelAr : ind.labelEn }}</option>
+                    }
+                  </select>
+                  <i class="fa-solid fa-chevron-down select-arrow"></i>
+                </div>
+              </div>
+              <div class="form-field" [class.invalid]="isInvalid(1, 'companySize')">
+                <label
+                  >{{ isAr() ? 'حجم الشركة' : 'Company Size' }} <span class="req">*</span></label
+                >
+                <div class="input-wrapper select-wrapper">
+                  <i class="fa-solid fa-users"></i>
+                  <select formControlName="companySize">
+                    <option value="">{{ isAr() ? 'اختر الحجم' : 'Select size' }}</option>
+                    @for (size of companySizes; track size.value) {
+                      <option [value]="size.value">
+                        {{ isAr() ? size.labelAr : size.labelEn }}
+                      </option>
+                    }
+                  </select>
+                  <i class="fa-solid fa-chevron-down select-arrow"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label>{{ isAr() ? 'سنة التأسيس' : 'Year Founded' }}</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-calendar"></i>
+                  <input
+                    type="number"
+                    formControlName="yearFounded"
+                    placeholder="2020"
+                    min="1900"
+                    max="2026"
+                  />
+                </div>
+              </div>
+              <div class="form-field">
+                <label>{{ isAr() ? 'الموقع الإلكتروني' : 'Website' }}</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-globe"></i>
+                  <input type="url" formControlName="website" placeholder="https://example.com" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label>{{ isAr() ? 'الرقم الضريبي' : 'Tax ID / VAT Number' }}</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-file-invoice"></i>
+                  <input
+                    type="text"
+                    formControlName="taxId"
+                    [placeholder]="isAr() ? 'الرقم الضريبي' : 'Tax identification number'"
+                  />
+                </div>
+              </div>
+              <div class="form-field">
+                <label>{{ isAr() ? 'رقم السجل التجاري' : 'Commercial Registration No.' }}</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-id-card"></i>
+                  <input
+                    type="text"
+                    formControlName="registrationNumber"
+                    [placeholder]="isAr() ? 'رقم السجل' : 'Registration number'"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <div></div>
+              <button type="submit" class="btn-next">
+                <span>{{ isAr() ? 'التالي' : 'Next Step' }}</span>
+                <i class="fa-solid fa-arrow-right btn-arrow"></i>
+              </button>
+            </div>
+          </form>
+        }
+
+        <!-- ═══ STEP 2: Contact Info ═══ -->
+        @if (step() === 2) {
+          <form [formGroup]="contactForm" class="provider-form" (ngSubmit)="nextStep()">
+            <div class="form-section-title">
+              <i class="fa-solid fa-address-card"></i>
+              {{ isAr() ? 'بيانات الشخص المسؤول' : 'Primary Contact Person' }}
+            </div>
+
+            <div class="form-row">
+              <div class="form-field" [class.invalid]="isInvalid(2, 'contactName')">
+                <label
+                  >{{ isAr() ? 'الاسم الكامل' : 'Full Name' }} <span class="req">*</span></label
+                >
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-user"></i>
+                  <input
+                    type="text"
+                    formControlName="contactName"
+                    [placeholder]="isAr() ? 'اسم المسؤول' : 'Contact person name'"
+                  />
+                </div>
+              </div>
+              <div class="form-field" [class.invalid]="isInvalid(2, 'jobTitle')">
+                <label
+                  >{{ isAr() ? 'المسمى الوظيفي' : 'Job Title' }} <span class="req">*</span></label
+                >
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-user-tie"></i>
+                  <input
+                    type="text"
+                    formControlName="jobTitle"
+                    [placeholder]="isAr() ? 'مثال: مدير التسويق' : 'e.g. Marketing Manager'"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field" [class.invalid]="isInvalid(2, 'email')">
+                <label
+                  >{{ isAr() ? 'البريد الإلكتروني' : 'Email Address' }}
+                  <span class="req">*</span></label
+                >
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-envelope"></i>
+                  <input type="email" formControlName="email" placeholder="name@company.com" />
+                </div>
+              </div>
+              <div class="form-field" [class.invalid]="isInvalid(2, 'phone')">
+                <label
+                  >{{ isAr() ? 'رقم الهاتف' : 'Phone Number' }} <span class="req">*</span></label
+                >
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-phone"></i>
+                  <input
+                    type="tel"
+                    formControlName="phone"
+                    [placeholder]="isAr() ? '+20 xxx xxx xxxx' : '+1 xxx xxx xxxx'"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label>{{ isAr() ? 'هاتف بديل' : 'Alternative Phone' }}</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-phone-flip"></i>
+                  <input
+                    type="tel"
+                    formControlName="altPhone"
+                    [placeholder]="isAr() ? 'رقم بديل (اختياري)' : 'Optional backup number'"
+                  />
+                </div>
+              </div>
+              <div class="form-field" [class.invalid]="isInvalid(2, 'country')">
+                <label>{{ isAr() ? 'الدولة' : 'Country' }} <span class="req">*</span></label>
+                <div class="input-wrapper select-wrapper">
+                  <i class="fa-solid fa-earth-americas"></i>
+                  <select formControlName="country">
+                    <option value="">{{ isAr() ? 'اختر الدولة' : 'Select country' }}</option>
+                    @for (c of countries; track c.value) {
+                      <option [value]="c.value">{{ isAr() ? c.labelAr : c.labelEn }}</option>
+                    }
+                  </select>
+                  <i class="fa-solid fa-chevron-down select-arrow"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field" [class.invalid]="isInvalid(2, 'city')">
+                <label>{{ isAr() ? 'المدينة' : 'City' }} <span class="req">*</span></label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-city"></i>
+                  <input
+                    type="text"
+                    formControlName="city"
+                    [placeholder]="isAr() ? 'المدينة' : 'City name'"
+                  />
+                </div>
+              </div>
+              <div class="form-field">
+                <label>{{ isAr() ? 'الرمز البريدي' : 'Postal / ZIP Code' }}</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <input type="text" formControlName="postalCode" placeholder="12345" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label>{{ isAr() ? 'العنوان التفصيلي' : 'Street Address' }}</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <input
+                  type="text"
+                  formControlName="address"
+                  [placeholder]="isAr() ? 'الشارع، المبنى، الطابق' : 'Street, Building, Floor'"
+                />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-back" (click)="prevStep()">
+                <i class="fa-solid fa-arrow-left btn-arrow-back"></i>
+                <span>{{ isAr() ? 'السابق' : 'Back' }}</span>
+              </button>
+              <button type="submit" class="btn-next">
+                <span>{{ isAr() ? 'التالي' : 'Next Step' }}</span>
+                <i class="fa-solid fa-arrow-right btn-arrow"></i>
+              </button>
+            </div>
+          </form>
+        }
+
+        <!-- ═══ STEP 3: Business Details ═══ -->
+        @if (step() === 3) {
+          <form [formGroup]="businessForm" class="provider-form" (ngSubmit)="onSubmit()">
+            <div class="form-section-title">
+              <i class="fa-solid fa-clipboard-list"></i>
+              {{ isAr() ? 'تفاصيل العمل' : 'Business Details' }}
+            </div>
+
+            <div class="form-field" [class.invalid]="isInvalid(3, 'description')">
+              <label
+                >{{ isAr() ? 'وصف الشركة' : 'Company Description' }}
+                <span class="req">*</span></label
+              >
+              <div class="textarea-wrapper">
+                <textarea
+                  formControlName="description"
+                  rows="4"
+                  [placeholder]="
+                    isAr()
+                      ? 'اكتب وصفاً مختصراً عن شركتك ونشاطها (20 حرف على الأقل)'
+                      : 'Write a brief description of your company (min 20 chars)'
+                  "
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="form-field" [class.invalid]="isInvalid(3, 'servicesOffered')">
+              <label
+                >{{ isAr() ? 'الخدمات المقدمة' : 'Services Offered' }}
+                <span class="req">*</span></label
+              >
+              <div class="textarea-wrapper">
+                <textarea
+                  formControlName="servicesOffered"
+                  rows="3"
+                  [placeholder]="
+                    isAr()
+                      ? 'اذكر الخدمات أو المنتجات التي تقدمها شركتك'
+                      : 'List the services or products your company offers'
+                  "
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label>{{ isAr() ? 'الجمهور المستهدف' : 'Target Audience' }}</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-bullseye"></i>
+                <input
+                  type="text"
+                  formControlName="targetAudience"
+                  [placeholder]="
+                    isAr()
+                      ? 'مثال: طلاب جامعات، مطورين، شركات ناشئة'
+                      : 'e.g. University students, developers, startups'
+                  "
+                />
+              </div>
+            </div>
+
+            <div class="form-section-title sub">
+              <i class="fa-solid fa-share-nodes"></i>
+              {{
+                isAr() ? 'حسابات التواصل الاجتماعي (اختياري)' : 'Social Media Accounts (optional)'
+              }}
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label>LinkedIn</label>
+                <div class="input-wrapper">
+                  <i class="fa-brands fa-linkedin-in"></i>
+                  <input
+                    type="url"
+                    formControlName="socialLinkedin"
+                    placeholder="https://linkedin.com/company/..."
+                  />
+                </div>
+              </div>
+              <div class="form-field">
+                <label>X (Twitter)</label>
+                <div class="input-wrapper">
+                  <i class="fa-brands fa-x-twitter"></i>
+                  <input
+                    type="url"
+                    formControlName="socialTwitter"
+                    placeholder="https://x.com/..."
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label>Facebook</label>
+                <div class="input-wrapper">
+                  <i class="fa-brands fa-facebook-f"></i>
+                  <input
+                    type="url"
+                    formControlName="socialFacebook"
+                    placeholder="https://facebook.com/..."
+                  />
+                </div>
+              </div>
+              <div class="form-field">
+                <label>Instagram</label>
+                <div class="input-wrapper">
+                  <i class="fa-brands fa-instagram"></i>
+                  <input
+                    type="url"
+                    formControlName="socialInstagram"
+                    placeholder="https://instagram.com/..."
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Terms -->
+            <div class="terms-box">
+              <label class="checkbox-wrapper" (click)="toggleTerms()">
+                <div class="custom-checkbox" [class.checked]="agreedToTerms()">
+                  @if (agreedToTerms()) {
+                    <i class="fa-solid fa-check"></i>
+                  }
+                </div>
+                <span>
+                  {{ isAr() ? 'أوافق على' : 'I agree to the' }}
+                  <a>{{ isAr() ? 'شروط الخدمة' : 'Terms of Service' }}</a>
+                  {{ isAr() ? 'و' : 'and' }}
+                  <a>{{ isAr() ? 'سياسة الخصوصية' : 'Privacy Policy' }}</a>
+                  {{ isAr() ? 'و' : 'and the' }}
+                  <a>{{ isAr() ? 'اتفاقية الشراكة' : 'Partnership Agreement' }}</a>
+                </span>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-back" (click)="prevStep()">
+                <i class="fa-solid fa-arrow-left btn-arrow-back"></i>
+                <span>{{ isAr() ? 'السابق' : 'Back' }}</span>
+              </button>
+              <button type="submit" class="btn-submit" [disabled]="isLoading()">
+                @if (isLoading()) {
+                  <span class="spinner"></span>
+                }
+                <span>{{ isAr() ? 'إرسال الطلب' : 'Submit Application' }}</span>
+                <i class="fa-solid fa-paper-plane btn-arrow"></i>
+              </button>
+            </div>
+          </form>
+        }
+
+        <!-- Switch -->
+        <p class="switch-text">
+          {{ isAr() ? 'لديك حساب بالفعل؟' : 'Already have an account?' }}
+          <a routerLink="/auth">{{ isAr() ? 'سجل دخول' : 'Sign in' }}</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <span>© 2026 Classy Book</span>
+    </div>
+  </main>
+</div>

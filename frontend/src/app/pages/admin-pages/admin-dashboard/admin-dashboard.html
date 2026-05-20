@@ -1,0 +1,384 @@
+<!-- Admin Dashboard -->
+<app-admin-layout>
+  @if (progressBar.isVisible()) {
+    <div class="progress-bar-wrap">
+      <div
+        class="progress-bar"
+        [style.width.%]="progressBar.progress()"
+        [class.loading]="progressBar.isIndeterminate()"
+      ></div>
+    </div>
+  }
+
+  <main class="dashboard" [class.ready]="isPageReady()">
+    <!-- ═══════ Row 1: Stat Cards ═══════ -->
+    <section class="stat-cards anim anim--1">
+      @for (card of statCards; track card.labelEn) {
+        <div class="stat-card">
+          <div class="stat-icon" [style.background]="card.color + '15'" [style.color]="card.color">
+            <i [class]="card.icon"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">{{
+              currentLanguage() === 'ar' ? card.labelAr : card.labelEn
+            }}</span>
+            <span class="stat-value"
+              >{{ card.prefix || '' }}{{ formatNumber(card.value) }}{{ card.suffix || '' }}</span
+            >
+            <span class="stat-trend" [class.up]="card.trend > 0" [class.down]="card.trend < 0">
+              <i [class]="card.trend > 0 ? 'fa-solid fa-arrow-up' : 'fa-solid fa-arrow-down'"></i>
+              {{ card.trend > 0 ? '+' : '' }}{{ card.trend }}%
+            </span>
+          </div>
+        </div>
+      }
+    </section>
+
+    <!-- ═══════ Row 2: Revenue Chart + Course Categories ═══════ -->
+    <section class="charts-row anim anim--2">
+      <!-- Revenue Chart -->
+      <div class="card chart-card revenue-chart">
+        <div class="card-header">
+          <div>
+            <h3>{{ currentLanguage() === 'ar' ? 'الإيرادات الشهرية' : 'Monthly Revenue' }}</h3>
+            <span class="card-subtitle">{{
+              currentLanguage() === 'ar' ? 'آخر 12 شهر' : 'Last 12 months'
+            }}</span>
+          </div>
+          <div class="chart-total">
+            <span class="total-value">$0</span>
+            <span class="total-trend">0%</span>
+          </div>
+        </div>
+        <div class="bar-chart">
+          @for (bar of revenueChart; track bar.label) {
+            <div class="bar-wrapper">
+              <div class="bar-tooltip">${{ (bar.value / 1000).toFixed(1) }}K</div>
+              <div
+                class="bar"
+                [style.height.%]="bar.height"
+                style="background: var(--accent-color)"
+              ></div>
+              <span class="bar-label">{{ bar.label }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Course Categories Donut -->
+      <div class="card chart-card categories-chart">
+        <div class="card-header">
+          <div>
+            <h3>{{ currentLanguage() === 'ar' ? 'فئات الدورات' : 'Course Categories' }}</h3>
+            <span class="card-subtitle">{{
+              currentLanguage() === 'ar' ? 'توزيع الدورات' : 'Course distribution'
+            }}</span>
+          </div>
+        </div>
+        <div class="donut-container">
+          <svg class="donut-chart" viewBox="0 0 120 120">
+            @for (seg of donutSegments(); track seg.offset) {
+              <circle
+                cx="60"
+                cy="60"
+                r="54"
+                fill="none"
+                [attr.stroke]="seg.color"
+                stroke-width="12"
+                [attr.stroke-dasharray]="seg.length + ' ' + (donutCircumference - seg.length)"
+                [attr.stroke-dashoffset]="-seg.offset"
+                stroke-linecap="round"
+              />
+            }
+          </svg>
+          <div class="donut-center">
+            <span class="donut-total">0</span>
+            <span class="donut-label">{{ currentLanguage() === 'ar' ? 'دورة' : 'Courses' }}</span>
+          </div>
+        </div>
+        <div class="legend">
+          @for (cat of courseCategories; track cat.nameEn) {
+            <div class="legend-item">
+              <span class="legend-dot" [style.background]="cat.color"></span>
+              <span class="legend-name">{{
+                currentLanguage() === 'ar' ? cat.nameAr : cat.nameEn
+              }}</span>
+              <span class="legend-value">{{ cat.percentage }}%</span>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Row 3: Users Chart + Quick Actions ═══════ -->
+    <section class="charts-row anim anim--3">
+      <!-- Weekly Users -->
+      <div class="card chart-card users-chart">
+        <div class="card-header">
+          <div>
+            <h3>{{ currentLanguage() === 'ar' ? 'المستخدمون الجدد' : 'New Users' }}</h3>
+            <span class="card-subtitle">{{
+              currentLanguage() === 'ar' ? 'هذا الأسبوع' : 'This week'
+            }}</span>
+          </div>
+          <div class="chart-total">
+            <span class="total-value">0</span>
+            <span class="total-trend">0%</span>
+          </div>
+        </div>
+        <div class="bar-chart bar-chart-sm">
+          @for (bar of usersChart; track bar.label) {
+            <div class="bar-wrapper">
+              <div class="bar-tooltip">{{ bar.value }}</div>
+              <div class="bar" [style.height.%]="bar.height" style="background: #10b981"></div>
+              <span class="bar-label">{{ bar.label }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="card quick-actions-card">
+        <div class="card-header">
+          <div>
+            <h3>{{ currentLanguage() === 'ar' ? 'إجراءات سريعة' : 'Quick Actions' }}</h3>
+            <span class="card-subtitle">{{
+              currentLanguage() === 'ar' ? 'اختصارات متكررة' : 'Frequent shortcuts'
+            }}</span>
+          </div>
+        </div>
+        <div class="actions-grid">
+          @for (action of quickActions; track action.labelEn) {
+            <button class="quick-action-btn" (click)="onQuickAction(action)">
+              <div
+                class="qa-icon"
+                [style.background]="action.color + '15'"
+                [style.color]="action.color"
+              >
+                <i [class]="action.icon"></i>
+              </div>
+              <span>{{ currentLanguage() === 'ar' ? action.labelAr : action.labelEn }}</span>
+            </button>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Row 4: Top Courses + Recent Orders ═══════ -->
+    <section class="tables-row anim anim--4">
+      <!-- Top Courses -->
+      <div class="card table-card">
+        <div class="card-header">
+          <div>
+            <h3>{{ currentLanguage() === 'ar' ? 'أفضل الدورات' : 'Top Courses' }}</h3>
+            <span class="card-subtitle">{{
+              currentLanguage() === 'ar' ? 'حسب عدد الطلاب' : 'By enrollment'
+            }}</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>{{ currentLanguage() === 'ar' ? 'الدورة' : 'Course' }}</th>
+                <th>{{ currentLanguage() === 'ar' ? 'الطلاب' : 'Students' }}</th>
+                <th>{{ currentLanguage() === 'ar' ? 'الإيرادات' : 'Revenue' }}</th>
+                <th>{{ currentLanguage() === 'ar' ? 'التقييم' : 'Rating' }}</th>
+                <th>{{ currentLanguage() === 'ar' ? 'الاكتمال' : 'Progress' }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (course of topCourses; track course.name) {
+                <tr>
+                  <td class="course-name">{{ course.name }}</td>
+                  <td>{{ formatNumber(course.students) }}</td>
+                  <td class="revenue-cell">${{ formatNumber(course.revenue) }}</td>
+                  <td>
+                    <span class="rating"><i class="fa-solid fa-star"></i> {{ course.rating }}</span>
+                  </td>
+                  <td>
+                    <div class="progress-bar-cell">
+                      <div class="progress-fill" [style.width.%]="course.progress"></div>
+                    </div>
+                    <span class="progress-text">{{ course.progress }}%</span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="card table-card">
+        <div class="card-header">
+          <div>
+            <h3>{{ currentLanguage() === 'ar' ? 'أحدث الطلبات' : 'Recent Orders' }}</h3>
+            <span class="card-subtitle">{{
+              currentLanguage() === 'ar' ? 'آخر 6 طلبات' : 'Last 6 orders'
+            }}</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>{{ currentLanguage() === 'ar' ? 'الرقم' : 'ID' }}</th>
+                <th>{{ currentLanguage() === 'ar' ? 'العميل' : 'Customer' }}</th>
+                <th>{{ currentLanguage() === 'ar' ? 'الدورة' : 'Course' }}</th>
+                <th>{{ currentLanguage() === 'ar' ? 'المبلغ' : 'Amount' }}</th>
+                <th>{{ currentLanguage() === 'ar' ? 'الحالة' : 'Status' }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (order of recentOrders; track order.id) {
+                <tr>
+                  <td class="order-id">{{ order.id }}</td>
+                  <td>{{ order.customer }}</td>
+                  <td>{{ order.course }}</td>
+                  <td class="revenue-cell">${{ order.amount }}</td>
+                  <td>
+                    <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+                      {{ getStatusLabel(order.status) }}
+                    </span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Row 5: Activity Feed + Traffic + Server Stats ═══════ -->
+    <section class="bottom-row anim anim--5">
+      <!-- Activity Feed -->
+      <div class="card activity-card">
+        <div class="card-header">
+          <div>
+            <h3>{{ currentLanguage() === 'ar' ? 'آخر الأنشطة' : 'Recent Activity' }}</h3>
+            <span class="card-subtitle">{{
+              currentLanguage() === 'ar' ? 'تحديثات مباشرة' : 'Live updates'
+            }}</span>
+          </div>
+          <span class="live-dot"></span>
+        </div>
+        <div class="activity-list">
+          @for (item of activityFeed; track item.titleEn + item.time) {
+            <div class="activity-item">
+              <div
+                class="activity-icon"
+                [style.background]="item.color + '15'"
+                [style.color]="item.color"
+              >
+                <i [class]="item.icon"></i>
+              </div>
+              <div class="activity-info">
+                <span class="activity-title">{{
+                  currentLanguage() === 'ar' ? item.titleAr : item.titleEn
+                }}</span>
+                <span class="activity-desc">{{
+                  currentLanguage() === 'ar' ? item.descAr : item.descEn
+                }}</span>
+              </div>
+              <span class="activity-time">{{ item.time }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Traffic Sources -->
+      <div class="card traffic-card">
+        <div class="card-header">
+          <div>
+            <h3>{{ currentLanguage() === 'ar' ? 'مصادر الزيارات' : 'Traffic Sources' }}</h3>
+            <span class="card-subtitle">{{
+              currentLanguage() === 'ar' ? 'هذا الشهر' : 'This month'
+            }}</span>
+          </div>
+        </div>
+        <div class="traffic-list">
+          @for (source of trafficSources; track source.nameEn) {
+            <div class="traffic-item">
+              <div class="traffic-left">
+                <div
+                  class="traffic-icon"
+                  [style.background]="source.color + '15'"
+                  [style.color]="source.color"
+                >
+                  <i [class]="source.icon"></i>
+                </div>
+                <span class="traffic-name">{{
+                  currentLanguage() === 'ar' ? source.nameAr : source.nameEn
+                }}</span>
+              </div>
+              <div class="traffic-right">
+                <div class="traffic-bar-bg">
+                  <div
+                    class="traffic-bar-fill"
+                    [style.width.%]="source.percentage"
+                    [style.background]="source.color"
+                  ></div>
+                </div>
+                <span class="traffic-pct">{{ source.percentage }}%</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Server Stats -->
+      <div class="card server-card">
+        <div class="card-header">
+          <div>
+            <h3>{{ currentLanguage() === 'ar' ? 'حالة النظام' : 'System Status' }}</h3>
+            <span class="card-subtitle">{{
+              currentLanguage() === 'ar' ? 'مباشر' : 'Real-time'
+            }}</span>
+          </div>
+          <span class="server-status online">
+            <i class="fa-solid fa-circle"></i>
+            {{ currentLanguage() === 'ar' ? 'متصل' : 'Online' }}
+          </span>
+        </div>
+        <div class="server-stats-list">
+          @for (stat of serverStats; track stat.labelEn) {
+            <div class="server-stat">
+              <div class="server-stat-header">
+                <span>{{ currentLanguage() === 'ar' ? stat.labelAr : stat.labelEn }}</span>
+                <span
+                  class="server-stat-value"
+                  [style.color]="
+                    stat.value > 80
+                      ? 'var(--error-500)'
+                      : stat.value > 60
+                        ? 'var(--warning-500)'
+                        : stat.color
+                  "
+                  >{{ stat.value }}%</span
+                >
+              </div>
+              <div class="server-bar-bg">
+                <div
+                  class="server-bar-fill"
+                  [style.width.%]="stat.value"
+                  [style.background]="
+                    stat.value > 80
+                      ? 'var(--error-500)'
+                      : stat.value > 60
+                        ? 'var(--warning-500)'
+                        : stat.color
+                  "
+                ></div>
+              </div>
+            </div>
+          }
+        </div>
+        <div class="server-uptime">
+          <i class="fa-solid fa-clock"></i>
+          <span>{{ currentLanguage() === 'ar' ? 'وقت التشغيل: 0%' : 'Uptime: 0%' }}</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</app-admin-layout>

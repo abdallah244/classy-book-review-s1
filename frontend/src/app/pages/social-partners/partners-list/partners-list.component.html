@@ -1,0 +1,125 @@
+<div class="partners-container" [dir]="isAr() ? 'rtl' : 'ltr'">
+  
+  <div class="partners-header">
+    <div class="header-text">
+      <h2>{{ isAr() ? 'الشركاء والصفحات الرسمية' : 'Partners & Official Pages' }}</h2>
+      <p>{{ isAr() ? 'تابع أفضل المدرسين والمؤسسات التعليمية' : 'Follow top educators and educational institutions' }}</p>
+    </div>
+    <button class="btn-create" (click)="showCreateModal.set(true)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      {{ isAr() ? 'إنشاء صفحة' : 'Create Page' }}
+    </button>
+  </div>
+
+  <div class="tabs-nav">
+    <button class="tab-btn" [class.active]="activeTab() === 'discover'" (click)="setTab('discover')">
+      {{ isAr() ? 'اكتشاف الصفحات' : 'Discover' }}
+    </button>
+    <button class="tab-btn" [class.active]="activeTab() === 'myPages'" (click)="setTab('myPages')">
+      {{ isAr() ? 'صفحاتي' : 'My Pages' }}
+      @if (myPages().length) { <span class="badge">{{ myPages().length }}</span> }
+    </button>
+  </div>
+
+  @if (activeTab() === 'discover') {
+    <div class="filters-row">
+      <div class="search-box">
+        <input type="text" [placeholder]="isAr() ? 'بحث عن صفحة...' : 'Search for a page...'" 
+               [(ngModel)]="searchQuery" (input)="loadDiscoverPages()">
+      </div>
+      <div class="category-box">
+        <select [(ngModel)]="selectedCategory" (change)="loadDiscoverPages()">
+          @for (cat of categories; track cat.value) {
+            <option [value]="cat.value">{{ isAr() ? cat.labelAr : cat.labelEn }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  }
+
+  <div class="pages-grid">
+    @if (isLoading()) {
+      <div class="loading-state"><div class="spinner"></div></div>
+    } @else {
+      @for (page of (activeTab() === 'discover' ? discoverPages() : myPages()); track page._id) {
+        <div class="page-card">
+          <div class="page-cover" [style.backgroundImage]="'url(' + (page.coverImage || 'assets/images/default-cover.jpg') + ')'"></div>
+          <div class="page-avatar-container">
+            @if (page.logoImage) {
+              <img [src]="page.logoImage" class="page-logo" />
+            } @else {
+              <div class="page-logo placeholder">{{ page.name.charAt(0) }}</div>
+            }
+          </div>
+          <div class="page-content">
+            <div class="name-row">
+              <h3 class="page-name">{{ page.name }}</h3>
+              @if (page.isVerified) {
+                <svg class="verify-icon" width="16" height="16" viewBox="0 0 24 24" fill="#3b82f6"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              }
+            </div>
+            <span class="username">@{{ page.username }}</span>
+            <p class="bio">{{ page.bio }}</p>
+            <div class="stats">
+              <strong>{{ page.followersCount }}</strong> {{ isAr() ? 'متابع' : 'Followers' }}
+              <span class="category-tag">{{ page.category }}</span>
+            </div>
+          </div>
+          <div class="page-footer">
+            @if (activeTab() === 'discover') {
+              <button class="follow-btn" [class.following]="page.isFollowing" (click)="toggleFollow(page)">
+                {{ page.isFollowing ? (isAr() ? 'متابعة ✓' : 'Following ✓') : (isAr() ? 'متابعة' : 'Follow') }}
+              </button>
+            } @else {
+              <button class="manage-btn" [routerLink]="['/social/partners', page.username]">
+                {{ isAr() ? 'إدارة الصفحة' : 'Manage Page' }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Create Page Modal -->
+  @if (showCreateModal()) {
+    <div class="modal-overlay" (click)="showCreateModal.set(false)">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>{{ isAr() ? 'إنشاء صفحة شريك جديدة' : 'Create New Partner Page' }}</h3>
+          <button class="close-btn" (click)="showCreateModal.set(false)">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>{{ isAr() ? 'اسم الصفحة' : 'Page Name' }}</label>
+            <input type="text" [(ngModel)]="newPage.name" class="form-control" [placeholder]="isAr() ? 'مثال: أكاديمية النور' : 'e.g. Al-Noor Academy'">
+          </div>
+          <div class="form-group">
+            <label>{{ isAr() ? 'اسم المستخدم' : 'Username' }}</label>
+            <div class="username-input">
+              <span>@</span>
+              <input type="text" [(ngModel)]="newPage.username" class="form-control" placeholder="academy_name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>{{ isAr() ? 'نبذة عن الصفحة' : 'Bio' }}</label>
+            <textarea [(ngModel)]="newPage.bio" class="form-control" rows="2"></textarea>
+          </div>
+          <div class="form-group">
+            <label>{{ isAr() ? 'الفئة' : 'Category' }}</label>
+            <select [(ngModel)]="newPage.category" class="form-control">
+              @for (cat of categories; track cat.value) {
+                @if (cat.value) { <option [value]="cat.value">{{ isAr() ? cat.labelAr : cat.labelEn }}</option> }
+              }
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="showCreateModal.set(false)">{{ isAr() ? 'إلغاء' : 'Cancel' }}</button>
+          <button class="btn-save" (click)="createPage()" [disabled]="!newPage.name || !newPage.username">{{ isAr() ? 'إنشاء الصفحة' : 'Create Page' }}</button>
+        </div>
+      </div>
+    </div>
+  }
+
+</div>

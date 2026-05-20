@@ -1,0 +1,281 @@
+<app-admin-layout>
+  <div
+    class="staff-container"
+    [attr.data-theme]="currentTheme()"
+    [attr.dir]="currentDirection()"
+  >
+    <!-- ═══ HEADER ═══ -->
+    <header class="page-header">
+      <div class="header-left">
+        <div class="header-icon-wrap">
+          <i class="fa-solid fa-users-gear"></i>
+        </div>
+        <div>
+          <h1>{{ t().pageTitle }}</h1>
+          <p>{{ t().pageSubtitle }}</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="btn-primary" (click)="openAddModal()">
+          <i class="fa-solid fa-user-plus"></i>
+          {{ t().addStaff }}
+        </button>
+      </div>
+    </header>
+
+    <!-- ═══ LOADING ═══ -->
+    @if (loading()) {
+      <div class="skeleton-grid">
+        @for (i of [1, 2, 3]; track i) {
+          <div class="skel-card">
+            <div class="skel-circle"></div>
+            <div class="skel-lines">
+              <div class="skel-line w60"></div>
+              <div class="skel-line w40"></div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- ═══ CONTENT ═══ -->
+    @if (!loading()) {
+      <div class="main-grid">
+        <!-- ────── Staff List ────── -->
+        <div class="staff-panel">
+          <div class="panel-header">
+            <i class="fa-solid fa-id-badge"></i>
+            <h2>{{ t().staff }}</h2>
+            <span class="badge">{{ staff().length }}</span>
+          </div>
+
+          @if (staff().length === 0) {
+            <div class="empty-state">
+              <i class="fa-solid fa-user-plus"></i>
+              <p>{{ t().noStaff }}</p>
+            </div>
+          } @else {
+            <div class="staff-list">
+              @for (member of staff(); track member._id) {
+                <div
+                  class="staff-card"
+                  [class.active]="selectedStaff()?._id === member._id"
+                  [class.inactive-member]="!member.isActive"
+                  (click)="selectStaff(member)"
+                >
+                  <div class="staff-avatar">
+                    {{ getInitials(member.name) }}
+                  </div>
+                  <div class="staff-info">
+                    <span class="staff-name">{{ member.name }}</span>
+                    <span class="staff-email">{{ member.email }}</span>
+                  </div>
+                  <div class="staff-badges">
+                    <span class="chip chip-pages">
+                      {{ getPageCount(member) }} {{ t().pagesCount }}
+                    </span>
+                    <span
+                      class="chip"
+                      [class.chip-active]="member.isActive"
+                      [class.chip-inactive]="!member.isActive"
+                    >
+                      {{ member.isActive ? t().active : t().inactive }}
+                    </span>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- ────── Pages Panel ────── -->
+        <div class="pages-panel">
+          @if (!selectedStaff()) {
+            <div class="empty-state large">
+              <i class="fa-solid fa-hand-pointer"></i>
+              <p>{{ t().selectStaff }}</p>
+            </div>
+          } @else {
+            <!-- Staff Header -->
+            <div class="perm-header">
+              <div class="perm-header-left">
+                <div class="staff-avatar-lg">
+                  {{ getInitials(selectedStaff()!.name) }}
+                </div>
+                <div>
+                  <h2>{{ selectedStaff()!.name }}</h2>
+                  <p class="staff-desc">{{ selectedStaff()!.email }}</p>
+                  <div class="role-tags">
+                    <span class="tag tag-count">
+                      {{ getPageCount(selectedStaff()!) }} {{ t().pagesCount }}
+                    </span>
+                    <span
+                      class="tag"
+                      [class.tag-active]="selectedStaff()!.isActive"
+                      [class.tag-inactive]="!selectedStaff()!.isActive"
+                    >
+                      {{ selectedStaff()!.isActive ? t().active : t().inactive }}
+                    </span>
+                    @if (selectedStaff()!.lastLoginAt) {
+                      <span class="tag tag-login">
+                        <i class="fa-solid fa-clock"></i>
+                        {{ t().lastLogin }}:
+                        {{ selectedStaff()!.lastLoginAt | date : 'short' }}
+                      </span>
+                    } @else {
+                      <span class="tag tag-login">
+                        {{ t().lastLogin }}: {{ t().never }}
+                      </span>
+                    }
+                  </div>
+                </div>
+              </div>
+              <div class="perm-header-right">
+                <button class="btn-primary" (click)="savePermissions()" [disabled]="saving()">
+                  @if (saving()) {
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                  } @else {
+                    <i class="fa-solid fa-check"></i>
+                  }
+                  {{ t().save }}
+                </button>
+                <button
+                  class="btn-outline"
+                  (click)="toggleActive(selectedStaff()!)"
+                >
+                  <i [class]="selectedStaff()!.isActive ? 'fa-solid fa-ban' : 'fa-solid fa-check-circle'"></i>
+                  {{ t().toggleActive }}
+                </button>
+                <button class="btn-danger" (click)="deleteStaff(selectedStaff()!)">
+                  <i class="fa-solid fa-trash-can"></i>
+                  {{ t().delete }}
+                </button>
+              </div>
+            </div>
+
+            <!-- Pages Selection -->
+            <div class="pages-section">
+              <div class="pages-section-header">
+                <h3>
+                  <i class="fa-solid fa-layer-group"></i>
+                  {{ t().pages }}
+                </h3>
+                <label class="toggle-all" (click)="toggleAllPages()">
+                  <input
+                    type="checkbox"
+                    [checked]="allPagesSelected"
+                    (click)="$event.stopPropagation()"
+                    (change)="toggleAllPages()"
+                  />
+                  <span class="toggle-track">
+                    <span class="toggle-thumb"></span>
+                  </span>
+                  <span class="toggle-label">{{ t().selectAll }}</span>
+                </label>
+              </div>
+
+              <div class="pages-grid">
+                @for (page of pages; track page.key) {
+                  <label
+                    class="page-item"
+                    [class.active]="hasPage(page.key)"
+                  >
+                    <input
+                      type="checkbox"
+                      [checked]="hasPage(page.key)"
+                      (change)="togglePage(page.key)"
+                    />
+                    <div class="page-icon" [class.active]="hasPage(page.key)">
+                      <i [class]="page.icon"></i>
+                    </div>
+                    <span class="page-label">
+                      {{ currentLang() === 'ar' ? page.labelAr : page.labelEn }}
+                    </span>
+                  </label>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- ═══ ADD STAFF MODAL ═══ -->
+    @if (showAddModal()) {
+      <div class="modal-backdrop" (click)="closeAddModal()">
+        <div class="modal modal-lg" (click)="$event.stopPropagation()">
+          <div class="modal-header">
+            <h3>{{ t().addStaffTitle }}</h3>
+            <button class="btn-close" (click)="closeAddModal()">
+              <i class="fa-solid fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label>{{ t().name }}</label>
+                <input
+                  type="text"
+                  [(ngModel)]="newStaff.name"
+                  [placeholder]="currentLang() === 'ar' ? 'اسم الموظف' : 'Staff name'"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="form-group">
+                <label>{{ t().email }}</label>
+                <input
+                  type="email"
+                  [(ngModel)]="newStaff.email"
+                  [placeholder]="currentLang() === 'ar' ? 'البريد الإلكتروني' : 'Email address'"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>{{ t().password }}</label>
+              <input
+                type="password"
+                [(ngModel)]="newStaff.password"
+                [placeholder]="currentLang() === 'ar' ? 'كلمة المرور (8 أحرف على الأقل)' : 'Password (min 8 characters)'"
+                autocomplete="new-password"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>{{ t().assignPages }}</label>
+              <div class="modal-pages-grid">
+                @for (page of pages; track page.key) {
+                  <label
+                    class="page-item compact"
+                    [class.active]="hasNewPage(page.key)"
+                  >
+                    <input
+                      type="checkbox"
+                      [checked]="hasNewPage(page.key)"
+                      (change)="toggleNewPage(page.key)"
+                    />
+                    <i [class]="page.icon"></i>
+                    <span>{{ currentLang() === 'ar' ? page.labelAr : page.labelEn }}</span>
+                  </label>
+                }
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-outline" (click)="closeAddModal()">
+              {{ t().cancel }}
+            </button>
+            <button
+              class="btn-primary"
+              (click)="addStaff()"
+              [disabled]="!newStaff.name.trim() || !newStaff.email.trim() || !newStaff.password.trim()"
+            >
+              <i class="fa-solid fa-user-plus"></i>
+              {{ t().add }}
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</app-admin-layout>

@@ -1,0 +1,94 @@
+<app-admin-layout>
+  <div class="orders-page">
+    <div class="stats-row">
+      @for (stat of stats; track stat.label) {
+        <div class="stat-card">
+          <div class="stat-icon" [style.background]="stat.color + '15'" [style.color]="stat.color">
+            <i [class]="stat.icon"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">{{ stat.value }}</span
+            ><span class="stat-label">{{ stat.label }}</span>
+          </div>
+          <span class="stat-trend" [class.up]="stat.up" [class.down]="!stat.up"
+            ><i [class]="stat.up ? 'fa-solid fa-arrow-up' : 'fa-solid fa-arrow-down'"></i>
+            {{ stat.trend }}</span
+          >
+        </div>
+      }
+    </div>
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i
+          ><input type="text" placeholder="Search orders..." (input)="onSearch($event)" />
+        </div>
+        <select class="filter-select" (change)="onStatusFilter($event)">
+          <option value="all">All Status</option>
+          <option value="completed">Completed</option>
+          <option value="pending">Pending</option>
+          <option value="refunded">Refunded</option>
+          <option value="failed">Failed</option>
+        </select>
+      </div>
+      <div class="toolbar-right">
+        <button class="btn-secondary"><i class="fa-solid fa-file-export"></i> Export</button>
+      </div>
+    </div>
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Course</th>
+            <th>Amount</th>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (order of filteredOrders(); track order.id) {
+            <tr>
+              <td>
+                <span class="order-id">{{ order.id }}</span>
+              </td>
+              <td>
+                <div class="customer-cell">
+                  <span class="customer-name">{{ order.customer }}</span
+                  ><span class="customer-email">{{ order.email }}</span>
+                </div>
+              </td>
+              <td>{{ order.course }}</td>
+              <td>
+                <span class="amount">${{ order.amount }}</span>
+              </td>
+              <td>{{ order.paymentMethod }}</td>
+              <td>
+                <span class="status-badge" [class]="getStatusClass(order.status)">{{
+                  order.status
+                }}</span>
+              </td>
+              <td class="date-cell">{{ order.date }}</td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn" (click)="viewOrder(order)" title="View">
+                    <i class="fa-solid fa-eye"></i></button
+                  ><button class="action-btn warn" (click)="refundOrder(order)" title="Refund">
+                    <i class="fa-solid fa-rotate-left"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="8" class="empty-state">No orders found</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-admin-layout>

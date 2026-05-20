@@ -1,0 +1,98 @@
+<app-admin-layout>
+  <div class="backup-page">
+    <div class="stats-row">
+      @for (stat of stats; track stat.label) {
+        <div class="stat-card">
+          <div class="stat-icon" [style.background]="stat.color + '15'" [style.color]="stat.color">
+            <i [class]="stat.icon"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">{{ stat.value }}</span
+            ><span class="stat-label">{{ stat.label }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="actions-row">
+      <h3 class="section-title"><i class="fa-solid fa-bolt"></i> Quick Backup</h3>
+      <div class="backup-actions">
+        <button class="backup-btn full" (click)="createBackup('Full')" [disabled]="isBackingUp()">
+          <i class="fa-solid fa-database"></i>
+          <span class="backup-btn-label">Full Backup</span>
+          <span class="backup-btn-desc">Complete system backup</span>
+        </button>
+        <button class="backup-btn db" (click)="createBackup('Database')" [disabled]="isBackingUp()">
+          <i class="fa-solid fa-server"></i>
+          <span class="backup-btn-label">Database Only</span>
+          <span class="backup-btn-desc">MongoDB data backup</span>
+        </button>
+        <button
+          class="backup-btn inc"
+          (click)="createBackup('Incremental')"
+          [disabled]="isBackingUp()"
+        >
+          <i class="fa-solid fa-arrows-rotate"></i>
+          <span class="backup-btn-label">Incremental</span>
+          <span class="backup-btn-desc">Changes since last backup</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Backup History -->
+    <div class="table-section">
+      <h3 class="section-title"><i class="fa-solid fa-clock-rotate-left"></i> Backup History</h3>
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Size</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Duration</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (b of backups(); track b.id) {
+              <tr>
+                <td>
+                  <span class="backup-id">{{ b.id }}</span>
+                </td>
+                <td>{{ b.name }}</td>
+                <td>
+                  <span class="type-badge" [class]="getTypeClass(b.type)">{{ b.type }}</span>
+                </td>
+                <td>{{ b.size }}</td>
+                <td>
+                  <span class="status-badge" [class]="getStatusClass(b.status)">{{
+                    b.status
+                  }}</span>
+                </td>
+                <td class="date-cell">{{ b.date }}</td>
+                <td>{{ b.duration }}</td>
+                <td>
+                  <div class="action-btns">
+                    <button class="action-btn" (click)="downloadBackup(b)" title="Download">
+                      <i class="fa-solid fa-download"></i>
+                    </button>
+                    <button class="action-btn restore" (click)="restoreBackup(b)" title="Restore">
+                      <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                    <button class="action-btn danger" (click)="deleteBackup(b)" title="Delete">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</app-admin-layout>

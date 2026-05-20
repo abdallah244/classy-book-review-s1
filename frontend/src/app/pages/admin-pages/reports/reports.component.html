@@ -1,0 +1,54 @@
+<app-admin-layout>
+  <div class="reports-page">
+    <div class="page-header">
+      <div>
+        <h2 class="page-title">Reports</h2>
+        <p class="page-sub">Generate and download detailed reports</p>
+      </div>
+    </div>
+
+    <div class="reports-grid">
+      @for (report of reports; track report.type) {
+        <div class="report-card">
+          <div
+            class="report-icon"
+            [style.background]="report.color + '15'"
+            [style.color]="report.color"
+          >
+            <i [class]="report.icon"></i>
+          </div>
+          <h3>{{ report.title }}</h3>
+          <p>{{ report.description }}</p>
+          <div class="report-footer">
+            <span class="last-gen"
+              ><i class="fa-solid fa-clock"></i> {{ report.lastGenerated }}</span
+            >
+            <button class="gen-btn" (click)="generateReport(report)">
+              <i class="fa-solid fa-file-export"></i> Generate
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="exports-section">
+      <h3 class="section-title"><i class="fa-solid fa-download"></i> Recent Exports</h3>
+      <div class="exports-list">
+        @for (exp of recentExports; track exp.name) {
+          <div class="export-item">
+            <div class="export-icon" [style.color]="getFileColor(exp.type)">
+              <i [class]="getFileIcon(exp.type)"></i>
+            </div>
+            <div class="export-info">
+              <span class="export-name">{{ exp.name }}</span>
+              <span class="export-meta">{{ exp.size }} · {{ exp.date }}</span>
+            </div>
+            <button class="download-btn" (click)="downloadExport(exp)">
+              <i class="fa-solid fa-download"></i>
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</app-admin-layout>

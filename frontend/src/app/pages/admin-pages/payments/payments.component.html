@@ -1,0 +1,74 @@
+<app-admin-layout>
+  <div class="payments-page">
+    <div class="stats-row">
+      @for (stat of stats; track stat.label) {
+        <div class="stat-card">
+          <div class="stat-icon" [style.background]="stat.color + '15'" [style.color]="stat.color">
+            <i [class]="stat.icon"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">{{ stat.value }}</span
+            ><span class="stat-label">{{ stat.label }}</span>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i
+          ><input type="text" placeholder="Search payments..." />
+        </div>
+      </div>
+      <div class="toolbar-right">
+        <button class="btn-secondary" (click)="exportPayments()">
+          <i class="fa-solid fa-file-export"></i> Export
+        </button>
+      </div>
+    </div>
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Payment ID</th>
+            <th>Order</th>
+            <th>Customer</th>
+            <th>Amount</th>
+            <th>Fee</th>
+            <th>Net</th>
+            <th>Gateway</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (p of payments(); track p.id) {
+            <tr>
+              <td>
+                <span class="pay-id">{{ p.id }}</span>
+              </td>
+              <td>
+                <span class="order-ref">{{ p.orderId }}</span>
+              </td>
+              <td>{{ p.customer }}</td>
+              <td>
+                <span class="amount">${{ p.amount }}</span>
+              </td>
+              <td class="fee">${{ p.fee }}</td>
+              <td>
+                <span class="net" [class.negative]="p.net < 0">${{ p.net }}</span>
+              </td>
+              <td>
+                <span class="gateway-badge">{{ p.gateway }}</span>
+              </td>
+              <td>
+                <span class="status-badge" [class]="getStatusClass(p.status)">{{ p.status }}</span>
+              </td>
+              <td class="date-cell">{{ p.date }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-admin-layout>

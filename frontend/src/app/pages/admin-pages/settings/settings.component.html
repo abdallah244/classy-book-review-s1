@@ -1,0 +1,433 @@
+<app-admin-layout>
+  <div
+    class="settings-container"
+    [attr.data-theme]="currentTheme()"
+    [attr.dir]="currentDirection()"
+  >
+    <!-- ═══ HEADER ═══ -->
+    <div class="page-header">
+      <div class="header-left">
+        <div class="header-icon-wrap">
+          <i class="fa-solid fa-gear"></i>
+        </div>
+        <div>
+          <h1>{{ t().pageTitle }}</h1>
+          <p>{{ t().pageSubtitle }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ MAIN LAYOUT ═══ -->
+    <div class="settings-layout">
+      <!-- ─── Tabs Sidebar ─── -->
+      <nav class="settings-nav">
+        @for (tab of tabs(); track tab.key) {
+          <button
+            class="nav-item"
+            [class.active]="activeTab() === tab.key"
+            (click)="setTab(tab.key)"
+          >
+            <i [class]="tab.icon"></i>
+            <span>{{ tab.label }}</span>
+          </button>
+        }
+      </nav>
+
+      <!-- ─── Tab Content ─── -->
+      <div class="settings-content">
+        <!-- ══════════════════════════ SESSION ══════════════════════════ -->
+        @if (activeTab() === 'session') {
+          <div class="settings-section" data-section="session">
+            <div class="section-header">
+              <div class="section-icon"><i class="fa-solid fa-clock"></i></div>
+              <div>
+                <h2>{{ t().sessionInfo }}</h2>
+              </div>
+            </div>
+
+            <div class="session-cards">
+              <!-- Status -->
+              <div class="session-card" [class.expiring]="sessionTimer.isExpiringSoon()">
+                <div class="session-card-icon" [class.expiring]="sessionTimer.isExpiringSoon()">
+                  <i
+                    [class]="
+                      sessionTimer.isExpiringSoon()
+                        ? 'fa-solid fa-triangle-exclamation'
+                        : 'fa-solid fa-shield-check'
+                    "
+                  ></i>
+                </div>
+                <div class="session-card-info">
+                  <span class="session-label">{{
+                    sessionTimer.isExpiringSoon() ? t().sessionExpiring : t().sessionActive
+                  }}</span>
+                  <span class="session-value">{{ sessionTimer.remainingTime() }}</span>
+                </div>
+              </div>
+
+              <!-- Name -->
+              <div class="session-card">
+                <div class="session-card-icon role">
+                  <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="session-card-info">
+                  <span class="session-label">{{ t().name }}</span>
+                  <span class="session-value">{{ userName() }}</span>
+                </div>
+              </div>
+
+              <!-- Role -->
+              <div class="session-card">
+                <div class="session-card-icon role">
+                  <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div class="session-card-info">
+                  <span class="session-label">{{ t().role }}</span>
+                  <span class="session-value role-badge">{{ userRole() }}</span>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="session-card">
+                <div class="session-card-icon email">
+                  <i class="fa-solid fa-at"></i>
+                </div>
+                <div class="session-card-info">
+                  <span class="session-label">{{ t().email }}</span>
+                  <span class="session-value">{{ userEmail() }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-footer">
+              <button class="btn-primary" (click)="extendSession()">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                {{ t().extendSession }}
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- ══════════════════════════ NOTIFICATIONS ══════════════════════════ -->
+        @if (activeTab() === 'notifications') {
+          <div class="settings-section" data-section="notifications">
+            <div class="section-header">
+              <div class="section-icon"><i class="fa-solid fa-bell"></i></div>
+              <div>
+                <h2>{{ t().notifications }}</h2>
+                <p class="section-desc">{{ t().notifDesc }}</p>
+              </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="notif-contact-header">
+              <h3>{{ t().notifContactTitle }}</h3>
+              <p>{{ t().notifContactDesc }}</p>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label>{{ t().email }}</label>
+                <input type="email" [value]="notifEmailAddress()" readonly class="input-readonly" />
+              </div>
+              <div class="form-group">
+                <label>{{ t().phone }}</label>
+                <input
+                  type="tel"
+                  [value]="notifPhone()"
+                  (input)="notifPhone.set($any($event.target).value)"
+                />
+              </div>
+            </div>
+
+            <!-- Channels -->
+            <div class="notif-contact-header" style="margin-top: 1.5rem">
+              <h3>{{ t().notifChannelsTitle }}</h3>
+            </div>
+
+            <div class="notif-list">
+              <!-- Email -->
+              <label class="notif-item">
+                <div class="notif-info">
+                  <i class="fa-solid fa-envelope"></i>
+                  <div>
+                    <strong>{{ t().emailNotif }}</strong>
+                    <p>{{ t().emailNotifDesc }}</p>
+                  </div>
+                </div>
+                <div class="toggle-wrap">
+                  <input
+                    type="checkbox"
+                    [checked]="notifEmail()"
+                    (change)="notifEmail.set($any($event.target).checked)"
+                  />
+                  <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                </div>
+              </label>
+
+              <!-- Push -->
+              <label class="notif-item">
+                <div class="notif-info">
+                  <i class="fa-solid fa-bell"></i>
+                  <div>
+                    <strong>{{ t().pushNotif }}</strong>
+                    <p>{{ t().pushNotifDesc }}</p>
+                  </div>
+                </div>
+                <div class="toggle-wrap">
+                  <input
+                    type="checkbox"
+                    [checked]="notifPush()"
+                    (change)="notifPush.set($any($event.target).checked)"
+                  />
+                  <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                </div>
+              </label>
+
+              <!-- SMS -->
+              <label class="notif-item">
+                <div class="notif-info">
+                  <i class="fa-solid fa-message"></i>
+                  <div>
+                    <strong>{{ t().smsNotif }}</strong>
+                    <p>{{ t().smsNotifDesc }}</p>
+                  </div>
+                </div>
+                <div class="toggle-wrap">
+                  <input
+                    type="checkbox"
+                    [checked]="notifSms()"
+                    (change)="notifSms.set($any($event.target).checked)"
+                  />
+                  <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                </div>
+              </label>
+            </div>
+
+            <div class="section-footer">
+              <button class="btn-primary" (click)="saveNotifications()" [disabled]="saving()">
+                <i class="fa-solid fa-check"></i>
+                {{ t().saveNotifications }}
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- ══════════════════════════ APPEARANCE ══════════════════════════ -->
+        @if (activeTab() === 'appearance') {
+          <div class="settings-section" data-section="appearance">
+            <div class="section-header">
+              <div class="section-icon"><i class="fa-solid fa-palette"></i></div>
+              <div>
+                <h2>{{ t().themeTitle }}</h2>
+                <p class="section-desc">{{ t().themeDesc }}</p>
+              </div>
+            </div>
+
+            <div class="theme-cards">
+              <button
+                class="theme-card"
+                [class.active]="themeMode() === 'light'"
+                (click)="setThemeMode('light')"
+              >
+                <div class="theme-preview light-preview">
+                  <div class="preview-sidebar"></div>
+                  <div class="preview-main">
+                    <div class="preview-bar"></div>
+                    <div class="preview-content">
+                      <div class="preview-block"></div>
+                      <div class="preview-block"></div>
+                    </div>
+                  </div>
+                </div>
+                <span><i class="fa-solid fa-sun"></i> {{ t().light }}</span>
+              </button>
+
+              <button
+                class="theme-card"
+                [class.active]="themeMode() === 'dark'"
+                (click)="setThemeMode('dark')"
+              >
+                <div class="theme-preview dark-preview">
+                  <div class="preview-sidebar"></div>
+                  <div class="preview-main">
+                    <div class="preview-bar"></div>
+                    <div class="preview-content">
+                      <div class="preview-block"></div>
+                      <div class="preview-block"></div>
+                    </div>
+                  </div>
+                </div>
+                <span><i class="fa-solid fa-moon"></i> {{ t().dark }}</span>
+              </button>
+
+              <button
+                class="theme-card"
+                [class.active]="themeMode() === 'system'"
+                (click)="setThemeMode('system')"
+              >
+                <div class="theme-preview system-preview">
+                  <div class="preview-sidebar-half"></div>
+                  <div class="preview-main">
+                    <div class="preview-bar"></div>
+                    <div class="preview-content">
+                      <div class="preview-block"></div>
+                      <div class="preview-block"></div>
+                    </div>
+                  </div>
+                </div>
+                <span><i class="fa-solid fa-desktop"></i> {{ t().system }}</span>
+              </button>
+            </div>
+
+            <!-- Language -->
+            <div class="section-header" style="margin-top: 2rem">
+              <div class="section-icon"><i class="fa-solid fa-language"></i></div>
+              <div>
+                <h2>{{ t().languageTitle }}</h2>
+                <p class="section-desc">{{ t().languageDesc }}</p>
+              </div>
+            </div>
+
+            <div class="language-cards">
+              <button
+                class="lang-card"
+                [class.active]="currentLang() === 'ar'"
+                (click)="setLanguage('ar')"
+              >
+                <span class="lang-flag">🇸🇦</span>
+                <span class="lang-name">{{ t().arabic }}</span>
+                @if (currentLang() === 'ar') {
+                  <i class="fa-solid fa-check lang-check"></i>
+                }
+              </button>
+              <button
+                class="lang-card"
+                [class.active]="currentLang() === 'en'"
+                (click)="setLanguage('en')"
+              >
+                <span class="lang-flag">🇬🇧</span>
+                <span class="lang-name">{{ t().english }}</span>
+                @if (currentLang() === 'en') {
+                  <i class="fa-solid fa-check lang-check"></i>
+                }
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- ══════════════════════════ SECURITY ══════════════════════════ -->
+        @if (activeTab() === 'security') {
+          <div class="settings-section" data-section="security">
+            <div class="section-header">
+              <div class="section-icon"><i class="fa-solid fa-lock"></i></div>
+              <div>
+                <h2>{{ t().changePassword }}</h2>
+                <p class="section-desc">{{ t().passwordHint }}</p>
+              </div>
+            </div>
+
+            <div class="form-group full">
+              <label>{{ t().currentPassword }}</label>
+              <div class="input-password">
+                <input
+                  [type]="showCurrentPassword() ? 'text' : 'password'"
+                  [value]="currentPassword()"
+                  (input)="currentPassword.set($any($event.target).value)"
+                  autocomplete="current-password"
+                />
+                <button
+                  class="toggle-eye"
+                  (click)="showCurrentPassword.set(!showCurrentPassword())"
+                >
+                  <i
+                    [class]="showCurrentPassword() ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"
+                  ></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label>{{ t().newPassword }}</label>
+                <div class="input-password">
+                  <input
+                    [type]="showNewPassword() ? 'text' : 'password'"
+                    [value]="newPassword()"
+                    (input)="newPassword.set($any($event.target).value)"
+                    autocomplete="new-password"
+                  />
+                  <button class="toggle-eye" (click)="showNewPassword.set(!showNewPassword())">
+                    <i
+                      [class]="showNewPassword() ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"
+                    ></i>
+                  </button>
+                </div>
+                @if (newPassword()) {
+                  <div class="password-meter">
+                    <div class="meter-bar">
+                      @for (i of [1, 2, 3, 4, 5]; track i) {
+                        <div
+                          class="meter-seg"
+                          [class.filled]="i <= passwordStrength().score"
+                          [style.background]="
+                            i <= passwordStrength().score ? passwordStrength().color : ''
+                          "
+                        ></div>
+                      }
+                    </div>
+                    <span class="meter-label" [style.color]="passwordStrength().color">{{
+                      passwordStrength().label
+                    }}</span>
+                  </div>
+                }
+              </div>
+              <div class="form-group">
+                <label>{{ t().confirmPassword }}</label>
+                <input
+                  type="password"
+                  [value]="confirmPassword()"
+                  (input)="confirmPassword.set($any($event.target).value)"
+                  autocomplete="new-password"
+                />
+                @if (!passwordsMatch()) {
+                  <span class="field-error">{{ t().passwordMismatch }}</span>
+                }
+              </div>
+            </div>
+
+            <div class="section-footer">
+              <button
+                class="btn-primary"
+                (click)="changePassword()"
+                [disabled]="
+                  saving() ||
+                  !currentPassword() ||
+                  !newPassword() ||
+                  !confirmPassword() ||
+                  !passwordsMatch() ||
+                  passwordStrength().score < 3
+                "
+              >
+                <i class="fa-solid fa-key"></i>
+                {{ t().updatePassword }}
+              </button>
+            </div>
+
+            <!-- Logout all devices -->
+            <div class="danger-zone">
+              <div class="danger-info">
+                <h3>{{ t().logoutAll }}</h3>
+                <p>{{ t().logoutAllDesc }}</p>
+              </div>
+              <button class="btn-danger" (click)="logoutAllDevices()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                {{ t().logoutAll }}
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</app-admin-layout>

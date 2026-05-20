@@ -1,0 +1,6 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "Set-Location": true
+  },
+  "git.ignoreLimitWarning": true
+}

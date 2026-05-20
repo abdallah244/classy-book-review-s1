@@ -1,0 +1,221 @@
+<div class="settings-page" [dir]="isAr() ? 'rtl' : 'ltr'">
+
+    <h2 class="page-title">{{ isAr() ? 'الإعدادات' : 'Settings' }}</h2>
+
+    <!-- Tab Navigation -->
+    <div class="tabs">
+      <button class="tab-btn" [class.active]="activeTab() === 'profile'" (click)="setTab('profile')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        {{ isAr() ? 'البروفايل' : 'Profile' }}
+      </button>
+      <button class="tab-btn" [class.active]="activeTab() === 'password'" (click)="setTab('password')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        {{ isAr() ? 'كلمة المرور' : 'Password' }}
+      </button>
+      <button class="tab-btn" [class.active]="activeTab() === 'sessions'" (click)="setTab('sessions')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        {{ isAr() ? 'الجلسات' : 'Sessions' }}
+      </button>
+    </div>
+
+    <!-- ═══ PROFILE TAB ═══ -->
+    @if (activeTab() === 'profile') {
+      <div class="settings-card">
+        <!-- Avatar Section -->
+        <div class="avatar-section">
+          <div class="avatar-edit-wrap">
+            <div class="avatar-preview">
+              @if (user()?.avatar) {
+                <img [src]="user()!.avatar" alt="avatar" />
+              } @else {
+                <span class="avatar-letter">{{ userInitial() }}</span>
+              }
+            </div>
+            <label class="avatar-upload-btn" [class.uploading]="avatarUploading()">
+              <input type="file" accept="image/*" (change)="onAvatarChange($event)" hidden />
+              @if (avatarUploading()) {
+                <svg class="spinner" width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="50" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" dur="1s" from="0 12 12" to="360 12 12" repeatCount="indefinite"/></circle></svg>
+              } @else {
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              }
+            </label>
+          </div>
+          <div class="avatar-info">
+            <span class="avatar-name">{{ user()?.name }}</span>
+            <span class="avatar-email">{{ user()?.email }}</span>
+          </div>
+        </div>
+
+        <!-- Profile Form -->
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>{{ isAr() ? 'الاسم الكامل' : 'Full Name' }}</label>
+            <input type="text" [value]="profileName()" (input)="profileName.set($any($event.target).value)" [placeholder]="isAr() ? 'أدخل اسمك' : 'Enter your name'" />
+          </div>
+          <div class="form-group">
+            <label>{{ isAr() ? 'الهاتف' : 'Phone' }}</label>
+            <input type="tel" [value]="profilePhone()" (input)="profilePhone.set($any($event.target).value)" [placeholder]="isAr() ? '01xxxxxxxxx' : '01xxxxxxxxx'" />
+          </div>
+          <div class="form-group">
+            <label>{{ isAr() ? 'النوع' : 'Gender' }}</label>
+            <select [value]="profileGender()" (change)="profileGender.set($any($event.target).value)">
+              <option value="">{{ isAr() ? 'اختر' : 'Select' }}</option>
+              <option value="male">{{ isAr() ? 'ذكر' : 'Male' }}</option>
+              <option value="female">{{ isAr() ? 'أنثى' : 'Female' }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>{{ isAr() ? 'الدولة' : 'Country' }}</label>
+            <input type="text" [value]="profileCountry()" (input)="profileCountry.set($any($event.target).value)" [placeholder]="isAr() ? 'مصر' : 'Egypt'" />
+          </div>
+          <div class="form-group">
+            <label>{{ isAr() ? 'المدينة' : 'City' }}</label>
+            <input type="text" [value]="profileCity()" (input)="profileCity.set($any($event.target).value)" [placeholder]="isAr() ? 'القاهرة' : 'Cairo'" />
+          </div>
+          <div class="form-group">
+            <label>{{ isAr() ? 'التعليم' : 'Education' }}</label>
+            <input type="text" [value]="profileEducation()" (input)="profileEducation.set($any($event.target).value)" [placeholder]="isAr() ? 'بكالوريوس حاسبات' : 'BS Computer Science'" />
+          </div>
+          <div class="form-group">
+            <label>{{ isAr() ? 'الوظيفة' : 'Occupation' }}</label>
+            <input type="text" [value]="profileOccupation()" (input)="profileOccupation.set($any($event.target).value)" [placeholder]="isAr() ? 'مطور ويب' : 'Web Developer'" />
+          </div>
+          <div class="form-group full">
+            <label>{{ isAr() ? 'نبذة عنك' : 'Bio' }}</label>
+            <textarea rows="3" [value]="profileBio()" (input)="profileBio.set($any($event.target).value)" [placeholder]="isAr() ? 'اكتب نبذة عن نفسك...' : 'Tell us about yourself...'"></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-primary" (click)="saveProfile()" [disabled]="profileSaving()">
+            @if (profileSaving()) {
+              <svg class="spinner" width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="50" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" dur="1s" from="0 12 12" to="360 12 12" repeatCount="indefinite"/></circle></svg>
+            }
+            {{ isAr() ? 'حفظ التعديلات' : 'Save Changes' }}
+          </button>
+        </div>
+      </div>
+    }
+
+    <!-- ═══ PASSWORD TAB ═══ -->
+    @if (activeTab() === 'password') {
+      <div class="settings-card">
+        <h3 class="card-title">{{ isAr() ? 'تغيير كلمة المرور' : 'Change Password' }}</h3>
+        <p class="card-desc">{{ isAr() ? 'تأكد من استخدام كلمة مرور قوية لحماية حسابك' : 'Make sure to use a strong password to protect your account' }}</p>
+
+        <div class="form-grid single">
+          <div class="form-group full">
+            <label>{{ isAr() ? 'كلمة المرور الحالية' : 'Current Password' }}</label>
+            <div class="password-input-wrap">
+              <input [type]="showCurrentPassword() ? 'text' : 'password'" [value]="currentPassword()" (input)="currentPassword.set($any($event.target).value)" [placeholder]="isAr() ? 'أدخل كلمة المرور الحالية' : 'Enter current password'" />
+              <button class="toggle-pw" type="button" (click)="showCurrentPassword.set(!showCurrentPassword())">
+                @if (showCurrentPassword()) {
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                } @else {
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                }
+              </button>
+            </div>
+          </div>
+          <div class="form-group full">
+            <label>{{ isAr() ? 'كلمة المرور الجديدة' : 'New Password' }}</label>
+            <div class="password-input-wrap">
+              <input [type]="showNewPassword() ? 'text' : 'password'" [value]="newPassword()" (input)="newPassword.set($any($event.target).value)" [placeholder]="isAr() ? 'أدخل كلمة المرور الجديدة' : 'Enter new password'" />
+              <button class="toggle-pw" type="button" (click)="showNewPassword.set(!showNewPassword())">
+                @if (showNewPassword()) {
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                } @else {
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                }
+              </button>
+            </div>
+            <!-- Strength Bar -->
+            @if (newPassword()) {
+              <div class="strength-bar">
+                <div class="strength-fill" [style.width.%]="passwordStrength() * 20"
+                  [class.weak]="passwordStrength() <= 2"
+                  [class.medium]="passwordStrength() === 3"
+                  [class.strong]="passwordStrength() >= 4"></div>
+              </div>
+              <span class="strength-text" [class.weak]="passwordStrength() <= 2" [class.medium]="passwordStrength() === 3" [class.strong]="passwordStrength() >= 4">
+                {{ passwordStrength() <= 2 ? (isAr() ? 'ضعيفة' : 'Weak') : passwordStrength() === 3 ? (isAr() ? 'متوسطة' : 'Medium') : (isAr() ? 'قوية' : 'Strong') }}
+              </span>
+            }
+          </div>
+          <div class="form-group full">
+            <label>{{ isAr() ? 'تأكيد كلمة المرور' : 'Confirm Password' }}</label>
+            <input type="password" [value]="confirmPassword()" (input)="confirmPassword.set($any($event.target).value)" [placeholder]="isAr() ? 'أعد إدخال كلمة المرور' : 'Re-enter new password'" />
+            @if (confirmPassword() && !passwordsMatch()) {
+              <span class="field-error">{{ isAr() ? 'كلمتا المرور غير متطابقتين' : 'Passwords do not match' }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-primary" (click)="changePassword()" [disabled]="passwordSaving() || !passwordsMatch() || passwordStrength() < 3">
+            @if (passwordSaving()) {
+              <svg class="spinner" width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="50" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" dur="1s" from="0 12 12" to="360 12 12" repeatCount="indefinite"/></circle></svg>
+            }
+            {{ isAr() ? 'تغيير كلمة المرور' : 'Change Password' }}
+          </button>
+        </div>
+      </div>
+    }
+
+    <!-- ═══ SESSIONS TAB ═══ -->
+    @if (activeTab() === 'sessions') {
+      <div class="settings-card">
+        <div class="sessions-header">
+          <div>
+            <h3 class="card-title">{{ isAr() ? 'الأجهزة المتصلة' : 'Active Sessions' }}</h3>
+            <p class="card-desc">{{ isAr() ? 'إدارة جلساتك النشطة على جميع الأجهزة' : 'Manage your active sessions across all devices' }}</p>
+          </div>
+          @if (sessions().length > 1) {
+            <button class="btn-danger-outline" (click)="revokeAllOtherSessions()">
+              {{ isAr() ? 'إنهاء الجلسات الأخرى' : 'Revoke All Others' }}
+            </button>
+          }
+        </div>
+
+        @if (sessionsLoading()) {
+          <div class="sessions-loading">
+            <svg class="spinner" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="50" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" dur="1s" from="0 12 12" to="360 12 12" repeatCount="indefinite"/></circle></svg>
+          </div>
+        } @else {
+          <div class="sessions-list">
+            @for (session of sessions(); track session.sessionId) {
+              <div class="session-item" [class.current]="session.isCurrent">
+                <div class="session-icon">
+                  @if (getDeviceIcon(session) === 'mobile') {
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+                  } @else {
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  }
+                </div>
+                <div class="session-info">
+                  <span class="session-device">
+                    {{ getDeviceName(session) }}
+                    @if (session.isCurrent) {
+                      <span class="current-badge">{{ isAr() ? 'الجلسة الحالية' : 'Current' }}</span>
+                    }
+                  </span>
+                  <span class="session-meta">
+                    {{ session.deviceInfo?.ip || '' }} · {{ getTimeAgo(session.lastActivityAt) }}
+                  </span>
+                </div>
+                @if (!session.isCurrent) {
+                  <button class="btn-revoke" (click)="revokeSession(session.sessionId)">
+                    {{ isAr() ? 'إنهاء' : 'Revoke' }}
+                  </button>
+                }
+              </div>
+            }
+            @if (sessions().length === 0) {
+              <p class="empty-text">{{ isAr() ? 'لا يوجد جلسات نشطة' : 'No active sessions found' }}</p>
+            }
+          </div>
+        }
+      </div>
+    }
+
+  </div>

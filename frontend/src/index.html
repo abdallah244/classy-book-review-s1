@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Classy Book - Learning Management System</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Secure admin dashboard for Classy Book LMS. Manage courses, students, and analytics with enterprise-grade security and monitoring."
+    />
+    <meta name="theme-color" content="#166534" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Classy Book - Learning Management System" />
+    <meta
+      property="og:description"
+      content="Secure admin dashboard for enterprise education management."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Classy Book Admin" />
+    <link rel="icon" type="image/x-icon" href="ck.png" />
+    <link rel="canonical" href="https://classybook.com" />
+
+    <!-- Preconnect for faster loading -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Critical CSS inline for faster FCP -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #ffffff;
+        color: #000000;
+      }
+      app-root {
+        display: block;
+        min-height: 100vh;
+      }
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+
+    <!-- Font Awesome 6 - Async load -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      />
+    </noscript>
+
+    <!-- Google Fonts - Display swap for better CLS -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- Chart.js - For data visualization -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+      integrity="sha256-HNxXgNzF1zLmCvvHnfshLFu0mf5+7gOVthyFYTnFmME="
+      crossorigin="anonymous"
+      defer
+    ></script>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

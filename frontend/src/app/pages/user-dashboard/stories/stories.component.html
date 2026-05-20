@@ -1,0 +1,66 @@
+<div class="stories-wrapper" [dir]="isAr() ? 'rtl' : 'ltr'">
+  
+  <div class="stories-list">
+    <!-- Add Story Button -->
+    <div class="story-item add-story" (click)="addStory()">
+      <div class="avatar-ring">
+        @if (currentUser()?.avatar) {
+          <img [src]="currentUser()?.avatar" class="user-avatar" />
+        } @else {
+          <div class="user-avatar placeholder">{{ currentUser()?.name?.charAt(0) }}</div>
+        }
+        <div class="add-icon">+</div>
+      </div>
+      <span>{{ isAr() ? 'قصتك' : 'Your Story' }}</span>
+    </div>
+
+    <!-- Feed Stories -->
+    @for (group of storyGroups(); track group.user._id) {
+      <div class="story-item" [class.unseen]="group.hasUnseen" (click)="openStories(group)">
+        <div class="avatar-ring">
+          @if (group.user.avatar) {
+            <img [src]="group.user.avatar" class="user-avatar" />
+          } @else {
+            <div class="user-avatar placeholder">{{ group.user.name.charAt(0) }}</div>
+          }
+        </div>
+        <span>{{ group.user.name.split(' ')[0] }}</span>
+      </div>
+    }
+  </div>
+
+  <!-- Full Screen Story Viewer -->
+  @if (showViewer()) {
+    <div class="story-viewer-overlay" (click)="closeViewer()">
+      <div class="viewer-content" (click)="$event.stopPropagation()">
+        
+        <!-- Progress Bars -->
+        <div class="progress-container">
+          @for (s of activeStoryGroup()?.stories; track s._id; let i = $index) {
+            <div class="progress-bar">
+              <div class="progress-fill" [class.active]="i === activeStoryIndex()" 
+                   [style.width]="i < activeStoryIndex() ? '100%' : '0%'"></div>
+            </div>
+          }
+        </div>
+
+        <div class="viewer-header">
+          <div class="viewer-user">
+            <img [src]="activeStoryGroup()?.user?.avatar || 'assets/images/default-avatar.png'" class="viewer-avatar" />
+            <span>{{ activeStoryGroup()?.user?.name }}</span>
+          </div>
+          <button class="close-btn" (click)="closeViewer()">&times;</button>
+        </div>
+
+        <div class="story-media">
+          <img [src]="activeStoryGroup()?.stories?.[activeStoryIndex()]?.mediaUrl" class="active-media" />
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-left" (click)="prevStory()"></div>
+        <div class="nav-right" (click)="nextStory()"></div>
+      </div>
+    </div>
+  }
+
+</div>
