@@ -177,6 +177,14 @@ export class SocialService {
     return this.api.post<{ following: boolean }>(`/social/follow/${userId}`, {});
   }
 
+  getFollowers(userId: string, page = 1, limit = 20): Observable<{ users: SuggestedUser[]; total: number; pages: number }> {
+    return this.api.get<{ users: SuggestedUser[]; total: number; pages: number }>(`/social/followers/${userId}?page=${page}&limit=${limit}`);
+  }
+
+  getFollowing(userId: string, page = 1, limit = 20): Observable<{ users: SuggestedUser[]; total: number; pages: number }> {
+    return this.api.get<{ users: SuggestedUser[]; total: number; pages: number }>(`/social/following/${userId}?page=${page}&limit=${limit}`);
+  }
+
   getUserProfile(userId: string): Observable<SuggestedUser & { followersCount: number; followingCount: number; isFollowing: boolean }> {
     return this.api.get<SuggestedUser & { followersCount: number; followingCount: number; isFollowing: boolean }>(`/social/user/${userId}/profile`);
   }

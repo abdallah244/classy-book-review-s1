@@ -1,99 +1,535 @@
 <div class="profile-container" [dir]="isAr() ? 'rtl' : 'ltr'">
-  
-  <!-- Hero Section (Cover + Avatar) -->
-  <header class="profile-hero">
-    <div class="cover-photo">
-      @if (profileUser()?.profile?.coverPhoto) {
-        <img [src]="profileUser()?.profile?.coverPhoto" />
-      } @else {
-        <div class="cover-placeholder"></div>
-      }
+
+  <!-- Profile Loading State -->
+  @if (isLoading()) {
+    <div class="profile-loader-wrap">
+      <div class="loading-spinner"></div>
+      <p>{{ isAr() ? 'جاري تحميل ملف المستخدم...' : 'Loading profile...' }}</p>
     </div>
+  } @else {
     
-    <div class="profile-main-info">
-      <div class="avatar-wrap">
-        @if (profileUser()?.avatar) {
-          <img [src]="profileUser()?.avatar" class="profile-avatar" />
-        } @else {
-          <div class="profile-avatar placeholder">{{ profileUser()?.name?.charAt(0) }}</div>
-        }
+    <!-- Hero Section (Cover + Avatar) -->
+    <header class="profile-hero">
+      <div class="cover-photo">
+        <img [src]="profileUser()?.profile?.coverPhoto || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600'" alt="cover photo" class="cover-image" />
+        <div class="cover-overlay"></div>
       </div>
+      
+      <div class="profile-main-info">
+        <div class="profile-meta-row">
+          <div class="avatar-wrap">
+            @if (profileUser()?.avatar) {
+              <img [src]="profileUser()?.avatar" class="profile-avatar" alt="avatar" />
+            } @else {
+              <div class="profile-avatar placeholder">{{ userInitial() }}</div>
+            }
+            <div class="status-indicator online"></div>
+          </div>
 
-      <div class="info-content">
-        <div class="name-row">
-          <h1>{{ profileUser()?.name }}</h1>
-          @if (profileUser()?.role === 'admin' || profileUser()?.role === 'teacher') {
-            <span class="verified-tick">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-            </span>
-          }
-        </div>
-        <p class="bio">{{ profileUser()?.profile?.bio || (isAr() ? 'لا يوجد وصف بعد' : 'No bio yet') }}</p>
-        
-        <div class="stats-row">
-          <div class="stat-item"><strong>{{ stats().posts }}</strong> <span>{{ isAr() ? 'منشور' : 'Posts' }}</span></div>
-          <div class="stat-item"><strong>{{ stats().followers }}</strong> <span>{{ isAr() ? 'متابع' : 'Followers' }}</span></div>
-          <div class="stat-item"><strong>{{ stats().following }}</strong> <span>{{ isAr() ? 'يتابع' : 'Following' }}</span></div>
-        </div>
-      </div>
-
-      <div class="profile-actions">
-        @if (profileUser()?._id === currentUser()?._id) {
-          <button class="btn-edit">{{ isAr() ? 'تعديل الملف' : 'Edit Profile' }}</button>
-        } @else {
-          <button class="btn-follow" [class.following]="isFollowing()" (click)="toggleFollow()">
-            {{ isFollowing() ? (isAr() ? 'إلغاء المتابعة' : 'Unfollow') : (isAr() ? 'متابعة' : 'Follow') }}
-          </button>
-          <button class="btn-message" [routerLink]="['/social/chat']">{{ isAr() ? 'رسالة' : 'Message' }}</button>
-        }
-      </div>
-    </div>
-  </header>
-
-  <div class="profile-content-grid">
-    <!-- Sidebar Info -->
-    <aside class="profile-sidebar">
-      <div class="info-card">
-        <h3>{{ isAr() ? 'عن المستخدم' : 'About' }}</h3>
-        <ul class="details-list">
-          <li>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span>{{ profileUser()?.profile?.city || 'Cairo' }}, {{ profileUser()?.profile?.country || 'Egypt' }}</span>
-          </li>
-          <li>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <span>{{ isAr() ? 'انضم في' : 'Joined' }} {{ formatDate(profileUser()?.createdAt) }}</span>
-          </li>
-          <li>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-            <span>{{ profileUser()?.role }}</span>
-          </li>
-        </ul>
-      </div>
-    </aside>
-
-    <!-- Main Timeline -->
-    <main class="profile-timeline">
-      <div class="timeline-header">
-        <h2>{{ isAr() ? 'المنشورات' : 'Posts' }}</h2>
-      </div>
-
-      <div class="posts-list">
-        @for (post of userPosts(); track post.id) {
-          <div class="profile-post-card">
-            <p>{{ post.content }}</p>
-            <div class="post-meta">
-              <span>{{ post.likesCount }} Likes</span>
-              <span>{{ post.commentsCount }} Comments</span>
+          <div class="info-content">
+            <div class="name-row">
+              <h1>{{ profileUser()?.name }}</h1>
+              @if (profileUser()?.role === 'admin' || profileUser()?.role === 'teacher') {
+                <span class="verified-tick" [title]="isAr() ? 'حساب موثق' : 'Verified Account'">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                  </svg>
+                </span>
+              }
+            </div>
+            <p class="handle">@{{ (profileUser()?.email || '').split('@')[0] }}</p>
+            <p class="bio">{{ profileUser()?.profile?.bio || (isAr() ? 'لا يوجد وصف شخصي بعد 🌟' : 'No bio yet 🌟') }}</p>
+            
+            <div class="stats-row">
+              <div class="stat-item" (click)="setTab('posts')">
+                <strong>{{ stats().posts }}</strong> 
+                <span>{{ isAr() ? 'منشور' : 'Posts' }}</span>
+              </div>
+              <div class="stat-item" (click)="setTab('followers')">
+                <strong>{{ stats().followers }}</strong> 
+                <span>{{ isAr() ? 'متابع' : 'Followers' }}</span>
+              </div>
+              <div class="stat-item" (click)="setTab('following')">
+                <strong>{{ stats().following }}</strong> 
+                <span>{{ isAr() ? 'يتابع' : 'Following' }}</span>
+              </div>
             </div>
           </div>
-        } @empty {
-          <div class="empty-posts">
-            <p>{{ isAr() ? 'لا توجد منشورات حتى الآن' : 'No posts yet' }}</p>
+        </div>
+
+        <div class="profile-actions">
+          @if (profileUser()?._id === currentUser()?._id) {
+            <button class="btn-edit" (click)="openEditModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              <span>{{ isAr() ? 'تعديل الملف' : 'Edit Profile' }}</span>
+            </button>
+          } @else {
+            <button class="btn-follow" [class.following]="isFollowing()" (click)="toggleFollow()">
+              @if (isFollowing()) {
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>{{ isAr() ? 'إلغاء المتابعة' : 'Unfollow' }}</span>
+              } @else {
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                <span>{{ isAr() ? 'متابعة' : 'Follow' }}</span>
+              }
+            </button>
+            <button class="btn-message" [routerLink]="['/social/chat']">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>{{ isAr() ? 'رسالة' : 'Message' }}</span>
+            </button>
+          }
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="profile-tabs-nav">
+      <button class="tab-link" [class.active]="activeTab() === 'posts'" (click)="setTab('posts')">
+        {{ isAr() ? 'المنشورات' : 'Posts' }}
+      </button>
+      <button class="tab-link" [class.active]="activeTab() === 'about'" (click)="setTab('about')">
+        {{ isAr() ? 'حول' : 'About' }}
+      </button>
+      <button class="tab-link" [class.active]="activeTab() === 'media'" (click)="setTab('media')">
+        {{ isAr() ? 'الوسائط' : 'Media' }}
+      </button>
+      <button class="tab-link" [class.active]="activeTab() === 'followers'" (click)="setTab('followers')">
+        {{ isAr() ? 'المتابعون' : 'Followers' }}
+      </button>
+      <button class="tab-link" [class.active]="activeTab() === 'following'" (click)="setTab('following')">
+        {{ isAr() ? 'يتابع' : 'Following' }}
+      </button>
+    </nav>
+
+    <!-- Tab Contents Grid -->
+    <div class="profile-content-grid">
+      
+      <!-- MAIN TAB CONTENT AREA -->
+      <div class="profile-main-column">
+
+        <!-- 1. POSTS TAB -->
+        @if (activeTab() === 'posts') {
+          <div class="posts-list">
+            @for (post of userPosts(); track post.id) {
+              <div class="post-card card-3d">
+                <!-- Post Header -->
+                <div class="post-header">
+                  <div class="post-author-avatar">
+                    @if (post.author?.avatar) {
+                      <img [src]="post.author.avatar" [alt]="post.author.name" />
+                    } @else {
+                      <span class="avatar-letter">{{ post.author?.name?.charAt(0)?.toUpperCase() || 'U' }}</span>
+                    }
+                  </div>
+                  <div class="post-author-info">
+                    <div class="name-row">
+                      <span class="author-name">{{ post.author?.name || 'User' }}</span>
+                      @if (post.author?.role === 'admin' || post.author?.role === 'teacher') {
+                        <span class="verified-icon small">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                          </svg>
+                        </span>
+                      }
+                    </div>
+                    <span class="post-time">{{ formatDate(post.createdAt) }}</span>
+                  </div>
+                </div>
+
+                <!-- Post Content -->
+                <div class="post-content">
+                  <p>{{ post.content }}</p>
+                  
+                  <!-- Post Media -->
+                  @if (post.media?.length) {
+                    <div class="post-media" [class.multi]="post.media.length > 1">
+                      @for (url of post.media; track url) {
+                        <div class="media-item">
+                          <img [src]="url" alt="post media" loading="lazy" />
+                        </div>
+                      }
+                    </div>
+                  }
+
+                  <!-- Repost Content -->
+                  @if (post.type === 'repost' && post.originalPost) {
+                    <div class="reposted-content-card">
+                      <div class="repost-header">
+                        <div class="repost-avatar">
+                          @if (post.originalPost.author?.avatar) {
+                            <img [src]="post.originalPost.author.avatar" alt="avatar" />
+                          } @else {
+                            <span class="avatar-letter-xs">{{ post.originalPost.author?.name?.charAt(0) }}</span>
+                          }
+                        </div>
+                        <div class="repost-meta">
+                          <span class="repost-author-name">{{ post.originalPost.author?.name }}</span>
+                          <span class="repost-date">{{ formatDate(post.originalPost.createdAt) }}</span>
+                        </div>
+                      </div>
+                      <div class="repost-body">
+                        <p>{{ post.originalPost.content }}</p>
+                        @if (post.originalPost.media?.length) {
+                          <div class="repost-media-preview">
+                            <img [src]="post.originalPost.media[0]" alt="repost media" />
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  }
+
+                  @if (post.hashtags?.length) {
+                    <div class="post-hashtags">
+                      @for (tag of post.hashtags; track tag) {
+                        <span class="hashtag">#{{ tag }}</span>
+                      }
+                    </div>
+                  }
+                </div>
+
+                <!-- Post Stats -->
+                <div class="post-stats">
+                  <span class="stat-item">{{ post.likesCount }} {{ isAr() ? 'إعجاب' : 'Likes' }}</span>
+                  <span class="stat-item">{{ post.commentsCount }} {{ isAr() ? 'تعليق' : 'Comments' }}</span>
+                  <span class="stat-item">{{ post.repostCount || 0 }} {{ isAr() ? 'مشاركة' : 'Shares' }}</span>
+                </div>
+
+                <!-- Post Actions -->
+                <div class="post-actions">
+                  <div class="post-action-wrap">
+                    <button class="action-btn like-btn" [class.liked]="post.isLiked" 
+                      (mouseenter)="showReactionPicker(post.id)"
+                      (click)="toggleReaction(post, 'like')">
+                      <svg width="18" height="18" viewBox="0 0 24 24" [attr.fill]="post.isLiked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                      <span>{{ isAr() ? 'إعجاب' : 'Like' }}</span>
+                    </button>
+
+                    @if (activeReactionPicker() === post.id) {
+                      <div class="reaction-picker" (mouseleave)="hideReactionPicker()">
+                        <button (click)="toggleReaction(post, 'like')" title="Like">👍</button>
+                        <button (click)="toggleReaction(post, 'love')" title="Love">❤️</button>
+                        <button (click)="toggleReaction(post, 'haha')" title="Haha">😂</button>
+                        <button (click)="toggleReaction(post, 'wow')" title="Wow">😮</button>
+                        <button (click)="toggleReaction(post, 'sad')" title="Sad">😢</button>
+                        <button (click)="toggleReaction(post, 'angry')" title="Angry">😡</button>
+                      </div>
+                    }
+                  </div>
+                  
+                  <button class="action-btn comment-btn" (click)="toggleComments(post.id)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    <span>{{ isAr() ? 'تعليق' : 'Comment' }}</span>
+                  </button>
+                  
+                  <button class="action-btn share-btn" (click)="repost(post.id)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                    <span>{{ isAr() ? 'إعادة نشر' : 'Repost' }}</span>
+                  </button>
+                </div>
+
+                <!-- Comments Section -->
+                @if (openCommentSections()[post.id]) {
+                  <div class="comments-section">
+                    <!-- Comment Input -->
+                    <div class="comment-input-wrap">
+                      <div class="comment-avatar">
+                        @if (currentUser()?.avatar) {
+                          <img [src]="currentUser()!.avatar" alt="avatar" />
+                        } @else {
+                          <span class="avatar-letter-small">{{ (currentUser()?.name || 'U').charAt(0).toUpperCase() }}</span>
+                        }
+                      </div>
+                      <input 
+                        type="text" 
+                        class="comment-input" 
+                        [placeholder]="isAr() ? 'اكتب تعليقاً...' : 'Write a comment...'"
+                        [value]="commentInputs()[post.id] || ''"
+                        (input)="onCommentInput(post.id, $event)"
+                        (keyup.enter)="submitComment(post.id)"
+                      />
+                      <button 
+                        class="comment-submit-btn" 
+                        [disabled]="!commentInputs()[post.id]?.trim()"
+                        (click)="submitComment(post.id)"
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                      </button>
+                    </div>
+
+                    <!-- Comments List -->
+                    @if (post.comments?.length) {
+                      <div class="comments-list">
+                        @for (comment of post.comments; track comment._id) {
+                          <div class="comment-item">
+                            <div class="comment-avatar">
+                              @if (comment.userId?.avatar) {
+                                <img [src]="comment.userId.avatar" alt="avatar" />
+                              } @else {
+                                <span class="avatar-letter-small">{{ comment.userId?.name?.charAt(0)?.toUpperCase() || 'U' }}</span>
+                              }
+                            </div>
+                            <div class="comment-content-wrap">
+                              <div class="comment-bubble">
+                                <span class="comment-author">{{ comment.userId?.name || 'User' }}</span>
+                                <p class="comment-text">{{ comment.content }}</p>
+                              </div>
+                              <span class="comment-time">{{ formatDate(comment.createdAt) }}</span>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            } @empty {
+              <div class="empty-tab-state card-3d">
+                <div class="empty-icon">📂</div>
+                <p>{{ isAr() ? 'لا توجد منشورات لهذا المستخدم حتى الآن.' : 'This user hasn\'t posted anything yet.' }}</p>
+              </div>
+            }
           </div>
         }
-      </div>
-    </main>
-  </div>
 
+        <!-- 2. ABOUT TAB -->
+        @if (activeTab() === 'about') {
+          <div class="about-section card-3d">
+            <div class="about-card-section">
+              <h3>{{ isAr() ? 'نبذة شخصية' : 'Biography' }}</h3>
+              <p class="bio-text">{{ profileUser()?.profile?.bio || (isAr() ? 'لم يكتب المستخدم نبذة بعد.' : 'No description provided yet.') }}</p>
+            </div>
+            
+            <hr class="about-divider" />
+
+            <div class="about-card-section details-grid">
+              <div class="detail-box">
+                <div class="icon-wrap">📍</div>
+                <div class="detail-info">
+                  <span class="title">{{ isAr() ? 'الموقع' : 'Location' }}</span>
+                  <span class="val">{{ profileUser()?.profile?.city || 'Cairo' }}, {{ profileUser()?.profile?.country || 'Egypt' }}</span>
+                </div>
+              </div>
+
+              <div class="detail-box">
+                <div class="icon-wrap">📅</div>
+                <div class="detail-info">
+                  <span class="title">{{ isAr() ? 'تاريخ الانضمام' : 'Joined Date' }}</span>
+                  <span class="val">{{ formatDate(profileUser()?.createdAt) }}</span>
+                </div>
+              </div>
+
+              <div class="detail-box">
+                <div class="icon-wrap">🎓</div>
+                <div class="detail-info">
+                  <span class="title">{{ isAr() ? 'التعليم' : 'Education' }}</span>
+                  <span class="val">{{ profileUser()?.profile?.education || (isAr() ? 'غير محدد' : 'Not specified') }}</span>
+                </div>
+              </div>
+
+              <div class="detail-box">
+                <div class="icon-wrap">💼</div>
+                <div class="detail-info">
+                  <span class="title">{{ isAr() ? 'المهنة' : 'Occupation' }}</span>
+                  <span class="val">{{ profileUser()?.profile?.occupation || (isAr() ? 'غير محدد' : 'Not specified') }}</span>
+                </div>
+              </div>
+            </div>
+
+            @if (profileUser()?._id === currentUser()?._id) {
+              <div class="about-prompt-box">
+                <p>{{ isAr() ? 'يمكنك تحديث هذه البيانات الشخصية في أي وقت من خلال الضغط على زر تعديل الملف الشخصي.' : 'You can update your personal information at any time by clicking the Edit Profile button.' }}</p>
+                <button class="btn-prompt-edit" (click)="openEditModal()">{{ isAr() ? 'تعديل الآن' : 'Edit Now' }}</button>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- 3. MEDIA TAB -->
+        @if (activeTab() === 'media') {
+          <div class="media-gallery-wrap">
+            @if (mediaPosts().length === 0) {
+              <div class="empty-tab-state card-3d">
+                <div class="empty-icon">🖼️</div>
+                <p>{{ isAr() ? 'لا توجد صور أو وسائط مرفوعة.' : 'No uploaded media images.' }}</p>
+              </div>
+            } @else {
+              <div class="media-grid">
+                @for (post of mediaPosts(); track post.id) {
+                  @for (img of post.media; track img) {
+                    <div class="media-grid-item">
+                      <img [src]="img" alt="media image" class="gallery-image" />
+                      <div class="media-hover-overlay">
+                        <div class="gallery-stats">
+                          <span>❤️ {{ post.likesCount }}</span>
+                          <span>💬 {{ post.commentsCount }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                }
+              </div>
+            }
+          </div>
+        }
+
+        <!-- 4. FOLLOWERS TAB -->
+        @if (activeTab() === 'followers') {
+          <div class="users-list-wrap">
+            @if (isLoadingFollowers()) {
+              <div class="tab-spinner-wrap">
+                <div class="spinner-small"></div>
+              </div>
+            } @else {
+              <div class="user-cards-grid">
+                @for (userItem of followers(); track userItem._id) {
+                  <div class="user-list-card card-3d" [routerLink]="['/social/profile', userItem._id]">
+                    <div class="user-card-header">
+                      <img [src]="userItem.avatar || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'" alt="avatar" class="card-avatar" />
+                      <div class="card-info">
+                        <h4>{{ userItem.name }}</h4>
+                        <span class="role-badge" [class]="userItem.role">{{ userItem.role }}</span>
+                      </div>
+                    </div>
+                    <p class="card-bio">{{ userItem.profile?.bio || (isAr() ? 'لا يوجد وصف.' : 'No description.') }}</p>
+                    
+                    <div class="card-actions">
+                      @if (userItem._id === currentUser()?._id) {
+                        <span class="you-badge">{{ isAr() ? 'أنت' : 'You' }}</span>
+                      } @else {
+                        <button class="follow-btn-sm" (click)="toggleFollowUserInList(userItem._id, $event)">
+                          {{ isAr() ? 'متابعة' : 'Follow' }}
+                        </button>
+                      }
+                    </div>
+                  </div>
+                } @empty {
+                  <div class="empty-tab-state card-3d">
+                    <div class="empty-icon">👥</div>
+                    <p>{{ isAr() ? 'لا يوجد متابعون لهذا الحساب بعد.' : 'No followers for this account yet.' }}</p>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+
+        <!-- 5. FOLLOWING TAB -->
+        @if (activeTab() === 'following') {
+          <div class="users-list-wrap">
+            @if (isLoadingFollowing()) {
+              <div class="tab-spinner-wrap">
+                <div class="spinner-small"></div>
+              </div>
+            } @else {
+              <div class="user-cards-grid">
+                @for (userItem of following(); track userItem._id) {
+                  <div class="user-list-card card-3d" [routerLink]="['/social/profile', userItem._id]">
+                    <div class="user-card-header">
+                      <img [src]="userItem.avatar || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'" alt="avatar" class="card-avatar" />
+                      <div class="card-info">
+                        <h4>{{ userItem.name }}</h4>
+                        <span class="role-badge" [class]="userItem.role">{{ userItem.role }}</span>
+                      </div>
+                    </div>
+                    <p class="card-bio">{{ userItem.profile?.bio || (isAr() ? 'لا يوجد وصف.' : 'No description.') }}</p>
+                    
+                    <div class="card-actions">
+                      @if (userItem._id === currentUser()?._id) {
+                        <span class="you-badge">{{ isAr() ? 'أنت' : 'You' }}</span>
+                      } @else {
+                        <button class="follow-btn-sm following" (click)="toggleFollowUserInList(userItem._id, $event)">
+                          {{ isAr() ? 'إلغاء المتابعة' : 'Unfollow' }}
+                        </button>
+                      }
+                    </div>
+                  </div>
+                } @empty {
+                  <div class="empty-tab-state card-3d">
+                    <div class="empty-icon">👥</div>
+                    <p>{{ isAr() ? 'هذا المستخدم لا يتابع أحداً بعد.' : 'This user is not following anyone yet.' }}</p>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+
+      </div>
+    </div>
+  }
 </div>
+
+<!-- ================= EDIT PROFILE MODAL OVERLAY ================= -->
+@if (isEditing()) {
+  <div class="edit-modal-backdrop" (click)="closeEditModal()">
+    <div class="edit-modal-content card-3d" (click)="$event.stopPropagation()" [dir]="isAr() ? 'rtl' : 'ltr'">
+      <div class="modal-header">
+        <h2>{{ isAr() ? 'تعديل الملف الشخصي' : 'Edit Profile' }}</h2>
+        <button class="btn-close" (click)="closeEditModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label>{{ isAr() ? 'الاسم بالكامل' : 'Full Name' }}</label>
+          <input type="text" [(ngModel)]="editForm().name" class="modal-input" />
+        </div>
+
+        <div class="form-group">
+          <label>{{ isAr() ? 'رابط الصورة الشخصية (Avatar URL)' : 'Avatar URL' }}</label>
+          <input type="text" [(ngModel)]="editForm().avatar" class="modal-input" />
+          @if (editForm().avatar) {
+            <div class="preview-avatar-box">
+              <img [src]="editForm().avatar" alt="Avatar preview" class="preview-avatar-img" />
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>{{ isAr() ? 'رابط صورة الغلاف (Cover Photo URL)' : 'Cover URL' }}</label>
+          <input type="text" [(ngModel)]="editForm().coverPhoto" class="modal-input" />
+          @if (editForm().coverPhoto) {
+            <div class="preview-cover-box">
+              <img [src]="editForm().coverPhoto" alt="Cover preview" class="preview-cover-img" />
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>{{ isAr() ? 'السيرة الذاتية (Bio)' : 'Bio' }}</label>
+          <textarea [(ngModel)]="editForm().bio" class="modal-textarea" rows="3"></textarea>
+        </div>
+
+        <div class="modal-row-grid">
+          <div class="form-group">
+            <label>{{ isAr() ? 'المدينة' : 'City' }}</label>
+            <input type="text" [(ngModel)]="editForm().city" class="modal-input" />
+          </div>
+          <div class="form-group">
+            <label>{{ isAr() ? 'الدولة' : 'Country' }}</label>
+            <input type="text" [(ngModel)]="editForm().country" class="modal-input" />
+          </div>
+        </div>
+
+        <div class="modal-row-grid">
+          <div class="form-group">
+            <label>{{ isAr() ? 'التعليم' : 'Education' }}</label>
+            <input type="text" [(ngModel)]="editForm().education" class="modal-input" />
+          </div>
+          <div class="form-group">
+            <label>{{ isAr() ? 'المهنة' : 'Occupation' }}</label>
+            <input type="text" [(ngModel)]="editForm().occupation" class="modal-input" />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-modal-cancel" (click)="closeEditModal()">
+          {{ isAr() ? 'إلغاء' : 'Cancel' }}
+        </button>
+        <button class="btn-modal-save" (click)="saveProfile()">
+          {{ isAr() ? 'حفظ التغييرات' : 'Save Changes' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

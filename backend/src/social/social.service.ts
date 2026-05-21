@@ -482,6 +482,12 @@ export class SocialService {
   }
 
   async getUserProfile(targetUserId: string, viewerId?: string): Promise<any> {
+    const user = await this.userModel
+      .findById(targetUserId)
+      .select('name email avatar role profile createdAt')
+      .lean();
+    if (!user) throw new NotFoundException('User not found');
+
     const [stats, postsCount, isFollowingUser] = await Promise.all([
       this.getFollowStats(targetUserId),
       this.postModel.countDocuments({
@@ -492,7 +498,15 @@ export class SocialService {
     ]);
 
     return {
-      ...stats,
+      _id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      avatar: user.avatar,
+      role: user.role,
+      profile: user.profile,
+      createdAt: user.createdAt,
+      followersCount: stats.followersCount,
+      followingCount: stats.followingCount,
       postsCount,
       isFollowing: isFollowingUser,
     };
