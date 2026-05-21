@@ -1,10 +1,18 @@
 <!-- NAVBAR -->
-<nav class="static-nav" [dir]="isAr() ? 'rtl' : 'ltr'">
+<nav class="landing-nav solid" [dir]="isAr() ? 'rtl' : 'ltr'">
   <div class="nav-inner">
     <a class="nav-logo" routerLink="/">
       <i class="fa-solid fa-book-open"></i>
       <span>Classy Book</span>
     </a>
+    <div class="nav-links" [class.open]="menuOpen()">
+      <a routerLink="/">{{ isAr() ? 'الرئيسية' : 'Home' }}</a>
+      <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
+      <a routerLink="/blog">{{ isAr() ? 'المدونة' : 'Blog' }}</a>
+      <a routerLink="/careers">{{ isAr() ? 'الوظائف' : 'Careers' }}</a>
+      <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help' }}</a>
+      <a routerLink="/contact">{{ isAr() ? 'تواصل معنا' : 'Contact' }}</a>
+    </div>
     <div class="nav-actions">
       <button class="nav-icon-btn" (click)="toggleTheme()" aria-label="Toggle theme">
         <i [class]="themeService.effectiveTheme() === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
@@ -14,43 +22,144 @@
       </button>
       <a routerLink="/auth" class="nav-btn filled">{{ isAr() ? 'ابدأ مجاناً' : 'Start Free' }}</a>
     </div>
+    <button class="mobile-toggle" (click)="toggleMenu()">
+      <i [class]="menuOpen() ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+    </button>
   </div>
 </nav>
 
 <!-- CONTENT -->
-<section class="static-page" [dir]="isAr() ? 'rtl' : 'ltr'">
-  <div class="page-header">
-    <div class="header-icon"><i class="fa-solid fa-users"></i></div>
-    <h1>{{ isAr() ? 'من نحن' : 'About Us' }}</h1>
-  </div>
-  
-  <div class="page-content">
-    <div class="content-card">
-      @if (isAr()) {
-        <h2>مرحباً بك في من نحن</h2>
-        <p>هذه الصفحة قيد الإنشاء حالياً وسيتم تحديث المحتوى قريباً. نحن نعمل على توفير أفضل تجربة لك في منصة Classy Book.</p>
-        <div class="placeholder-lines">
-          <div class="line"></div>
-          <div class="line w-80"></div>
-          <div class="line w-90"></div>
-          <div class="line w-60"></div>
-        </div>
-      } @else {
-        <h2>Welcome to About Us</h2>
-        <p>This page is currently under construction and content will be updated soon. We are working on providing the best experience for you on the Classy Book platform.</p>
-        <div class="placeholder-lines">
-          <div class="line"></div>
-          <div class="line w-80"></div>
-          <div class="line w-90"></div>
-          <div class="line w-60"></div>
-        </div>
-      }
+<main class="static-container" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <header class="page-header">
+    <div class="header-badge">
+      <i class="fa-solid fa-users"></i>
+      <span>{{ isAr() ? 'من نحن' : 'About Us' }}</span>
     </div>
-  </div>
-</section>
+    <h1>
+      {{ isAr() ? 'تعرف على قصة' : 'Discover the story behind' }}
+      <span class="gradient-text">Classy Book</span>
+    </h1>
+    <p>
+      {{ isAr() 
+        ? 'منصة تعليمية متكاملة تهدف إلى تمكين المتعلمين والمعلمين في العالم العربي من خلال الجمع بين التعليم التفاعلي والتواصل الاجتماعي الفعال.' 
+        : 'An integrated educational platform aiming to empower learners and educators in the Arab world by combining interactive learning with effective social collaboration.' }}
+    </p>
+  </header>
+
+  <!-- VISION & MISSION -->
+  <section class="vision-mission-grid">
+    <div class="glass-card">
+      <div class="card-icon">
+        <i class="fa-solid fa-bullseye"></i>
+      </div>
+      <h2>{{ isAr() ? 'رسالتنا' : 'Our Mission' }}</h2>
+      <p>
+        {{ isAr() 
+          ? 'تمكين كل فرد في العالم العربي من الوصول إلى محتوى تعليمي عالي الجودة وتفاعلي، وتوفير بيئة اجتماعية داعمة تشجع على تبادل المعرفة والنمو المشترك.' 
+          : 'Empowering every individual in the Arab world to access high-quality interactive educational content, and providing a supportive social environment that encourages knowledge sharing and mutual growth.' }}
+      </p>
+    </div>
+    <div class="glass-card">
+      <div class="card-icon">
+        <i class="fa-solid fa-eye"></i>
+      </div>
+      <h2>{{ isAr() ? 'رؤيتنا' : 'Our Vision' }}</h2>
+      <p>
+        {{ isAr() 
+          ? 'أن نصبح المنصة الرائدة والأولى عالمياً في مجال التعليم الاجتماعي التفاعلي وتطوير المهارات العملية والتقنية المطلوبة في سوق العمل الحديث.' 
+          : 'To become the leading and number one platform globally in social interactive learning and developing practical and technical skills required in the modern job market.' }}
+      </p>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section>
+    <div class="section-title-wrapper">
+      <h2 class="section-title">{{ isAr() ? 'قيمنا الجوهرية' : 'Our Core Values' }}</h2>
+      <p class="section-subtitle">{{ isAr() ? 'المبادئ التي توجه كل ما نقوم به' : 'The principles that guide everything we do' }}</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <i class="fa-solid fa-lightbulb value-icon"></i>
+        <h3>{{ isAr() ? 'الابتكار' : 'Innovation' }}</h3>
+        <p>{{ isAr() ? 'نحن نسعى باستمرار لتطوير تقنيات وطرق تعليمية جديدة ومثيرة.' : 'We continuously strive to develop new and exciting educational technologies and methods.' }}</p>
+      </div>
+      <div class="value-card">
+        <i class="fa-solid fa-shield-halved value-icon"></i>
+        <h3>{{ isAr() ? 'الجودة' : 'Quality' }}</h3>
+        <p>{{ isAr() ? 'نلتزم بتقديم أعلى معايير الجودة في المحتوى والخدمات التقنية.' : 'We commit to delivering the highest standards of quality in content and technical services.' }}</p>
+      </div>
+      <div class="value-card">
+        <i class="fa-solid fa-heart value-icon"></i>
+        <h3>{{ isAr() ? 'المجتمع' : 'Community' }}</h3>
+        <p>{{ isAr() ? 'نؤمن بقوة التعلم التعاوني والدعم المتبادل بين الطلاب.' : 'We believe in the power of collaborative learning and mutual support among students.' }}</p>
+      </div>
+      <div class="value-card">
+        <i class="fa-solid fa-universal-access value-icon"></i>
+        <h3>{{ isAr() ? 'الشمولية' : 'Accessibility' }}</h3>
+        <p>{{ isAr() ? 'نسعى لتسهيل الوصول للتعليم لكل شخص، في أي مكان وأي وقت.' : 'We strive to make education accessible to everyone, anywhere, anytime.' }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section>
+    <div class="section-title-wrapper">
+      <h2 class="section-title">{{ isAr() ? 'فريق القيادة' : 'Leadership Team' }}</h2>
+      <p class="section-subtitle">{{ isAr() ? 'العقول المبدعة خلف نجاح المنصة' : 'The creative minds behind the success of the platform' }}</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar-wrapper">
+          <div class="team-avatar">AF</div>
+        </div>
+        <div class="team-info">
+          <h3>{{ isAr() ? 'عبد الله فارس' : 'Abdallah Fares' }}</h3>
+          <span class="team-role">{{ isAr() ? 'الرئيس التنفيذي والمؤسس' : 'CEO & Founder' }}</span>
+          <p class="team-bio">{{ isAr() ? 'رائد أعمال تقني ذو رؤية شغوف بتغيير مشهد التعليم الرقمي في الوطن العربي.' : 'A visionary tech entrepreneur passionate about transforming the digital learning landscape in the Arab world.' }}</p>
+          <div class="team-socials">
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar-wrapper">
+          <div class="team-avatar">MA</div>
+        </div>
+        <div class="team-info">
+          <h3>{{ isAr() ? 'أحمد مصطفى' : 'Ahmed Mostafa' }}</h3>
+          <span class="team-role">{{ isAr() ? 'رئيس قسم التكنولوجيا' : 'Chief Technology Officer' }}</span>
+          <p class="team-bio">{{ isAr() ? 'خبير في هندسة البرمجيات وبناء المنصات السحابية القابلة للتوسع ذو أداء فائق.' : 'Software engineering expert specialized in building highly scalable, high-performance cloud platforms.' }}</p>
+          <div class="team-socials">
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar-wrapper">
+          <div class="team-avatar">SY</div>
+        </div>
+        <div class="team-info">
+          <h3>{{ isAr() ? 'ياسمين سليمان' : 'Yasmin Soliman' }}</h3>
+          <span class="team-role">{{ isAr() ? 'رئيسة قسم المحتوى والتعليم' : 'Head of Content & Learning' }}</span>
+          <p class="team-bio">{{ isAr() ? 'أخصائية تربوية ومصممة مناهج تعليمية تفاعلية تزيد من مشاركة واستيعاب الطلاب.' : 'Educational specialist and designer of interactive learning paths that maximize student engagement.' }}</p>
+          <div class="team-socials">
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 
 <!-- FOOTER -->
-<footer class="static-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
+<footer class="landing-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
   <div class="footer-inner">
     <div class="footer-main">
       <div class="footer-brand">
@@ -58,10 +167,23 @@
           <i class="fa-solid fa-book-open"></i>
           <span>Classy Book</span>
         </div>
-        <p>{{ isAr() ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي.' : 'The all-in-one platform for interactive and social learning.' }}</p>
+        <p>
+          {{ isAr() 
+            ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي والنمو المهني.' 
+            : 'The all-in-one platform for interactive learning, social collaboration, and career growth.' }}
+        </p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
       </div>
       <div class="footer-col">
         <h4>{{ isAr() ? 'المنصة' : 'Platform' }}</h4>
+        <a routerLink="/">{{ isAr() ? 'المميزات' : 'Features' }}</a>
+        <a routerLink="/">{{ isAr() ? 'التصنيفات' : 'Categories' }}</a>
         <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
       </div>
       <div class="footer-col">
@@ -74,9 +196,13 @@
       <div class="footer-col">
         <h4>{{ isAr() ? 'الدعم' : 'Support' }}</h4>
         <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help Center' }}</a>
+        <a routerLink="/">{{ isAr() ? 'المجتمع' : 'Community' }}</a>
         <a routerLink="/privacy-policy">{{ isAr() ? 'سياسة الخصوصية' : 'Privacy Policy' }}</a>
         <a routerLink="/terms-of-service">{{ isAr() ? 'شروط الخدمة' : 'Terms of Service' }}</a>
       </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{{ isAr() ? '© 2026 Classy Book. جميع الحقوق محفوظة.' : '© 2026 Classy Book. All rights reserved.' }}</span>
     </div>
   </div>
 </footer>

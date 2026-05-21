@@ -1,10 +1,18 @@
 <!-- NAVBAR -->
-<nav class="static-nav" [dir]="isAr() ? 'rtl' : 'ltr'">
+<nav class="landing-nav solid" [dir]="isAr() ? 'rtl' : 'ltr'">
   <div class="nav-inner">
     <a class="nav-logo" routerLink="/">
       <i class="fa-solid fa-book-open"></i>
       <span>Classy Book</span>
     </a>
+    <div class="nav-links" [class.open]="menuOpen()">
+      <a routerLink="/">{{ isAr() ? 'الرئيسية' : 'Home' }}</a>
+      <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
+      <a routerLink="/blog">{{ isAr() ? 'المدونة' : 'Blog' }}</a>
+      <a routerLink="/careers">{{ isAr() ? 'الوظائف' : 'Careers' }}</a>
+      <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help' }}</a>
+      <a routerLink="/contact">{{ isAr() ? 'تواصل معنا' : 'Contact' }}</a>
+    </div>
     <div class="nav-actions">
       <button class="nav-icon-btn" (click)="toggleTheme()" aria-label="Toggle theme">
         <i [class]="themeService.effectiveTheme() === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
@@ -14,43 +22,84 @@
       </button>
       <a routerLink="/auth" class="nav-btn filled">{{ isAr() ? 'ابدأ مجاناً' : 'Start Free' }}</a>
     </div>
+    <button class="mobile-toggle" (click)="toggleMenu()">
+      <i [class]="menuOpen() ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+    </button>
   </div>
 </nav>
 
 <!-- CONTENT -->
-<section class="static-page" [dir]="isAr() ? 'rtl' : 'ltr'">
-  <div class="page-header">
-    <div class="header-icon"><i class="fa-solid fa-envelope"></i></div>
-    <h1>{{ isAr() ? 'تواصل معنا' : 'Contact Us' }}</h1>
-  </div>
-  
-  <div class="page-content">
-    <div class="content-card">
-      @if (isAr()) {
-        <h2>مرحباً بك في تواصل معنا</h2>
-        <p>هذه الصفحة قيد الإنشاء حالياً وسيتم تحديث المحتوى قريباً. نحن نعمل على توفير أفضل تجربة لك في منصة Classy Book.</p>
-        <div class="placeholder-lines">
-          <div class="line"></div>
-          <div class="line w-80"></div>
-          <div class="line w-90"></div>
-          <div class="line w-60"></div>
-        </div>
-      } @else {
-        <h2>Welcome to Contact Us</h2>
-        <p>This page is currently under construction and content will be updated soon. We are working on providing the best experience for you on the Classy Book platform.</p>
-        <div class="placeholder-lines">
-          <div class="line"></div>
-          <div class="line w-80"></div>
-          <div class="line w-90"></div>
-          <div class="line w-60"></div>
-        </div>
-      }
+<main class="static-container" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <header class="page-header">
+    <div class="header-badge">
+      <i class="fa-solid fa-envelope"></i>
+      <span>{{ isAr() ? 'تواصل معنا' : 'Contact Us' }}</span>
     </div>
+    <h1>
+      {{ isAr() ? 'نحن هنا لـ' : 'We are here to' }}
+      <span class="gradient-text">{{ isAr() ? 'مساعدتك' : 'help you' }}</span>
+    </h1>
+    <p>
+      {{ isAr() 
+        ? 'هل لديك سؤال أو استفسار؟ لا تتردد في الاتصال بنا. فريق الدعم لدينا مستعد للإجابة على جميع تساؤلاتك على مدار الساعة.' 
+        : 'Do you have a question or inquiry? Do not hesitate to contact us. Our support team is ready to answer all your questions 24/7.' }}
+    </p>
+  </header>
+
+  <div class="contact-row">
+    <!-- INFO COLUMN -->
+    <section class="info-col">
+      <div class="info-card">
+        <h3><i class="fa-solid fa-location-dot"></i> {{ isAr() ? 'موقعنا' : 'Our Office' }}</h3>
+        <p>{{ isAr() ? 'شارع التحرير، وسط البلد' : 'Tahrir Street, Downtown' }}</p>
+        <p>{{ isAr() ? 'القاهرة، جمهورية مصر العربية' : 'Cairo, Egypt' }}</p>
+      </div>
+
+      <div class="info-card">
+        <h3><i class="fa-solid fa-phone"></i> {{ isAr() ? 'الاتصال المباشر' : 'Direct Call' }}</h3>
+        <p>{{ isAr() ? 'الهاتف:' : 'Phone:' }} <a href="tel:+201012345678">+20 101 234 5678</a></p>
+        <p>{{ isAr() ? 'البريد الإلكتروني:' : 'Email:' }} <a href="mailto:support@classybook.com">support@classybook.com</a></p>
+      </div>
+
+      <div class="info-card">
+        <h3><i class="fa-solid fa-clock"></i> {{ isAr() ? 'ساعات العمل' : 'Working Hours' }}</h3>
+        <p>{{ isAr() ? 'من الأحد إلى الخميس:' : 'Sunday to Thursday:' }} 9:00 AM - 6:00 PM</p>
+        <p>{{ isAr() ? 'الجمعة والسبت: عطلة أسبوعية' : 'Friday & Saturday: Weekend' }}</p>
+      </div>
+    </section>
+
+    <!-- FORM COLUMN -->
+    <section class="form-card">
+      <form (submit)="onSubmit($event, nameInput, emailInput, subjectInput, messageInput)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="name">{{ isAr() ? 'الاسم الكامل' : 'Full Name' }} *</label>
+            <input type="text" id="name" #nameInput class="form-control" placeholder="{{ isAr() ? 'أدخل اسمك الكامل' : 'Enter your full name' }}" required>
+          </div>
+          <div class="form-group">
+            <label for="email">{{ isAr() ? 'البريد الإلكتروني' : 'Email Address' }} *</label>
+            <input type="email" id="email" #emailInput class="form-control" placeholder="{{ isAr() ? 'name@example.com' : 'name@example.com' }}" required>
+          </div>
+          <div class="form-group full-width">
+            <label for="subject">{{ isAr() ? 'الموضوع' : 'Subject' }} *</label>
+            <input type="text" id="subject" #subjectInput class="form-control" placeholder="{{ isAr() ? 'ما هو موضوع رسالتك؟' : 'What is your message about?' }}" required>
+          </div>
+          <div class="form-group full-width">
+            <label for="message">{{ isAr() ? 'الرسالة' : 'Message' }} *</label>
+            <textarea id="message" #messageInput class="form-control" placeholder="{{ isAr() ? 'اكتب رسالتك هنا بالتفصيل...' : 'Write your message in detail here...' }}" required></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">
+          <span>{{ isAr() ? 'إرسال الرسالة' : 'Send Message' }}</span>
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </form>
+    </section>
   </div>
-</section>
+</main>
 
 <!-- FOOTER -->
-<footer class="static-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
+<footer class="landing-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
   <div class="footer-inner">
     <div class="footer-main">
       <div class="footer-brand">
@@ -58,10 +107,23 @@
           <i class="fa-solid fa-book-open"></i>
           <span>Classy Book</span>
         </div>
-        <p>{{ isAr() ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي.' : 'The all-in-one platform for interactive and social learning.' }}</p>
+        <p>
+          {{ isAr() 
+            ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي والنمو المهني.' 
+            : 'The all-in-one platform for interactive learning, social collaboration, and career growth.' }}
+        </p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
       </div>
       <div class="footer-col">
         <h4>{{ isAr() ? 'المنصة' : 'Platform' }}</h4>
+        <a routerLink="/">{{ isAr() ? 'المميزات' : 'Features' }}</a>
+        <a routerLink="/">{{ isAr() ? 'التصنيفات' : 'Categories' }}</a>
         <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
       </div>
       <div class="footer-col">
@@ -74,9 +136,13 @@
       <div class="footer-col">
         <h4>{{ isAr() ? 'الدعم' : 'Support' }}</h4>
         <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help Center' }}</a>
+        <a routerLink="/">{{ isAr() ? 'المجتمع' : 'Community' }}</a>
         <a routerLink="/privacy-policy">{{ isAr() ? 'سياسة الخصوصية' : 'Privacy Policy' }}</a>
         <a routerLink="/terms-of-service">{{ isAr() ? 'شروط الخدمة' : 'Terms of Service' }}</a>
       </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{{ isAr() ? '© 2026 Classy Book. جميع الحقوق محفوظة.' : '© 2026 Classy Book. All rights reserved.' }}</span>
     </div>
   </div>
 </footer>

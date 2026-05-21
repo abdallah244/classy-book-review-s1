@@ -1,10 +1,18 @@
 <!-- NAVBAR -->
-<nav class="static-nav" [dir]="isAr() ? 'rtl' : 'ltr'">
+<nav class="landing-nav solid" [dir]="isAr() ? 'rtl' : 'ltr'">
   <div class="nav-inner">
     <a class="nav-logo" routerLink="/">
       <i class="fa-solid fa-book-open"></i>
       <span>Classy Book</span>
     </a>
+    <div class="nav-links" [class.open]="menuOpen()">
+      <a routerLink="/">{{ isAr() ? 'الرئيسية' : 'Home' }}</a>
+      <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
+      <a routerLink="/blog">{{ isAr() ? 'المدونة' : 'Blog' }}</a>
+      <a routerLink="/careers">{{ isAr() ? 'الوظائف' : 'Careers' }}</a>
+      <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help' }}</a>
+      <a routerLink="/contact">{{ isAr() ? 'تواصل معنا' : 'Contact' }}</a>
+    </div>
     <div class="nav-actions">
       <button class="nav-icon-btn" (click)="toggleTheme()" aria-label="Toggle theme">
         <i [class]="themeService.effectiveTheme() === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
@@ -14,43 +22,156 @@
       </button>
       <a routerLink="/auth" class="nav-btn filled">{{ isAr() ? 'ابدأ مجاناً' : 'Start Free' }}</a>
     </div>
+    <button class="mobile-toggle" (click)="toggleMenu()">
+      <i [class]="menuOpen() ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+    </button>
   </div>
 </nav>
 
 <!-- CONTENT -->
-<section class="static-page" [dir]="isAr() ? 'rtl' : 'ltr'">
-  <div class="page-header">
-    <div class="header-icon"><i class="fa-solid fa-file-contract"></i></div>
-    <h1>{{ isAr() ? 'شروط الخدمة' : 'Terms of Service' }}</h1>
-  </div>
-  
-  <div class="page-content">
-    <div class="content-card">
-      @if (isAr()) {
-        <h2>مرحباً بك في شروط الخدمة</h2>
-        <p>هذه الصفحة قيد الإنشاء حالياً وسيتم تحديث المحتوى قريباً. نحن نعمل على توفير أفضل تجربة لك في منصة Classy Book.</p>
-        <div class="placeholder-lines">
-          <div class="line"></div>
-          <div class="line w-80"></div>
-          <div class="line w-90"></div>
-          <div class="line w-60"></div>
-        </div>
-      } @else {
-        <h2>Welcome to Terms of Service</h2>
-        <p>This page is currently under construction and content will be updated soon. We are working on providing the best experience for you on the Classy Book platform.</p>
-        <div class="placeholder-lines">
-          <div class="line"></div>
-          <div class="line w-80"></div>
-          <div class="line w-90"></div>
-          <div class="line w-60"></div>
-        </div>
-      }
+<main class="static-container" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <header class="page-header">
+    <div class="header-badge">
+      <i class="fa-solid fa-gavel"></i>
+      <span>{{ isAr() ? 'شروط الخدمة' : 'Terms of Service' }}</span>
     </div>
+    <h1>
+      {{ isAr() ? 'اتفاقية واستخدام' : 'User Agreement &' }}
+      <span class="gradient-text">{{ isAr() ? 'شروط الاستخدام' : 'Terms of Use' }}</span>
+    </h1>
+    <p>
+      {{ isAr() 
+        ? 'آخر تحديث: 21 مايو 2026. يرجى قراءة هذه الشروط بعناية قبل البدء في استخدام منصة Classy Book التعليمية.' 
+        : 'Last updated: May 21, 2026. Please read these terms carefully before using the Classy Book platform.' }}
+    </p>
+  </header>
+
+  <div class="doc-layout">
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar">
+      <div class="sidebar-sticky">
+        <h3>{{ isAr() ? 'فهرس الشروط' : 'Terms Index' }}</h3>
+        <ul>
+          <li><a href="#acceptance">{{ isAr() ? '1. قبول الشروط' : '1. Acceptance of Terms' }}</a></li>
+          <li><a href="#accounts">{{ isAr() ? '2. حسابات المستخدمين' : '2. User Accounts' }}</a></li>
+          <li><a href="#ip">{{ isAr() ? '3. الملكية الفكرية' : '3. Intellectual Property' }}</a></li>
+          <li><a href="#payment">{{ isAr() ? '4. الرسوم والاشتراكات' : '4. Fees & Billing' }}</a></li>
+          <li><a href="#conduct">{{ isAr() ? '5. قواعد السلوك' : '5. Rules of Conduct' }}</a></li>
+          <li><a href="#liability">{{ isAr() ? '6. حدود المسؤولية' : '6. Limitation of Liability' }}</a></li>
+          <li><a href="#changes">{{ isAr() ? '7. تعديل شروط الخدمة' : '7. Changes to Terms' }}</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN TEXT -->
+    <article class="doc-content">
+      @if (isAr()) {
+        <section id="acceptance" class="doc-section">
+          <h2>1. قبول شروط الخدمة</h2>
+          <p>باستخدامك لمنصة Classy Book أو تصفحها، فإنك توافق على الالتزام الكامل بهذه الشروط والسياسات المتبعة. إذا كنت لا توافق على أي بند من هذه البنود، يرجى التوقف فوراً عن استخدام منصتنا وخدماتنا.</p>
+        </section>
+
+        <section id="accounts" class="doc-section">
+          <h2>2. حسابات المستخدمين والتسجيل</h2>
+          <p>عند إنشاء حساب في Classy Book، فإنك توافق على ما يلي:</p>
+          <ul>
+            <li>تزويدنا بمعلومات تسجيل دقيقة ومحدثة وكاملة دائماً.</li>
+            <li>تحمل المسؤولية الكاملة عن حماية كلمة المرور الخاصة بك وعن جميع الأنشطة التي تتم من خلال حسابك.</li>
+            <li>إشعارنا فوراً بأي استخدام غير مصرح به لحسابك أو أي خرق أمني آخر يتم اكتشافه.</li>
+          </ul>
+        </section>
+
+        <section id="ip" class="doc-section">
+          <h2>3. حقوق الملكية الفكرية</h2>
+          <p>جميع محتويات المنصة من نصوص ورسومات وشعارات وتصميمات وأكواد برمجية ومواد تعليمية (فيديو ومستندات) هي ملكية فكرية حصرية لـ Classy Book أو موفري المحتوى المشاركين، وهي محمية بقوانين حقوق النشر والعلامات التجارية المحلية والدولية. لا يجوز نسخ أو توزيع أو تعديل أي جزء من المنصة دون إذن خطي مسبق منا.</p>
+        </section>
+
+        <section id="payment" class="doc-section">
+          <h2>4. الرسوم والاشتراكات والدفع</h2>
+          <p>تخضع خدماتنا المدفوعة (مثل الاشتراكات الممتازة أو شراء بعض الدورات) للبنود التالية:</p>
+          <ul>
+            <li>تتم معالجة المدفوعات من خلال بوابات دفع إلكترونية آمنة ومعتمدة.</li>
+            <li>أنت توافق على دفع الرسوم المحددة بالكامل في وقت الشراء أو تجديد الاشتراك.</li>
+            <li>قد تتغير أسعار الاشتراكات أو الرسوم في أي وقت، وسيتم إعلام المشتركين بذلك مسبقاً قبل التجديد التالي.</li>
+          </ul>
+        </section>
+
+        <section id="conduct" class="doc-section">
+          <h2>5. قواعد السلوك واستخدام المنصة</h2>
+          <p>أنت ملتزم باستخدام المنصة لأغراض تعليمية وقانونية فقط. يمنع منعاً باتاً:</p>
+          <ul>
+            <li>نشر أو إرسال أي محتوى غير قانوني أو مسيء أو بذيء أو ينتهك حقوق الآخرين.</li>
+            <li>محاولة اختراق أو تعطيل عمل المنصة أو خوادمها بأي وسيلة تقنية كانت.</li>
+            <li>استخدام أي تقنيات استخراج بيانات تلقائية (مثل scraping أو crawling) لنسخ محتوى المنصة.</li>
+          </ul>
+        </section>
+
+        <section id="liability" class="doc-section">
+          <h2>6. إخلاء المسؤولية وحدود المسؤولية</h2>
+          <p>تُقدم المنصة وخدماتها ومحتوياتها على أساس "كما هي" دون أي ضمانات من أي نوع، صريحة أو ضمنية. نحن لا نضمن عدم انقطاع الخدمة أو خلوها من الأخطاء. لا تتحمل Classy Book أي مسؤولية عن أي أضرار مباشرة أو غير مباشرة تنشأ عن استخدامك للمنصة أو عدم قدرتك على استخدامها.</p>
+        </section>
+
+        <section id="changes" class="doc-section">
+          <h2>7. تعديل شروط الخدمة وتعديلها</h2>
+          <p>نحتفظ بالحق الكامل في تعديل شروط الخدمة هذه أو استبدالها في أي وقت. في حال إجراء تغييرات جوهرية، سنقوم بنشر الشروط الجديدة وتحديث تاريخ "آخر تحديث" في الجزء العلوي من الصفحة. إن استمرارك في استخدام المنصة بعد أي تعديل يُعتبر موافقة كاملة منك على الشروط الجديدة.</p>
+        </section>
+      } @else {
+        <section id="acceptance" class="doc-section">
+          <h2>1. Acceptance of Terms</h2>
+          <p>By accessing or using the Classy Book platform, you agree to be bound by these Terms of Service and all incorporated guidelines. If you do not agree to all of these terms, please stop using our platform and services immediately.</p>
+        </section>
+
+        <section id="accounts" class="doc-section">
+          <h2>2. User Accounts & Registration</h2>
+          <p>When you register for an account on Classy Book, you agree to:</p>
+          <ul>
+            <li>Provide accurate, current, and complete registration information at all times.</li>
+            <li>Maintain the absolute security of your password and accept responsibility for all activities under your account.</li>
+            <li>Promptly notify us of any unauthorized account use or safety breaches.</li>
+          </ul>
+        </section>
+
+        <section id="ip" class="doc-section">
+          <h2>3. Intellectual Property Rights</h2>
+          <p>All contents on this platform, including text, graphics, logos, icons, designs, software, and learning materials (videos, notes, worksheets) are the exclusive intellectual property of Classy Book or its content providers, protected by local and international copyright and trademark laws. You may not duplicate, distribute, or modify any portion of our platform without our prior written consent.</p>
+        </section>
+
+        <section id="payment" class="doc-section">
+          <h2>4. Fees, Billing, & Subscription Plans</h2>
+          <p>Our premium features and paid courses are subject to the following rules:</p>
+          <ul>
+            <li>Payments are handled by secure, compliant third-party payment gateways.</li>
+            <li>You agree to pay the indicated fee at the time of purchase or subscription renewal.</li>
+            <li>We reserve the right to modify subscription fees or plan structures, with prior notice given to current subscribers before billing changes occur.</li>
+          </ul>
+        </section>
+
+        <section id="conduct" class="doc-section">
+          <h2>5. Rules of Conduct & User Behavior</h2>
+          <p>You agree to use Classy Book solely for lawful educational purposes. You are strictly prohibited from:</p>
+          <ul>
+            <li>Posting or transmitting unlawful, abusive, harassing, defamatory, or obscene materials.</li>
+            <li>Attempting to compromise, hacking, or damaging the platform or its underlying infrastructure.</li>
+            <li>Employing scraping, crawling, or automated spiders to copy learning content from the website.</li>
+          </ul>
+        </section>
+
+        <section id="liability" class="doc-section">
+          <h2>6. Limitation of Liability</h2>
+          <p>The platform and its materials are provided on an "as is" and "as available" basis without warranties of any kind, express or implied. We do not guarantee uninterrupted access or error-free software operations. In no event shall Classy Book be liable for any direct, indirect, or incidental damages arising out of your platform use.</p>
+        </section>
+
+        <section id="changes" class="doc-section">
+          <h2>7. Changes to Terms of Service</h2>
+          <p>We reserve the right to revise or replace these Terms of Service at any time. When material updates are made, we will publish the updated document and revise the "Last updated" date above. Your continued use of the platform following the post of changes constitutes your agreement to the updated terms.</p>
+        </section>
+      }
+    </article>
   </div>
-</section>
+</main>
 
 <!-- FOOTER -->
-<footer class="static-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
+<footer class="landing-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
   <div class="footer-inner">
     <div class="footer-main">
       <div class="footer-brand">
@@ -58,10 +179,23 @@
           <i class="fa-solid fa-book-open"></i>
           <span>Classy Book</span>
         </div>
-        <p>{{ isAr() ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي.' : 'The all-in-one platform for interactive and social learning.' }}</p>
+        <p>
+          {{ isAr() 
+            ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي والنمو المهني.' 
+            : 'The all-in-one platform for interactive learning, social collaboration, and career growth.' }}
+        </p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
       </div>
       <div class="footer-col">
         <h4>{{ isAr() ? 'المنصة' : 'Platform' }}</h4>
+        <a routerLink="/">{{ isAr() ? 'المميزات' : 'Features' }}</a>
+        <a routerLink="/">{{ isAr() ? 'التصنيفات' : 'Categories' }}</a>
         <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
       </div>
       <div class="footer-col">
@@ -74,9 +208,13 @@
       <div class="footer-col">
         <h4>{{ isAr() ? 'الدعم' : 'Support' }}</h4>
         <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help Center' }}</a>
+        <a routerLink="/">{{ isAr() ? 'المجتمع' : 'Community' }}</a>
         <a routerLink="/privacy-policy">{{ isAr() ? 'سياسة الخصوصية' : 'Privacy Policy' }}</a>
         <a routerLink="/terms-of-service">{{ isAr() ? 'شروط الخدمة' : 'Terms of Service' }}</a>
       </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{{ isAr() ? '© 2026 Classy Book. جميع الحقوق محفوظة.' : '© 2026 Classy Book. All rights reserved.' }}</span>
     </div>
   </div>
 </footer>

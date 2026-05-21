@@ -1,10 +1,18 @@
 <!-- NAVBAR -->
-<nav class="static-nav" [dir]="isAr() ? 'rtl' : 'ltr'">
+<nav class="landing-nav solid" [dir]="isAr() ? 'rtl' : 'ltr'">
   <div class="nav-inner">
     <a class="nav-logo" routerLink="/">
       <i class="fa-solid fa-book-open"></i>
       <span>Classy Book</span>
     </a>
+    <div class="nav-links" [class.open]="menuOpen()">
+      <a routerLink="/">{{ isAr() ? 'الرئيسية' : 'Home' }}</a>
+      <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
+      <a routerLink="/blog">{{ isAr() ? 'المدونة' : 'Blog' }}</a>
+      <a routerLink="/careers">{{ isAr() ? 'الوظائف' : 'Careers' }}</a>
+      <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help' }}</a>
+      <a routerLink="/contact">{{ isAr() ? 'تواصل معنا' : 'Contact' }}</a>
+    </div>
     <div class="nav-actions">
       <button class="nav-icon-btn" (click)="toggleTheme()" aria-label="Toggle theme">
         <i [class]="themeService.effectiveTheme() === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
@@ -14,43 +22,166 @@
       </button>
       <a routerLink="/auth" class="nav-btn filled">{{ isAr() ? 'ابدأ مجاناً' : 'Start Free' }}</a>
     </div>
+    <button class="mobile-toggle" (click)="toggleMenu()">
+      <i [class]="menuOpen() ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+    </button>
   </div>
 </nav>
 
 <!-- CONTENT -->
-<section class="static-page" [dir]="isAr() ? 'rtl' : 'ltr'">
-  <div class="page-header">
-    <div class="header-icon"><i class="fa-solid fa-shield-halved"></i></div>
-    <h1>{{ isAr() ? 'سياسة الخصوصية' : 'Privacy Policy' }}</h1>
-  </div>
-  
-  <div class="page-content">
-    <div class="content-card">
-      @if (isAr()) {
-        <h2>مرحباً بك في سياسة الخصوصية</h2>
-        <p>هذه الصفحة قيد الإنشاء حالياً وسيتم تحديث المحتوى قريباً. نحن نعمل على توفير أفضل تجربة لك في منصة Classy Book.</p>
-        <div class="placeholder-lines">
-          <div class="line"></div>
-          <div class="line w-80"></div>
-          <div class="line w-90"></div>
-          <div class="line w-60"></div>
-        </div>
-      } @else {
-        <h2>Welcome to Privacy Policy</h2>
-        <p>This page is currently under construction and content will be updated soon. We are working on providing the best experience for you on the Classy Book platform.</p>
-        <div class="placeholder-lines">
-          <div class="line"></div>
-          <div class="line w-80"></div>
-          <div class="line w-90"></div>
-          <div class="line w-60"></div>
-        </div>
-      }
+<main class="static-container" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <header class="page-header">
+    <div class="header-badge">
+      <i class="fa-solid fa-shield-halved"></i>
+      <span>{{ isAr() ? 'سياسة الخصوصية' : 'Privacy Policy' }}</span>
     </div>
+    <h1>
+      {{ isAr() ? 'نحن نهتم بـ' : 'We care about your' }}
+      <span class="gradient-text">{{ isAr() ? 'خصوصيتك وأمانك' : 'privacy & security' }}</span>
+    </h1>
+    <p>
+      {{ isAr() 
+        ? 'آخر تحديث: 21 مايو 2026. يرجى قراءة سياسة الخصوصية بعناية لفهم كيفية جمع واستخدام وحماية معلوماتك الشخصية.' 
+        : 'Last updated: May 21, 2026. Please read this Privacy Policy carefully to understand how we collect, use, and protect your personal information.' }}
+    </p>
+  </header>
+
+  <div class="doc-layout">
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar">
+      <div class="sidebar-sticky">
+        <h3>{{ isAr() ? 'فهرس المحتويات' : 'Table of Contents' }}</h3>
+        <ul>
+          <li><a href="#intro">{{ isAr() ? '1. مقدمة' : '1. Introduction' }}</a></li>
+          <li><a href="#collect">{{ isAr() ? '2. البيانات التي نجمعها' : '2. Information We Collect' }}</a></li>
+          <li><a href="#use">{{ isAr() ? '3. كيف نستخدم بياناتك' : '3. How We Use Information' }}</a></li>
+          <li><a href="#share">{{ isAr() ? '4. مشاركة البيانات' : '4. Data Sharing' }}</a></li>
+          <li><a href="#security">{{ isAr() ? '5. حماية البيانات' : '5. Data Security' }}</a></li>
+          <li><a href="#rights">{{ isAr() ? '6. حقوقك القانونية' : '6. Your Rights' }}</a></li>
+          <li><a href="#cookies">{{ isAr() ? '7. ملفات تعريف الارتباط' : '7. Cookies Policy' }}</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN TEXT -->
+    <article class="doc-content">
+      @if (isAr()) {
+        <section id="intro" class="doc-section">
+          <h2>1. مقدمة</h2>
+          <p>أهلاً بك في Classy Book. نحن ملتزمون بحماية خصوصية بياناتك الشخصية وتأمينها. توضح سياسة الخصوصية هذه أنواع المعلومات التي نجمعها منك، وكيفية معالجتها، وحقوقك المتعلقة ببياناتك عند استخدام منصتنا التعليمية وخدماتنا المرتبطة بها.</p>
+        </section>
+
+        <section id="collect" class="doc-section">
+          <h2>2. البيانات التي نجمعها</h2>
+          <p>نقوم بجمع نوعين أساسيين من المعلومات عند تفاعلك مع منصتنا:</p>
+          <ul>
+            <li><strong>البيانات الشخصية التي تقدمها:</strong> مثل الاسم، عنوان البريد الإلكتروني، معلومات الحساب، تفاصيل الملف الشخصي، والبيانات المالية عند التسجيل أو الاشتراك في الدورات التدريبية.</li>
+            <li><strong>البيانات التقنية التي نجمعها تلقائياً:</strong> تشمل عنوان IP، نوع المتصفح، نظام التشغيل، الصفحات التي زرتها، والوقت المستغرق على المنصة لغرض تحسين الأداء.</li>
+          </ul>
+        </section>
+
+        <section id="use" class="doc-section">
+          <h2>3. كيف نستخدم بياناتك</h2>
+          <p>نستخدم البيانات التي نجمعها لتقديم خدماتنا وتحسينها وتأمينها، ويشمل ذلك:</p>
+          <ul>
+            <li>إنشاء وإدارة حسابك الشخصي وتقديم محتوى الدورات التفاعلية.</li>
+            <li>تسهيل التواصل والتعلم الاجتماعي وتبادل التقييمات والمراجعات للكتب والمسارات الدراسية.</li>
+            <li>تحسين وظائف المنصة وتطوير واجهات مستخدم مخصصة وجذابة.</li>
+            <li>إرسال تحديثات الخدمة، الإشعارات الإدارية، والمواد التسويقية التي وافقت على استقبالها.</li>
+          </ul>
+        </section>
+
+        <section id="share" class="doc-section">
+          <h2>4. مشاركة البيانات</h2>
+          <p>نحن لا نبيع أو نؤجر بياناتك الشخصية لأطراف ثالثة. قد نشارك بياناتك في حالات محدودة تشمل:</p>
+          <ul>
+            <li><strong>موفرو الخدمات:</strong> الشركات الخارجية التي تساعدنا في تشغيل المنصة، مثل خدمات الاستضافة ومعالجة المدفوعات وخدمات الدعم الفني.</li>
+            <li><strong>الامتثال القانوني:</strong> عندما نكون ملزمين قانوناً بمشاركة البيانات استجابة لأمر قضائي أو لحماية حقوق وأمان منصتنا ومستخدمينا.</li>
+          </ul>
+        </section>
+
+        <section id="security" class="doc-section">
+          <h2>5. حماية البيانات</h2>
+          <p>نطبق تدابير أمنية تقنية وتنظيمية متطورة لحماية معلوماتك من الوصول غير المصرح به، أو التغيير، أو الإفصاح، أو الإتلاف. يشمل ذلك استخدام تقنيات التشفير القياسية (SSL/TLS)، وجدران الحماية، والتحقق متعدد العوامل لحماية الخوادم والبيانات المخزنة.</p>
+        </section>
+
+        <section id="rights" class="doc-section">
+          <h2>6. حقوقك القانونية</h2>
+          <p>تتمتع بحقوق كاملة للتحكم في بياناتك الشخصية، وتشمل:</p>
+          <ul>
+            <li>حق الوصول إلى بياناتك الشخصية المخزنة لدينا وطلب نسخة منها.</li>
+            <li>حق تعديل أو تصحيح البيانات غير الدقيقة أو الناقصة.</li>
+            <li>حق طلب حذف بياناتك نهائياً من سجلاتنا عندما لا يعود هناك مبرر قانوني للاحتفاظ بها.</li>
+            <li>حق تقييد المعالجة أو الاعتراض على بعض الأنشطة مثل التسويق المباشر.</li>
+          </ul>
+        </section>
+
+        <section id="cookies" class="doc-section">
+          <h2>7. ملفات تعريف الارتباط (Cookies)</h2>
+          <p>نستخدم ملفات تعريف الارتباط والتقنيات المشابهة لتتبع نشاطك على المنصة وحفظ تفضيلاتك (مثل إعدادات اللغة والمظهر المظلم). يمكنك ضبط متصفحك لرفض جميع ملفات تعريف الارتباط، ولكن قد يؤدي ذلك إلى تعطيل بعض ميزات المنصة.</p>
+        </section>
+      } @else {
+        <section id="intro" class="doc-section">
+          <h2>1. Introduction</h2>
+          <p>Welcome to Classy Book. We are committed to protecting and securing your personal data. This Privacy Policy details the types of information we collect, how we process it, and your rights concerning your personal data when using our interactive educational platform and services.</p>
+        </section>
+
+        <section id="collect" class="doc-section">
+          <h2>2. Information We Collect</h2>
+          <p>We collect two primary categories of information when you interact with our platform:</p>
+          <ul>
+            <li><strong>Personal Data You Provide:</strong> Such as name, email address, account details, profile biography, and financial details when registering or purchasing courses.</li>
+            <li><strong>Technical Data Collected Automatically:</strong> Includes IP address, browser type, operating system, pages visited, and duration of visits on the platform to optimize performace.</li>
+          </ul>
+        </section>
+
+        <section id="use" class="doc-section">
+          <h2>3. How We Use Information</h2>
+          <p>We use the collected information to deliver, enhance, and secure our services, specifically to:</p>
+          <ul>
+            <li>Create and manage your user account and deliver interactive course contents.</li>
+            <li>Facilitate social collaboration, knowledge sharing, and peer reviews for books and courses.</li>
+            <li>Enhance platform performance and design premium, responsive user interfaces.</li>
+            <li>Send administrative updates, security alerts, and promotional messages (where opted-in).</li>
+          </ul>
+        </section>
+
+        <section id="share" class="doc-section">
+          <h2>4. Data Sharing</h2>
+          <p>We do not sell or rent your personal information to third parties. We may disclose your data in limited scenarios, including:</p>
+          <ul>
+            <li><strong>Service Providers:</strong> Trusted third-party vendors helping us operate our platform, host data, process transactions, and handle customer support.</li>
+            <li><strong>Legal Requirements:</strong> When compelled by law, court orders, or regulations to protect the rights, property, and safety of Classy Book and its users.</li>
+          </ul>
+        </section>
+
+        <section id="security" class="doc-section">
+          <h2>5. Data Security</h2>
+          <p>We employ advanced technical and organizational security measures to protect your information against unauthorized access, modification, disclosure, or destruction. This includes standard SSL/TLS encryption, secure databases, firewalls, and multi-factor authentication protocols.</p>
+        </section>
+
+        <section id="rights" class="doc-section">
+          <h2>6. Your Rights</h2>
+          <p>You have full legal control over your personal data, which includes the right to:</p>
+          <ul>
+            <li>Access your personal information held by us and request a copy.</li>
+            <li>Rectify or update any inaccurate or incomplete personal details.</li>
+            <li>Request the deletion of your account and personal data from our systems.</li>
+            <li>Restrict or object to specific processing activities, such as direct marketing.</li>
+          </ul>
+        </section>
+
+        <section id="cookies" class="doc-section">
+          <h2>7. Cookies Policy</h2>
+          <p>We utilize cookies and similar tracking technologies to monitor platform engagement and preserve user preferences (like language selection and dark theme). You can modify your browser settings to reject cookies, though some features may not function properly as a result.</p>
+        </section>
+      }
+    </article>
   </div>
-</section>
+</main>
 
 <!-- FOOTER -->
-<footer class="static-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
+<footer class="landing-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
   <div class="footer-inner">
     <div class="footer-main">
       <div class="footer-brand">
@@ -58,10 +189,23 @@
           <i class="fa-solid fa-book-open"></i>
           <span>Classy Book</span>
         </div>
-        <p>{{ isAr() ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي.' : 'The all-in-one platform for interactive and social learning.' }}</p>
+        <p>
+          {{ isAr() 
+            ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي والنمو المهني.' 
+            : 'The all-in-one platform for interactive learning, social collaboration, and career growth.' }}
+        </p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
       </div>
       <div class="footer-col">
         <h4>{{ isAr() ? 'المنصة' : 'Platform' }}</h4>
+        <a routerLink="/">{{ isAr() ? 'المميزات' : 'Features' }}</a>
+        <a routerLink="/">{{ isAr() ? 'التصنيفات' : 'Categories' }}</a>
         <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
       </div>
       <div class="footer-col">
@@ -74,9 +218,13 @@
       <div class="footer-col">
         <h4>{{ isAr() ? 'الدعم' : 'Support' }}</h4>
         <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help Center' }}</a>
+        <a routerLink="/">{{ isAr() ? 'المجتمع' : 'Community' }}</a>
         <a routerLink="/privacy-policy">{{ isAr() ? 'سياسة الخصوصية' : 'Privacy Policy' }}</a>
         <a routerLink="/terms-of-service">{{ isAr() ? 'شروط الخدمة' : 'Terms of Service' }}</a>
       </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{{ isAr() ? '© 2026 Classy Book. جميع الحقوق محفوظة.' : '© 2026 Classy Book. All rights reserved.' }}</span>
     </div>
   </div>
 </footer>

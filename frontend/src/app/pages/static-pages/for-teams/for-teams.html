@@ -1,10 +1,18 @@
 <!-- NAVBAR -->
-<nav class="static-nav" [dir]="isAr() ? 'rtl' : 'ltr'">
+<nav class="landing-nav solid" [dir]="isAr() ? 'rtl' : 'ltr'">
   <div class="nav-inner">
     <a class="nav-logo" routerLink="/">
       <i class="fa-solid fa-book-open"></i>
       <span>Classy Book</span>
     </a>
+    <div class="nav-links" [class.open]="menuOpen()">
+      <a routerLink="/">{{ isAr() ? 'الرئيسية' : 'Home' }}</a>
+      <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
+      <a routerLink="/blog">{{ isAr() ? 'المدونة' : 'Blog' }}</a>
+      <a routerLink="/careers">{{ isAr() ? 'الوظائف' : 'Careers' }}</a>
+      <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help' }}</a>
+      <a routerLink="/contact">{{ isAr() ? 'تواصل معنا' : 'Contact' }}</a>
+    </div>
     <div class="nav-actions">
       <button class="nav-icon-btn" (click)="toggleTheme()" aria-label="Toggle theme">
         <i [class]="themeService.effectiveTheme() === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
@@ -14,43 +22,212 @@
       </button>
       <a routerLink="/auth" class="nav-btn filled">{{ isAr() ? 'ابدأ مجاناً' : 'Start Free' }}</a>
     </div>
+    <button class="mobile-toggle" (click)="toggleMenu()">
+      <i [class]="menuOpen() ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+    </button>
   </div>
 </nav>
 
-<!-- CONTENT -->
-<section class="static-page" [dir]="isAr() ? 'rtl' : 'ltr'">
-  <div class="page-header">
-    <div class="header-icon"><i class="fa-solid fa-users-gear"></i></div>
-    <h1>{{ isAr() ? 'للفرق' : 'For Teams' }}</h1>
-  </div>
-  
-  <div class="page-content">
-    <div class="content-card">
-      @if (isAr()) {
-        <h2>مرحباً بك في للفرق</h2>
-        <p>هذه الصفحة قيد الإنشاء حالياً وسيتم تحديث المحتوى قريباً. نحن نعمل على توفير أفضل تجربة لك في منصة Classy Book.</p>
-        <div class="placeholder-lines">
-          <div class="line"></div>
-          <div class="line w-80"></div>
-          <div class="line w-90"></div>
-          <div class="line w-60"></div>
-        </div>
-      } @else {
-        <h2>Welcome to For Teams</h2>
-        <p>This page is currently under construction and content will be updated soon. We are working on providing the best experience for you on the Classy Book platform.</p>
-        <div class="placeholder-lines">
-          <div class="line"></div>
-          <div class="line w-80"></div>
-          <div class="line w-90"></div>
-          <div class="line w-60"></div>
+<!-- MAIN CONTENT -->
+<main class="static-container" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <!-- HEADER -->
+  <header class="page-header">
+    <div class="header-badge">
+      <i class="fa-solid fa-users-gear"></i>
+      <span>{{ isAr() ? 'Classy Book للمؤسسات والشركات' : 'Classy Book Enterprise & Teams' }}</span>
+    </div>
+    <h1>
+      {{ isAr() ? 'منصة متكاملة لـ' : 'All-in-one platform for' }}
+      <span class="gradient-text">{{ isAr() ? 'التعلم المؤسسي والنمو الجماعي' : 'collaborative learning & growth' }}</span>
+    </h1>
+    <p>
+      {{ isAr() 
+        ? 'وفر لفريقك أو طلابك أفضل تجربة للتعلم الاجتماعي التفاعلي ومشاركة الكتب وبناء المهارات وتتبع أدائهم بدقة وسهولة.' 
+        : 'Empower your team or students with interactive reading experiences, joint assessments, skill development paths, and advanced performance tracking.' }}
+    </p>
+  </header>
+
+  <!-- STATISTICS GRID -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      @for (stat of stats; track stat.value) {
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fa-solid" [class]="stat.icon"></i>
+          </div>
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ isAr() ? stat.titleAr : stat.titleEn }}</div>
         </div>
       }
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- FEATURES GRID -->
+  <section class="features-section">
+    <div class="section-title-wrapper">
+      <h2 class="section-title">{{ isAr() ? 'لماذا تختار Classy Book لشركتك؟' : 'Built for modern organisations' }}</h2>
+      <p class="section-subtitle">{{ isAr() ? 'أدوات قوية مصممة لمساعدة فِرق العمل والجامعات على النمو والتفوق' : 'Powerful tools designed to scale educational success and employee development' }}</p>
+    </div>
+
+    <div class="features-grid">
+      @for (feature of features; track feature.titleEn) {
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fa-solid" [class]="feature.icon"></i>
+          </div>
+          <h3>{{ isAr() ? feature.titleAr : feature.titleEn }}</h3>
+          <p>{{ isAr() ? feature.descAr : feature.descEn }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- PRICING SECTION -->
+  <section class="pricing-section">
+    <div class="section-title-wrapper">
+      <h2 class="section-title">{{ isAr() ? 'خطط أسعار مرنة ومناسبة لفريقك' : 'Flexible pricing for any team size' }}</h2>
+      <p class="section-subtitle">{{ isAr() ? 'اختر الخطة المناسبة وباشر إعداد منصتك التعليمية خلال دقائق' : 'Choose the best option and launch your interactive workspace in minutes' }}</p>
+    </div>
+
+    <div class="pricing-grid">
+      @for (plan of plans; track plan.nameEn) {
+        <div class="pricing-card" [class.popular]="plan.popular">
+          @if (plan.popular) {
+            <span class="popular-badge">{{ isAr() ? 'الأكثر اختياراً' : 'Most Popular' }}</span>
+          }
+          <h3 class="plan-name">{{ isAr() ? plan.nameAr : plan.nameEn }}</h3>
+          <p class="plan-desc">{{ isAr() ? plan.descAr : plan.descEn }}</p>
+          
+          <div class="plan-price-row">
+            @if (plan.price === 'تخصيص' || plan.price === 'Custom') {
+              <span class="plan-price custom-text">{{ isAr() ? 'طلب مخصص' : 'Custom Deal' }}</span>
+            } @else {
+              <span class="currency">$</span>
+              <span class="plan-price">{{ plan.price }}</span>
+              <span class="plan-period">{{ isAr() ? plan.periodAr : plan.periodEn }}</span>
+            }
+          </div>
+
+          <div class="plan-divider"></div>
+
+          <ul class="plan-features">
+            @if (isAr()) {
+              @for (feat of plan.featuresAr; track feat) {
+                <li>
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>{{ feat }}</span>
+                </li>
+              }
+            } @else {
+              @for (feat of plan.featuresEn; track feat) {
+                <li>
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>{{ feat }}</span>
+                </li>
+              }
+            }
+          </ul>
+
+          <a href="#demo-form-section" class="btn-select-plan" [class.outline]="!plan.popular">
+            {{ isAr() ? 'اختر هذه الخطة' : 'Choose Plan' }}
+          </a>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- DEMO REQUEST FORM -->
+  <section class="demo-section" id="demo-form-section">
+    <div class="demo-container">
+      <div class="demo-info">
+        <h2>{{ isAr() ? 'ابدأ رحلة التعلم لفريقك اليوم' : 'Request a Custom Team Demo' }}</h2>
+        <p>
+          {{ isAr() 
+            ? 'تواصل معنا للحصول على استشارة مجانية، وعرض تجريبي حي للمنصة، ومساعدتك في اختيار الباقة المناسبة وبناء مسارات مخصصة لفريقك.'
+            : 'Get in touch to arrange a live walkthrough of Classy Book, request custom pricing, or ask details about our white-label configurations.' }}
+        </p>
+        <div class="contact-details">
+          <div class="detail-item">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <strong>{{ isAr() ? 'البريد الإلكتروني للشركات:' : 'Enterprise Sales:' }}</strong>
+              <p>teams@classybook.com</p>
+            </div>
+          </div>
+          <div class="detail-item">
+            <i class="fa-solid fa-phone-volume"></i>
+            <div>
+              <strong>{{ isAr() ? 'المبيعات المباشرة:' : 'Direct Phone Contact:' }}</strong>
+              <p>+20 2 3456 7890</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-form-card">
+        @if (demoSubmitted()) {
+          <div class="success-alert">
+            <div class="success-icon">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3>{{ isAr() ? 'تم إرسال طلبك بنجاح!' : 'Request Sent Successfully!' }}</h3>
+            <p>
+              {{ isAr() 
+                ? 'شكراً لك! سيتواصل معك أحد خبراء التعلم لدينا عبر البريد الإلكتروني خلال 24 ساعة لترتيب موعد العرض التجريبي.'
+                : 'Thank you! One of our learning solutions experts will reach out within 24 hours to schedule your live demo.' }}
+            </p>
+            <button class="btn-reset" (click)="resetForm()">
+              {{ isAr() ? 'إرسال طلب جديد' : 'Submit Another Request' }}
+            </button>
+          </div>
+        } @else {
+          <form (submit)="submitDemoRequest($event)" class="demo-form">
+            <div class="form-group">
+              <label for="name">{{ isAr() ? 'الاسم الكامل *' : 'Full Name *' }}</label>
+              <input type="text" id="name" name="demoName" [(ngModel)]="demoName" required 
+                [placeholder]="isAr() ? 'أدخل اسمك الكريم' : 'John Doe'" />
+            </div>
+
+            <div class="form-group">
+              <label for="email">{{ isAr() ? 'البريد الإلكتروني للعمل *' : 'Work Email *' }}</label>
+              <input type="email" id="email" name="demoEmail" [(ngModel)]="demoEmail" required 
+                [placeholder]="isAr() ? 'name@company.com' : 'john@company.com'" />
+            </div>
+
+            <div class="form-group">
+              <label for="company">{{ isAr() ? 'اسم الشركة / الجامعة *' : 'Company / Institution *' }}</label>
+              <input type="text" id="company" name="companyName" [(ngModel)]="companyName" required 
+                [placeholder]="isAr() ? 'أدخل اسم مؤسستك' : 'Acme Corp'" />
+            </div>
+
+            <div class="form-group">
+              <label for="size">{{ isAr() ? 'حجم الفريق المتوقع' : 'Expected Team Size' }}</label>
+              <select id="size" name="companySize" [(ngModel)]="companySize">
+                <option value="10-50">{{ isAr() ? '10 إلى 50 مستخدم' : '10 - 50 users' }}</option>
+                <option value="50-200">{{ isAr() ? '50 إلى 200 مستخدم' : '50 - 200 users' }}</option>
+                <option value="200-1000">{{ isAr() ? '200 إلى 1000 مستخدم' : '200 - 1000 users' }}</option>
+                <option value="1000+">{{ isAr() ? 'أكثر من 1000 مستخدم' : 'More than 1000 users' }}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">{{ isAr() ? 'تفاصيل إضافية أو متطلبات خاصة' : 'Additional requirements' }}</label>
+              <textarea id="notes" name="demoNotes" [(ngModel)]="demoNotes" rows="3"
+                [placeholder]="isAr() ? 'أخبرنا عن أهداف التعلم لفريقك...' : 'Tell us about your training goals...'"></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-demo">
+              {{ isAr() ? 'حجز موعد العرض التجريبي' : 'Book Live Demo Slot' }}
+            </button>
+          </form>
+        }
+      </div>
+    </div>
+  </section>
+</main>
 
 <!-- FOOTER -->
-<footer class="static-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
+<footer class="landing-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
   <div class="footer-inner">
     <div class="footer-main">
       <div class="footer-brand">
@@ -58,10 +235,23 @@
           <i class="fa-solid fa-book-open"></i>
           <span>Classy Book</span>
         </div>
-        <p>{{ isAr() ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي.' : 'The all-in-one platform for interactive and social learning.' }}</p>
+        <p>
+          {{ isAr() 
+            ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي والنمو المهني.' 
+            : 'The all-in-one platform for interactive learning, social collaboration, and career growth.' }}
+        </p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
       </div>
       <div class="footer-col">
         <h4>{{ isAr() ? 'المنصة' : 'Platform' }}</h4>
+        <a routerLink="/">{{ isAr() ? 'المميزات' : 'Features' }}</a>
+        <a routerLink="/">{{ isAr() ? 'التصنيفات' : 'Categories' }}</a>
         <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
       </div>
       <div class="footer-col">
@@ -74,9 +264,13 @@
       <div class="footer-col">
         <h4>{{ isAr() ? 'الدعم' : 'Support' }}</h4>
         <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help Center' }}</a>
+        <a routerLink="/">{{ isAr() ? 'المجتمع' : 'Community' }}</a>
         <a routerLink="/privacy-policy">{{ isAr() ? 'سياسة الخصوصية' : 'Privacy Policy' }}</a>
         <a routerLink="/terms-of-service">{{ isAr() ? 'شروط الخدمة' : 'Terms of Service' }}</a>
       </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{{ isAr() ? '© 2026 Classy Book. جميع الحقوق محفوظة.' : '© 2026 Classy Book. All rights reserved.' }}</span>
     </div>
   </div>
 </footer>

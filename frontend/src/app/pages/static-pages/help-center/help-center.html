@@ -1,10 +1,18 @@
 <!-- NAVBAR -->
-<nav class="static-nav" [dir]="isAr() ? 'rtl' : 'ltr'">
+<nav class="landing-nav solid" [dir]="isAr() ? 'rtl' : 'ltr'">
   <div class="nav-inner">
     <a class="nav-logo" routerLink="/">
       <i class="fa-solid fa-book-open"></i>
       <span>Classy Book</span>
     </a>
+    <div class="nav-links" [class.open]="menuOpen()">
+      <a routerLink="/">{{ isAr() ? 'الرئيسية' : 'Home' }}</a>
+      <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
+      <a routerLink="/blog">{{ isAr() ? 'المدونة' : 'Blog' }}</a>
+      <a routerLink="/careers">{{ isAr() ? 'الوظائف' : 'Careers' }}</a>
+      <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help' }}</a>
+      <a routerLink="/contact">{{ isAr() ? 'تواصل معنا' : 'Contact' }}</a>
+    </div>
     <div class="nav-actions">
       <button class="nav-icon-btn" (click)="toggleTheme()" aria-label="Toggle theme">
         <i [class]="themeService.effectiveTheme() === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
@@ -14,43 +22,98 @@
       </button>
       <a routerLink="/auth" class="nav-btn filled">{{ isAr() ? 'ابدأ مجاناً' : 'Start Free' }}</a>
     </div>
+    <button class="mobile-toggle" (click)="toggleMenu()">
+      <i [class]="menuOpen() ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+    </button>
   </div>
 </nav>
 
 <!-- CONTENT -->
-<section class="static-page" [dir]="isAr() ? 'rtl' : 'ltr'">
-  <div class="page-header">
-    <div class="header-icon"><i class="fa-solid fa-circle-question"></i></div>
-    <h1>{{ isAr() ? 'مركز المساعدة' : 'Help Center' }}</h1>
-  </div>
-  
-  <div class="page-content">
-    <div class="content-card">
-      @if (isAr()) {
-        <h2>مرحباً بك في مركز المساعدة</h2>
-        <p>هذه الصفحة قيد الإنشاء حالياً وسيتم تحديث المحتوى قريباً. نحن نعمل على توفير أفضل تجربة لك في منصة Classy Book.</p>
-        <div class="placeholder-lines">
-          <div class="line"></div>
-          <div class="line w-80"></div>
-          <div class="line w-90"></div>
-          <div class="line w-60"></div>
-        </div>
-      } @else {
-        <h2>Welcome to Help Center</h2>
-        <p>This page is currently under construction and content will be updated soon. We are working on providing the best experience for you on the Classy Book platform.</p>
-        <div class="placeholder-lines">
-          <div class="line"></div>
-          <div class="line w-80"></div>
-          <div class="line w-90"></div>
-          <div class="line w-60"></div>
+<main class="static-container" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <header class="page-header">
+    <div class="header-badge">
+      <i class="fa-solid fa-circle-question"></i>
+      <span>{{ isAr() ? 'مركز المساعدة' : 'Help Center' }}</span>
+    </div>
+    <h1>
+      {{ isAr() ? 'كيف يمكننا أن' : 'How can we' }}
+      <span class="gradient-text">{{ isAr() ? 'نساعدك اليوم؟' : 'help you today?' }}</span>
+    </h1>
+    
+    <!-- Search Bar UI -->
+    <div class="search-container">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" placeholder="{{ isAr() ? 'ابحث عن حلول، إرشادات، أو مواضيع...' : 'Search for solutions, guides, or topics...' }}">
+      </div>
+    </div>
+  </header>
+
+  <!-- CATEGORIES GRID -->
+  <section class="categories-grid">
+    <div class="category-card">
+      <div class="cat-icon"><i class="fa-solid fa-rocket"></i></div>
+      <h3>{{ isAr() ? 'البدء في التعلم' : 'Getting Started' }}</h3>
+      <p>{{ isAr() ? 'تعلم كيفية إعداد حسابك وبدء جولتك الدراسية الأولى.' : 'Learn how to set up your account and begin your first study track.' }}</p>
+      <a href="#" class="cat-link">{{ isAr() ? 'عرض المقالات' : 'View Articles' }} <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="category-card">
+      <div class="cat-icon"><i class="fa-solid fa-user-gear"></i></div>
+      <h3>{{ isAr() ? 'إعدادات الحساب' : 'Account Settings' }}</h3>
+      <p>{{ isAr() ? 'تحديث بياناتك الشخصية، إدارة كلمات المرور وإعدادات الأمان.' : 'Update your personal details, passwords, and security settings.' }}</p>
+      <a href="#" class="cat-link">{{ isAr() ? 'عرض المقالات' : 'View Articles' }} <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="category-card">
+      <div class="cat-icon"><i class="fa-solid fa-credit-card"></i></div>
+      <h3>{{ isAr() ? 'الاشتراكات والدفع' : 'Billing & Subscriptions' }}</h3>
+      <p>{{ isAr() ? 'تفاصيل باقات الاشتراك الممتازة، طرق الدفع وعمليات الاسترجاع.' : 'Premium plans details, payment gateways, and refund options.' }}</p>
+      <a href="#" class="cat-link">{{ isAr() ? 'عرض المقالات' : 'View Articles' }} <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="category-card">
+      <div class="cat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <h3>{{ isAr() ? 'الدراسة والشهادات' : 'Learning & Certificates' }}</h3>
+      <p>{{ isAr() ? 'حل المشاكل التقنية في تشغيل المحاضرات وطريقة الحصول على الشهادة.' : 'Resolve technical issues in lectures and download certified completion certificates.' }}</p>
+      <a href="#" class="cat-link">{{ isAr() ? 'عرض المقالات' : 'View Articles' }} <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- FAQ ACCORDION -->
+  <section class="faq-section">
+    <div class="section-title-wrapper">
+      <h2 class="section-title">{{ isAr() ? 'الأسئلة الأكثر شيوعاً' : 'Frequently Asked Questions' }}</h2>
+      <p class="section-subtitle">{{ isAr() ? 'إجابات سريعة للأسئلة الشائعة التي يطرحها مستخدمونا باستمرار' : 'Quick answers to common questions frequently asked by our users' }}</p>
+    </div>
+
+    <div class="accordion">
+      @for (faq of faqs; track faq.qEn; let i = $index) {
+        <div class="accordion-item" [class.active]="activeIndex() === i">
+          <button class="accordion-header" (click)="toggleFAQ(i)">
+            <span>{{ isAr() ? faq.qAr : faq.qEn }}</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-body">
+            <p>{{ isAr() ? faq.aAr : faq.aEn }}</p>
+          </div>
         </div>
       }
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- CTA CONTACT -->
+  <section class="help-cta">
+    <div class="glass-cta">
+      <h2>{{ isAr() ? 'لم تجد الإجابة التي تبحث عنها؟' : 'Still need help?' }}</h2>
+      <p>{{ isAr() ? 'فريق الدعم الفني لدينا متواجد على مدار الساعة لمساعدتك في حل جميع المشاكل.' : 'Our dedicated support team is available 24/7 to help resolve any technical or academic issues.' }}</p>
+      <a routerLink="/contact" class="btn-cta">{{ isAr() ? 'تواصل معنا الآن' : 'Contact Support Now' }}</a>
+    </div>
+  </section>
+</main>
 
 <!-- FOOTER -->
-<footer class="static-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
+<footer class="landing-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
   <div class="footer-inner">
     <div class="footer-main">
       <div class="footer-brand">
@@ -58,10 +121,23 @@
           <i class="fa-solid fa-book-open"></i>
           <span>Classy Book</span>
         </div>
-        <p>{{ isAr() ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي.' : 'The all-in-one platform for interactive and social learning.' }}</p>
+        <p>
+          {{ isAr() 
+            ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي والنمو المهني.' 
+            : 'The all-in-one platform for interactive learning, social collaboration, and career growth.' }}
+        </p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
       </div>
       <div class="footer-col">
         <h4>{{ isAr() ? 'المنصة' : 'Platform' }}</h4>
+        <a routerLink="/">{{ isAr() ? 'المميزات' : 'Features' }}</a>
+        <a routerLink="/">{{ isAr() ? 'التصنيفات' : 'Categories' }}</a>
         <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
       </div>
       <div class="footer-col">
@@ -74,9 +150,13 @@
       <div class="footer-col">
         <h4>{{ isAr() ? 'الدعم' : 'Support' }}</h4>
         <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help Center' }}</a>
+        <a routerLink="/">{{ isAr() ? 'المجتمع' : 'Community' }}</a>
         <a routerLink="/privacy-policy">{{ isAr() ? 'سياسة الخصوصية' : 'Privacy Policy' }}</a>
         <a routerLink="/terms-of-service">{{ isAr() ? 'شروط الخدمة' : 'Terms of Service' }}</a>
       </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{{ isAr() ? '© 2026 Classy Book. جميع الحقوق محفوظة.' : '© 2026 Classy Book. All rights reserved.' }}</span>
     </div>
   </div>
 </footer>
