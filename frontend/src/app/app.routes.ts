@@ -246,6 +246,40 @@ export const routes: Routes = [
     ]
   },
 
+  // Static Pages
+  {
+    path: 'about-us',
+    loadComponent: () => import('./pages/static-pages/about-us/about-us').then((m) => m.AboutUs),
+  },
+  {
+    path: 'contact',
+    loadComponent: () => import('./pages/static-pages/contact/contact').then((m) => m.Contact),
+  },
+  {
+    path: 'privacy-policy',
+    loadComponent: () => import('./pages/static-pages/privacy-policy/privacy-policy').then((m) => m.PrivacyPolicy),
+  },
+  {
+    path: 'terms-of-service',
+    loadComponent: () => import('./pages/static-pages/terms-of-service/terms-of-service').then((m) => m.TermsOfService),
+  },
+  {
+    path: 'help-center',
+    loadComponent: () => import('./pages/static-pages/help-center/help-center').then((m) => m.HelpCenter),
+  },
+  {
+    path: 'blog',
+    loadComponent: () => import('./pages/static-pages/blog/blog').then((m) => m.Blog),
+  },
+  {
+    path: 'careers',
+    loadComponent: () => import('./pages/static-pages/careers/careers').then((m) => m.Careers),
+  },
+  {
+    path: 'for-teams',
+    loadComponent: () => import('./pages/static-pages/for-teams/for-teams').then((m) => m.ForTeams),
+  },
+
   // Fallback - redirect to home
   {
     path: '**',

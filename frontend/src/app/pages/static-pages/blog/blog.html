@@ -1,0 +1,82 @@
+<!-- NAVBAR -->
+<nav class="static-nav" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="nav-inner">
+    <a class="nav-logo" routerLink="/">
+      <i class="fa-solid fa-book-open"></i>
+      <span>Classy Book</span>
+    </a>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" (click)="toggleTheme()" aria-label="Toggle theme">
+        <i [class]="themeService.effectiveTheme() === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
+      </button>
+      <button class="nav-icon-btn" (click)="toggleLanguage()" aria-label="Toggle language">
+        <span class="lang-label">{{ isAr() ? 'EN' : 'ع' }}</span>
+      </button>
+      <a routerLink="/auth" class="nav-btn filled">{{ isAr() ? 'ابدأ مجاناً' : 'Start Free' }}</a>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<section class="static-page" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="page-header">
+    <div class="header-icon"><i class="fa-solid fa-blog"></i></div>
+    <h1>{{ isAr() ? 'المدونة' : 'Blog' }}</h1>
+  </div>
+  
+  <div class="page-content">
+    <div class="content-card">
+      @if (isAr()) {
+        <h2>مرحباً بك في المدونة</h2>
+        <p>هذه الصفحة قيد الإنشاء حالياً وسيتم تحديث المحتوى قريباً. نحن نعمل على توفير أفضل تجربة لك في منصة Classy Book.</p>
+        <div class="placeholder-lines">
+          <div class="line"></div>
+          <div class="line w-80"></div>
+          <div class="line w-90"></div>
+          <div class="line w-60"></div>
+        </div>
+      } @else {
+        <h2>Welcome to Blog</h2>
+        <p>This page is currently under construction and content will be updated soon. We are working on providing the best experience for you on the Classy Book platform.</p>
+        <div class="placeholder-lines">
+          <div class="line"></div>
+          <div class="line w-80"></div>
+          <div class="line w-90"></div>
+          <div class="line w-60"></div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="static-footer" [dir]="isAr() ? 'rtl' : 'ltr'">
+  <div class="footer-inner">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <i class="fa-solid fa-book-open"></i>
+          <span>Classy Book</span>
+        </div>
+        <p>{{ isAr() ? 'المنصة المتكاملة للتعلم التفاعلي والتعاون الاجتماعي.' : 'The all-in-one platform for interactive and social learning.' }}</p>
+      </div>
+      <div class="footer-col">
+        <h4>{{ isAr() ? 'المنصة' : 'Platform' }}</h4>
+        <a routerLink="/for-teams">{{ isAr() ? 'للفرق' : 'For Teams' }}</a>
+      </div>
+      <div class="footer-col">
+        <h4>{{ isAr() ? 'الشركة' : 'Company' }}</h4>
+        <a routerLink="/about-us">{{ isAr() ? 'من نحن' : 'About Us' }}</a>
+        <a routerLink="/careers">{{ isAr() ? 'الوظائف' : 'Careers' }}</a>
+        <a routerLink="/blog">{{ isAr() ? 'المدونة' : 'Blog' }}</a>
+        <a routerLink="/contact">{{ isAr() ? 'تواصل معنا' : 'Contact' }}</a>
+      </div>
+      <div class="footer-col">
+        <h4>{{ isAr() ? 'الدعم' : 'Support' }}</h4>
+        <a routerLink="/help-center">{{ isAr() ? 'مركز المساعدة' : 'Help Center' }}</a>
+        <a routerLink="/privacy-policy">{{ isAr() ? 'سياسة الخصوصية' : 'Privacy Policy' }}</a>
+        <a routerLink="/terms-of-service">{{ isAr() ? 'شروط الخدمة' : 'Terms of Service' }}</a>
+      </div>
+    </div>
+  </div>
+</footer>
