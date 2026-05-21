@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ThemeService } from '../../../core/services/theme.service';
-import { LanguageService } from '../../../core/services/language.service';
+import { I18nService } from '../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-blog',
@@ -11,17 +11,17 @@ import { LanguageService } from '../../../core/services/language.service';
 })
 export class Blog {
   themeService = inject(ThemeService);
-  languageService = inject(LanguageService);
+  i18nService = inject(I18nService);
 
   isAr() {
-    return this.languageService.language() === 'ar';
+    return this.i18nService.language() === 'ar';
   }
 
   toggleTheme() {
-    this.themeService.toggleTheme();
+    this.themeService.toggle();
   }
 
   toggleLanguage() {
-    this.languageService.toggleLanguage();
+    this.i18nService.toggle();
   }
 }
