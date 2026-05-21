@@ -37,7 +37,7 @@
     } @else {
       @for (group of (activeTab() === 'discover' ? discoverGroups() : myGroups()); track group._id) {
         <div class="group-card">
-          <div class="group-cover" [style.backgroundImage]="'url(' + (group.coverImage || 'assets/images/default-cover.jpg') + ')'"></div>
+          <div class="group-cover" [style.backgroundImage]="'url(' + (group.coverImage || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800') + ')'"></div>
           <div class="group-content">
             <h3 class="group-name">{{ group.name }}</h3>
             <span class="group-privacy">

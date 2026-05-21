@@ -484,7 +484,7 @@
           <div class="suggested-list">
             @for (sUser of suggestedUsers(); track sUser._id) {
               <div class="suggested-item">
-                <img [src]="sUser.avatar || 'assets/default-avatar.png'" class="suggested-avatar">
+                <img [src]="sUser.avatar || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'" class="suggested-avatar">
                 <div class="suggested-info">
                   <span class="suggested-name">{{ sUser.name }}</span>
                   <span class="suggested-meta">{{ sUser.role }}</span>

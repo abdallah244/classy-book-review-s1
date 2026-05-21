@@ -25,10 +25,10 @@
     <div class="filters-row">
       <div class="search-box">
         <input type="text" [placeholder]="isAr() ? 'بحث عن صفحة...' : 'Search for a page...'" 
-               [(ngModel)]="searchQuery" (input)="loadDiscoverPages()">
+               [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event); loadDiscoverPages()">
       </div>
       <div class="category-box">
-        <select [(ngModel)]="selectedCategory" (change)="loadDiscoverPages()">
+        <select [ngModel]="selectedCategory()" (ngModelChange)="selectedCategory.set($event); loadDiscoverPages()">
           @for (cat of categories; track cat.value) {
             <option [value]="cat.value">{{ isAr() ? cat.labelAr : cat.labelEn }}</option>
           }
@@ -43,7 +43,7 @@
     } @else {
       @for (page of (activeTab() === 'discover' ? discoverPages() : myPages()); track page._id) {
         <div class="page-card">
-          <div class="page-cover" [style.backgroundImage]="'url(' + (page.coverImage || 'assets/images/default-cover.jpg') + ')'"></div>
+          <div class="page-cover" [style.backgroundImage]="'url(' + (page.coverImage || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800') + ')'"></div>
           <div class="page-avatar-container">
             @if (page.logoImage) {
               <img [src]="page.logoImage" class="page-logo" />

@@ -17,7 +17,7 @@ import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
             <h4 class="section-title">الأشخاص</h4>
             @for (user of results().users; track user._id) {
               <a [routerLink]="['/social/profile', user._id]" class="result-item">
-                <img [src]="user.avatar || 'assets/default-avatar.png'" class="avatar">
+                <img [src]="user.avatar || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'" class="avatar">
                 <div class="info">
                   <span class="name">{{ user.name }}</span>
                   <span class="meta">{{ user.role }}</span>
