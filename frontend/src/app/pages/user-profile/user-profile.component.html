@@ -110,21 +110,41 @@
         <!-- 1. POSTS TAB -->
         @if (activeTab() === 'posts') {
           <div class="posts-list">
-            @for (post of userPosts(); track post.id) {
+            <!-- Timeline filter switcher -->
+            <div class="posts-filter-bar card-3d">
+              <button 
+                class="filter-btn" 
+                [class.active]="postFilter() === 'all'" 
+                (click)="postFilter.set('all')"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                <span>{{ isAr() ? 'كل المنشورات' : 'All Posts' }}</span>
+              </button>
+              <button 
+                class="filter-btn" 
+                [class.active]="postFilter() === 'media'" 
+                (click)="postFilter.set('media')"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span>{{ isAr() ? 'الوسائط فقط' : 'Media Only' }}</span>
+              </button>
+            </div>
+
+            @for (post of filteredPosts(); track post.id) {
               <div class="post-card card-3d">
                 <!-- Post Header -->
                 <div class="post-header">
                   <div class="post-author-avatar">
-                    @if (post.author?.avatar) {
+                    @if (post.author.avatar) {
                       <img [src]="post.author.avatar" [alt]="post.author.name" />
                     } @else {
-                      <span class="avatar-letter">{{ post.author?.name?.charAt(0)?.toUpperCase() || 'U' }}</span>
+                      <span class="avatar-letter">{{ post.author.name.charAt(0).toUpperCase() || 'U' }}</span>
                     }
                   </div>
                   <div class="post-author-info">
                     <div class="name-row">
-                      <span class="author-name">{{ post.author?.name || 'User' }}</span>
-                      @if (post.author?.role === 'admin' || post.author?.role === 'teacher') {
+                      <span class="author-name">{{ post.author.name || 'User' }}</span>
+                      @if (post.author.role === 'admin' || post.author.role === 'teacher') {
                         <span class="verified-icon small">
                           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
@@ -141,7 +161,7 @@
                   <p>{{ post.content }}</p>
                   
                   <!-- Post Media -->
-                  @if (post.media?.length) {
+                  @if (post.media.length) {
                     <div class="post-media" [class.multi]="post.media.length > 1">
                       @for (url of post.media; track url) {
                         <div class="media-item">
@@ -156,20 +176,20 @@
                     <div class="reposted-content-card">
                       <div class="repost-header">
                         <div class="repost-avatar">
-                          @if (post.originalPost.author?.avatar) {
+                          @if (post.originalPost.author.avatar) {
                             <img [src]="post.originalPost.author.avatar" alt="avatar" />
                           } @else {
-                            <span class="avatar-letter-xs">{{ post.originalPost.author?.name?.charAt(0) }}</span>
+                            <span class="avatar-letter-xs">{{ post.originalPost.author.name.charAt(0) }}</span>
                           }
                         </div>
                         <div class="repost-meta">
-                          <span class="repost-author-name">{{ post.originalPost.author?.name }}</span>
+                          <span class="repost-author-name">{{ post.originalPost.author.name }}</span>
                           <span class="repost-date">{{ formatDate(post.originalPost.createdAt) }}</span>
                         </div>
                       </div>
                       <div class="repost-body">
                         <p>{{ post.originalPost.content }}</p>
-                        @if (post.originalPost.media?.length) {
+                        @if (post.originalPost.media.length) {
                           <div class="repost-media-preview">
                             <img [src]="post.originalPost.media[0]" alt="repost media" />
                           </div>
@@ -178,7 +198,7 @@
                     </div>
                   }
 
-                  @if (post.hashtags?.length) {
+                  @if (post.hashtags.length) {
                     <div class="post-hashtags">
                       @for (tag of post.hashtags; track tag) {
                         <span class="hashtag">#{{ tag }}</span>
@@ -257,20 +277,20 @@
                     </div>
 
                     <!-- Comments List -->
-                    @if (post.comments?.length) {
+                    @if (post.comments.length) {
                       <div class="comments-list">
                         @for (comment of post.comments; track comment._id) {
                           <div class="comment-item">
                             <div class="comment-avatar">
-                              @if (comment.userId?.avatar) {
+                              @if (comment.userId.avatar) {
                                 <img [src]="comment.userId.avatar" alt="avatar" />
                               } @else {
-                                <span class="avatar-letter-small">{{ comment.userId?.name?.charAt(0)?.toUpperCase() || 'U' }}</span>
+                                <span class="avatar-letter-small">{{ comment.userId.name.charAt(0).toUpperCase() || 'U' }}</span>
                               }
                             </div>
                             <div class="comment-content-wrap">
                               <div class="comment-bubble">
-                                <span class="comment-author">{{ comment.userId?.name || 'User' }}</span>
+                                <span class="comment-author">{{ comment.userId.name || 'User' }}</span>
                                 <p class="comment-text">{{ comment.content }}</p>
                               </div>
                               <span class="comment-time">{{ formatDate(comment.createdAt) }}</span>
@@ -293,6 +313,37 @@
 
         <!-- 2. ABOUT TAB -->
         @if (activeTab() === 'about') {
+          <!-- Study activity grid contribution tracker -->
+          <div class="about-section activity-tracker-section card-3d">
+            <h3>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>{{ isAr() ? 'نشاط التعلم والدراسة' : 'Study & Learning Activity' }}</span>
+            </h3>
+            <p class="section-desc">
+              {{ isAr() ? 'سجل تفاعلي يوضح تكرار ساعات الدراسة ونقاط الخبرة المكتسبة خلال الأسابيع الماضية.' : 'An interactive timeline tracking study hours and XP gained over the past weeks.' }}
+            </p>
+            
+            <div class="contribution-grid-container">
+              <div class="contribution-grid">
+                @for (block of activityGrid(); track block.date) {
+                  <div 
+                    class="contrib-block" 
+                    [attr.data-level]="block.level" 
+                    [title]="block.date + ': ' + (block.xp ? block.xp + ' XP' : (isAr() ? 'لا يوجد نشاط' : 'No activity'))"
+                  ></div>
+                }
+              </div>
+              <div class="contrib-legend">
+                <span>{{ isAr() ? 'أقل' : 'Less' }}</span>
+                <div class="legend-block" data-level="0"></div>
+                <div class="legend-block" data-level="1"></div>
+                <div class="legend-block" data-level="2"></div>
+                <div class="legend-block" data-level="3"></div>
+                <span>{{ isAr() ? 'أكثر' : 'More' }}</span>
+              </div>
+            </div>
+          </div>
+
           <div class="about-section card-3d">
             <div class="about-card-section">
               <h3>{{ isAr() ? 'نبذة شخصية' : 'Biography' }}</h3>
@@ -375,13 +426,24 @@
         <!-- 4. FOLLOWERS TAB -->
         @if (activeTab() === 'followers') {
           <div class="users-list-wrap">
+            <div class="list-search-container card-3d">
+              <input 
+                type="text" 
+                class="list-search-input" 
+                [placeholder]="isAr() ? 'البحث في قائمة المتابعين...' : 'Search followers list...'"
+                [ngModel]="searchQuery()" 
+                (ngModelChange)="searchQuery.set($event)"
+              />
+              <span class="search-icon">🔍</span>
+            </div>
+
             @if (isLoadingFollowers()) {
               <div class="tab-spinner-wrap">
                 <div class="spinner-small"></div>
               </div>
             } @else {
               <div class="user-cards-grid">
-                @for (userItem of followers(); track userItem._id) {
+                @for (userItem of filteredFollowers(); track userItem._id) {
                   <div class="user-list-card card-3d" [routerLink]="['/social/profile', userItem._id]">
                     <div class="user-card-header">
                       <img [src]="userItem.avatar || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'" alt="avatar" class="card-avatar" />
@@ -416,13 +478,24 @@
         <!-- 5. FOLLOWING TAB -->
         @if (activeTab() === 'following') {
           <div class="users-list-wrap">
+            <div class="list-search-container card-3d">
+              <input 
+                type="text" 
+                class="list-search-input" 
+                [placeholder]="isAr() ? 'البحث في قائمة من تتابعهم...' : 'Search following list...'"
+                [ngModel]="searchQuery()" 
+                (ngModelChange)="searchQuery.set($event)"
+              />
+              <span class="search-icon">🔍</span>
+            </div>
+
             @if (isLoadingFollowing()) {
               <div class="tab-spinner-wrap">
                 <div class="spinner-small"></div>
               </div>
             } @else {
               <div class="user-cards-grid">
-                @for (userItem of following(); track userItem._id) {
+                @for (userItem of filteredFollowing(); track userItem._id) {
                   <div class="user-list-card card-3d" [routerLink]="['/social/profile', userItem._id]">
                     <div class="user-card-header">
                       <img [src]="userItem.avatar || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'" alt="avatar" class="card-avatar" />
@@ -474,29 +547,73 @@
           <input type="text" [(ngModel)]="editForm().name" class="modal-input" />
         </div>
 
-        <div class="form-group">
-          <label>{{ isAr() ? 'رابط الصورة الشخصية (Avatar URL)' : 'Avatar URL' }}</label>
-          <input type="text" [(ngModel)]="editForm().avatar" class="modal-input" />
-          @if (editForm().avatar) {
-            <div class="preview-avatar-box">
-              <img [src]="editForm().avatar" alt="Avatar preview" class="preview-avatar-img" />
+        <div class="form-group avatar-upload-group">
+          <label>{{ isAr() ? 'الصورة الشخصية' : 'Profile Picture' }}</label>
+          <div class="avatar-uploader-preview" (click)="avatarFileInput.click()">
+            @if (editForm().avatar) {
+              <img [src]="editForm().avatar" alt="Avatar preview" class="uploader-img" />
+            } @else {
+              <div class="uploader-img placeholder">{{ editForm().name.charAt(0).toUpperCase() }}</div>
+            }
+            <div class="uploader-overlay">
+              @if (isUploadingAvatar()) {
+                <div class="spinner-small"></div>
+              } @else {
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                <span>{{ isAr() ? 'تغيير الصورة' : 'Change Photo' }}</span>
+              }
             </div>
-          }
+          </div>
+          <input #avatarFileInput type="file" (change)="onAvatarFileSelected($event)" style="display: none" accept="image/*" />
+          
+          <details class="collapsible-url-input">
+            <summary>{{ isAr() ? 'أو أدخل رابط صورة مباشر (URL)' : 'Or enter a direct image URL' }}</summary>
+            <input type="text" [(ngModel)]="editForm().avatar" class="modal-input" />
+          </details>
+        </div>
+
+        <div class="form-group cover-upload-group">
+          <label>{{ isAr() ? 'صورة الغلاف' : 'Cover Photo' }}</label>
+          <div class="cover-uploader-preview" (click)="coverFileInput.click()">
+            <img [src]="editForm().coverPhoto || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1000'" alt="Cover preview" class="uploader-cover-img" />
+            <div class="uploader-overlay">
+              @if (isUploadingCover()) {
+                <div class="spinner-small"></div>
+              } @else {
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                <span>{{ isAr() ? 'تغيير الغلاف' : 'Change Cover' }}</span>
+              }
+            </div>
+          </div>
+          <input #coverFileInput type="file" (change)="onCoverFileSelected($event)" style="display: none" accept="image/*" />
+
+          <div class="presets-container">
+            <span class="presets-title">{{ isAr() ? 'أو اختر تصميماً جاهزاً:' : 'Or choose a preset design:' }}</span>
+            <div class="presets-grid">
+              @for (preset of coverPresets(); track preset) {
+                <div 
+                  class="preset-swatch" 
+                  [class.active]="editForm().coverPhoto === preset"
+                  (click)="selectCoverPreset(preset); $event.stopPropagation()"
+                >
+                  <img [src]="preset" alt="preset cover preview" />
+                </div>
+              }
+            </div>
+          </div>
+
+          <details class="collapsible-url-input">
+            <summary>{{ isAr() ? 'أو أدخل رابط غلاف مباشر (URL)' : 'Or enter a direct cover URL' }}</summary>
+            <input type="text" [(ngModel)]="editForm().coverPhoto" class="modal-input" />
+          </details>
         </div>
 
         <div class="form-group">
-          <label>{{ isAr() ? 'رابط صورة الغلاف (Cover Photo URL)' : 'Cover URL' }}</label>
-          <input type="text" [(ngModel)]="editForm().coverPhoto" class="modal-input" />
-          @if (editForm().coverPhoto) {
-            <div class="preview-cover-box">
-              <img [src]="editForm().coverPhoto" alt="Cover preview" class="preview-cover-img" />
-            </div>
-          }
-        </div>
-
-        <div class="form-group">
-          <label>{{ isAr() ? 'السيرة الذاتية (Bio)' : 'Bio' }}</label>
-          <textarea [(ngModel)]="editForm().bio" class="modal-textarea" rows="3"></textarea>
+          <div class="label-row">
+            <label>{{ isAr() ? 'السيرة الذاتية (Bio)' : 'Bio' }}</label>
+            <span class="char-count" [class.limit-reached]="bioLength() > 160">{{ bioLength() }}/160</span>
+          </div>
+          <textarea [(ngModel)]="editForm().bio" class="modal-textarea" rows="3" maxlength="160"></textarea>
         </div>
 
         <div class="modal-row-grid">

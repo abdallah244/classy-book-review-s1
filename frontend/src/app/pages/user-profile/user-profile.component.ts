@@ -42,6 +42,8 @@ export class UserProfileComponent implements OnInit {
 
   // Edit Profile Dialog State
   readonly isEditing = signal(false);
+  readonly isUploadingAvatar = signal(false);
+  readonly isUploadingCover = signal(false);
   readonly editForm = signal({
     name: '',
     bio: '',
@@ -52,6 +54,19 @@ export class UserProfileComponent implements OnInit {
     education: '',
     occupation: ''
   });
+
+  // Cover presets
+  readonly coverPresets = signal([
+    'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1000', // Green abstract
+    'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=1000', // Warm gradient
+    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1000', // Calm ocean
+    'https://images.unsplash.com/photo-1557683316-973673baf926?w=1000', // Deep violet
+    'https://images.unsplash.com/photo-1618005198143-e52834643034?w=1000'  // Emerald silk
+  ]);
+
+  // Filters and searches
+  readonly searchQuery = signal('');
+  readonly postFilter = signal<'all' | 'media'>('all');
 
   // Post Comment & Reaction states (dashboard consistency)
   readonly openCommentSections = signal<Record<string, boolean>>({});
@@ -68,11 +83,53 @@ export class UserProfileComponent implements OnInit {
     return name.charAt(0).toUpperCase();
   });
 
+  readonly bioLength = computed(() => this.editForm().bio?.length || 0);
+
+  // GitHub-style contribution grid of study activity (42 blocks)
+  readonly activityGrid = computed(() => {
+    const blocks = [];
+    const now = new Date();
+    for (let i = 41; i >= 0; i--) {
+      const date = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+      const day = date.getDate();
+      const level = (day % 3 === 0) ? (day % 4) : 0;
+      blocks.push({
+        date: date.toLocaleDateString(this.isAr() ? 'ar-EG' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        level: level,
+        xp: level * 15
+      });
+    }
+    return blocks;
+  });
+
+  // Filtered Followers/Following based on Search Query
+  readonly filteredFollowers = computed(() => {
+    const query = this.searchQuery().toLowerCase().trim();
+    const list = this.followers();
+    if (!query) return list;
+    return list.filter(u => u.name?.toLowerCase().includes(query));
+  });
+
+  readonly filteredFollowing = computed(() => {
+    const query = this.searchQuery().toLowerCase().trim();
+    const list = this.following();
+    if (!query) return list;
+    return list.filter(u => u.name?.toLowerCase().includes(query));
+  });
+
+  readonly filteredPosts = computed(() => {
+    if (this.postFilter() === 'media') {
+      return this.mediaPosts();
+    }
+    return this.userPosts();
+  });
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       const userId = params['id'] || this.currentUser()?._id;
       if (userId) {
         this.activeTab.set('posts');
+        this.postFilter.set('all');
         this.loadProfile(userId);
         this.loadUserPosts(userId);
       }
@@ -94,7 +151,6 @@ export class UserProfileComponent implements OnInit {
       },
       error: (err) => {
         this.isLoading.set(false);
-        // Fallback to current user if error and it's self
         if (userId === this.currentUser()?._id) {
           this.profileUser.set(this.currentUser());
         } else {
@@ -119,6 +175,7 @@ export class UserProfileComponent implements OnInit {
 
   setTab(tab: 'posts' | 'about' | 'media' | 'followers' | 'following') {
     this.activeTab.set(tab);
+    this.searchQuery.set('');
     if (!this.profileUser()) return;
     const userId = this.profileUser()._id;
     if (tab === 'followers') {
@@ -205,6 +262,73 @@ export class UserProfileComponent implements OnInit {
 
   closeEditModal() {
     this.isEditing.set(false);
+  }
+
+  selectCoverPreset(url: string) {
+    this.editForm.update(form => ({
+      ...form,
+      coverPhoto: url
+    }));
+  }
+
+  onAvatarFileSelected(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if (!inputElement || !inputElement.files || inputElement.files.length === 0) return;
+    const file = inputElement.files[0];
+    
+    this.isUploadingAvatar.set(true);
+    this.socialService.uploadMedia([file]).subscribe({
+      next: (res) => {
+        this.isUploadingAvatar.set(false);
+        if (res.urls && res.urls.length > 0) {
+          this.editForm.update(form => ({
+            ...form,
+            avatar: res.urls[0]
+          }));
+          this.toast.success({
+            title: this.isAr() ? 'تم بنجاح' : 'Success',
+            message: this.isAr() ? 'تم رفع الصورة الشخصية بنجاح' : 'Avatar uploaded successfully'
+          });
+        }
+      },
+      error: (err) => {
+        this.isUploadingAvatar.set(false);
+        this.toast.error({
+          title: this.isAr() ? 'خطأ' : 'Error',
+          message: err.message || (this.isAr() ? 'فشل رفع الصورة الشخصية' : 'Failed to upload avatar')
+        });
+      }
+    });
+  }
+
+  onCoverFileSelected(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if (!inputElement || !inputElement.files || inputElement.files.length === 0) return;
+    const file = inputElement.files[0];
+    
+    this.isUploadingCover.set(true);
+    this.socialService.uploadMedia([file]).subscribe({
+      next: (res) => {
+        this.isUploadingCover.set(false);
+        if (res.urls && res.urls.length > 0) {
+          this.editForm.update(form => ({
+            ...form,
+            coverPhoto: res.urls[0]
+          }));
+          this.toast.success({
+            title: this.isAr() ? 'تم بنجاح' : 'Success',
+            message: this.isAr() ? 'تم رفع صورة الغلاف بنجاح' : 'Cover image uploaded successfully'
+          });
+        }
+      },
+      error: (err) => {
+        this.isUploadingCover.set(false);
+        this.toast.error({
+          title: this.isAr() ? 'خطأ' : 'Error',
+          message: err.message || (this.isAr() ? 'فشل رفع صورة الغلاف' : 'Failed to upload cover')
+        });
+      }
+    });
   }
 
   saveProfile() {
